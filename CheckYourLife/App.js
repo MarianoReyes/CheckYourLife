@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import {Text, View,  ScrollView, ImageBackground, SafeAreaView, Dimensions, StyleSheet} from 'react-native';
 
-export default function App() {
+
+
+const LoginScreen = ({navigation}) => {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <SafeAreaView style={styles.container}
+      style={{
+        flex: 1,
+        backgroundColor: 'black'}}
+      showsVerticalScrollIndicator={false}>
+      <ImageBackground 
+        source={require('./assets/CheckL2.png')}
+        style={{
+          height: Dimensions.get('window').height / 5,
+          top:70,
+          left:10,
+        }}>
+      </ImageBackground>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+      <View style={styles.bottomView}>
+        <View style={{padding: 40}}>
+          <Text>Welcome</Text>
+          <Text>Don't Have an account</Text>
+        </View>
+      </View>
+
+    </SafeAreaView>
+  
+
+  );
+};
+
+
+export default LoginScreen;
