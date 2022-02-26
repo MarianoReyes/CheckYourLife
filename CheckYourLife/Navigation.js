@@ -17,11 +17,11 @@ function MyTabs() {
         <TAB.Navigator
         //initialRouteName="LoginScreen"
         >
-            <TAB.Screen name="Login" component={LoginScreen}></TAB.Screen>
-            <TAB.Screen name="To do List" component={toDoList}></TAB.Screen>
-            <TAB.Screen name="Finanzas" component={Finanzas}></TAB.Screen>
-            <TAB.Screen name="Comunidad" component={Comunidad}></TAB.Screen>
-            <TAB.Screen name="Time Tracker" component={timeTracker}></TAB.Screen>
+            <TAB.Screen options={{headerShown:false}} name="Login" component={LoginScreen}></TAB.Screen>
+            <TAB.Screen options={{headerShown:false}} name="To do List" component={toDoList}></TAB.Screen>
+            <TAB.Screen options={{headerShown:false}} name="Finanzas" component={Finanzas}></TAB.Screen>
+            <TAB.Screen options={{headerShown:false}} name="Comunidad" component={Comunidad}></TAB.Screen>
+            <TAB.Screen options={{headerShown:false}} name="Time Tracker" component={timeTracker}></TAB.Screen>
         </TAB.Navigator>
     )
 }
