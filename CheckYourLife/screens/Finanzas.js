@@ -3,7 +3,7 @@ import {Text, SafeAreaView} from 'react-native';
 
 
 
-const toDoList = () => {
+const Finanzas = () => {
 
   return (
     <SafeAreaView>
@@ -11,8 +11,9 @@ const toDoList = () => {
         style = {{
             fontSize: 30,
             textAlign: "center",
+            marginTop: "20%"
         }}
-        >TO DO LIST</Text>
+        >FINANZAS</Text>
     </SafeAreaView>
   
 
@@ -20,4 +21,4 @@ const toDoList = () => {
 };
 
 
-export default toDoList;
+export default Finanzas;

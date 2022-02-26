@@ -1,50 +1,20 @@
 import React from 'react';
+import Navigation from './Navigation';
 import {Text, View,  ScrollView, ImageBackground, SafeAreaView, Dimensions, StyleSheet} from 'react-native';
 
 
 
-const LoginScreen = ({navigation}) => {
+const App = () => {
 
   return (
-    <SafeAreaView style={styles.container}
-      style={{
-        flex: 1,
-        backgroundColor: 'black'}}
-      showsVerticalScrollIndicator={false}>
-      <ImageBackground 
-        source={require('./assets/CheckL2.png')}
-        style={{
-          height: Dimensions.get('window').height / 5,
-          top:70,
-          left:10,
-        }}>
-      </ImageBackground>
-
-      <View style={styles.bottomView}>
-        <View style={{padding: 40}}>
-          <Text>Welcome</Text>
-          <Text>Don't Have an account</Text>
-        </View>
-      </View>
-
+    <SafeAreaView style={{flex: 1}}>
+      <Navigation></Navigation>
     </SafeAreaView>
-  
 
   );
 };
 
 
-export default LoginScreen;
+export default App;
 
 
-const styles = StyleSheet.create({
-  bottomView: {
-      flex: 1.5,
-      backgroundColor: 'white',
-      top:100,
-      borderTopStartRadius:60,
-      borderTopEndRadius:60,
-    
-  },
-
-});
