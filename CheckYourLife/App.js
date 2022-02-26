@@ -35,3 +35,16 @@ const LoginScreen = ({navigation}) => {
 
 
 export default LoginScreen;
+
+
+const styles = StyleSheet.create({
+  bottomView: {
+      flex: 1.5,
+      backgroundColor: 'white',
+      top:100,
+      borderTopStartRadius:60,
+      borderTopEndRadius:60,
+    
+  },
+
+});
