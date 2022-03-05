@@ -6,7 +6,7 @@ import { NavigationContainer, TabActions } from "@react-navigation/native";
 
 import toDoList from "./screens/toDoList";
 import Finanzas from "./screens/Finanzas";
-import timeTracker from "./screens/timeTracker";
+import timeTracker from "./screens/Reloj";
 import Comunidad from "./screens/Comunidad";
 import LoginScreen from "./screens/Login";
 
