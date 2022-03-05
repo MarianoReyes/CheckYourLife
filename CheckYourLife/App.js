@@ -8,9 +8,6 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}
-      style={{
-        flex: 1,
-        backgroundColor: 'black'}}
       showsVerticalScrollIndicator={false}>
       <ImageBackground 
         source={require('./assets/CheckL2.png')}
@@ -83,11 +80,11 @@ const styles = StyleSheet.create({
   },
 
   container:{
-    width: '90%',
-    height:50,
-    borderRadius:100,
-    marginVertical:10,
+    width: '100%',
     borderWidth:3.5,
+    flex: 1,
+    backgroundColor: 'black',
+
   },
   InputContainer: {
     borderWidth:0
