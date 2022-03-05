@@ -20,7 +20,7 @@ const toDoList = () => {
         <FlatList
         data={[
           {key: 'Devin',
-            Description:'hasbdfhaasdbfjahbsdfjbhasd'},
+            Description:'hasbdfhaasdbfahbsdfjbhasd'},
           {key: 'Dan',
             Description:'hasbdfhaasdbfjahbsdfjbhasd'},
           {key: 'Dominic',
