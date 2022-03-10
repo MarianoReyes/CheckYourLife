@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   bottomView: {
       flex: 1.5,
       backgroundColor: 'white',
-      top:100,
+      top:101,
       borderTopStartRadius:60,
       borderTopEndRadius:60,
     
