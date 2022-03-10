@@ -10,14 +10,14 @@ export default function App() {
       <StatusBar style="auto" />
           <Image
             style={{ width: 40, height: 40, marginBottom: 15 }}
-            source={require("./assets/1756647.png")}
+            source={require("../assets/1756647.png")}
           />
 
           <Text>.........................................................................</Text>
           
           <Image
             style={{ width: 500, height: 150, marginBottom: 15 }}
-            source={require("./assets/1280px-Reloj_digital_1200.svg.png")}
+            source={require("../assets/1280px-Reloj_digital_1200.svg.png")}
           />
           <Text>.........................................................................</Text>
 
