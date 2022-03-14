@@ -11,6 +11,9 @@ const toDoList = () => {
   return (
     <SafeAreaView style = {styles.container}>
         <SearchBar
+          inputStyle={{backgroundColor: 'white'}}
+          containerStyle={{backgroundColor: 'white',}}
+          inputContainerStyle={{backgroundColor: 'white'}}
           placeholder="Search Here..."
           lightTheme
           round
