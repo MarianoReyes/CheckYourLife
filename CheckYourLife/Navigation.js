@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, TabActions } from "@react-navigation/native";
 import { MaterialCommunityIcons, Ionicons, FontAwesome5, Entypo} from "@expo/vector-icons";
 
@@ -10,8 +11,12 @@ import Finanzas from "./screens/Finanzas";
 import timeTracker from "./screens/Reloj";
 import Comunidad from "./screens/comunidad";
 import LoginScreen from "./screens/Login";
+import addTask from "./screens/addTask"
 
 const TAB = createBottomTabNavigator();
+const STACK = createStackNavigator();
+
+
 function MyTabs() {
     return (
         <TAB.Navigator
@@ -49,7 +54,7 @@ function MyTabs() {
                     fontWeight: 'bold',
                 },
             }}
-            name="To do List" component={toDoList}></TAB.Screen>
+            name="To do List" component={todolist}></TAB.Screen>
             <TAB.Screen 
             options= {{
                 tabBarIcon: ({ tintColor }) => (
@@ -94,10 +99,19 @@ function MyTabs() {
     )
 }
 
+const todolist = () =>{
+    return (
+    <STACK.Navigator>
+        <STACK.Screen options={{headerShown: false}} name='To Do List' component={toDoList} />
+        <STACK.Screen options={{headerTitle: 'Más Información',}} name='AddItem' component={addTask} />
+    </STACK.Navigator>)
+}
+
 export default function Navigation() {
     return (
         <NavigationContainer>
             <MyTabs/>
+            
         </NavigationContainer>
     )
 }

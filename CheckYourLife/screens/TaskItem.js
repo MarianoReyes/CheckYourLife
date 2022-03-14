@@ -4,11 +4,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const TaskItem = (props) => {
-
-    console.log(props.item.key);
     return (
         <View style={styles.item}>
-        <MaterialCommunityIcons name="checkbox-blank-outline" size={32} color="white" />
+        <MaterialCommunityIcons name={props.completed == true ? "check-box-outline":"checkbox-blank-outline"} size={32} color="white" />
         <View style={styles.taskcontent}>
             <Text style={styles.text}>{props.item.key}</Text>
         </View>
@@ -18,10 +16,6 @@ const TaskItem = (props) => {
   };
 
   const styles = StyleSheet.create({
-    container: {
-     flex: 1,
-     paddingTop: 22
-    },
     item: {
         padding: 10,
         fontSize: 18,
