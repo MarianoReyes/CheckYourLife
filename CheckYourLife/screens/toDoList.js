@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SearchBar } from "react-native-elements";
 import TaskItem from "./TaskItem";
-import { View,Text, StyleSheet,FlatList,ScrollView } from 'react-native';
+import { View,Text, StyleSheet,FlatList,ScrollView, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
 import { NavigationContainer } from '@react-navigation/native';
@@ -37,6 +37,7 @@ const toDoList = ({ navigation }) => {
           autoCorrect={false}
         /> ) : null}
         {shouldShowd ? (
+          
         <SearchBar
           inputStyle={{backgroundColor: 'white'}}
           containerStyle={{backgroundColor: 'white',}}
@@ -47,7 +48,11 @@ const toDoList = ({ navigation }) => {
           //value={this.state.searchValue}
           //onChangeText={(text) => this.searchFunction(text)}
           autoCorrect={false}
-        /> ) : null}
+        />) : null}
+        {shouldShowd ? ( 
+          <Pressable style={styles.boton} onPress={console.log('ola')}>
+          <Text style={styles.text}>Agregar</Text>
+        </Pressable>) : null}
         <Text onPress={() => setShouldShowa(!shouldShowa)} style={styles.finder}>NO COMPLETADOS <AntDesign name={shouldShowa ? "upcircle" : "downcircle"} size={18} color={GeneralColor} /></Text>
         {shouldShowa ? (
           <FlatList
@@ -135,7 +140,25 @@ const styles = StyleSheet.create({
   subvars : {
     marginHorizontal:10,
     marginVertical:10,
-  }
+  },
+  boton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+    marginHorizontal:10,
+    marginVertical:10,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
 
   });
 
