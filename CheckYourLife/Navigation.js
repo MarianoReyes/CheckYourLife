@@ -25,7 +25,7 @@ function MyTabs() {
                 tabBarIcon: ({ tintColor }) => (
                     <MaterialCommunityIcons
                       name='home-variant'
-                      color={tintColor}
+                      color='#001219'
                       size={28}
                     />),
                 headerTitle: 'INICIO',
@@ -40,7 +40,7 @@ function MyTabs() {
                 tabBarIcon: ({ tintColor }) => (
                     <Ionicons
                       name="md-checkbox"
-                      color={tintColor}
+                      color='#001219'
                       size={24}
                     />),
                 headerTitle: 'TO DO LIST',
@@ -55,7 +55,7 @@ function MyTabs() {
                 tabBarIcon: ({ tintColor }) => (
                     <MaterialCommunityIcons
                       name='finance'
-                      color={tintColor}
+                      color='#001219'
                       size={28}
                     />),
                 headerTitle: 'FINANZAS',
@@ -68,7 +68,7 @@ function MyTabs() {
             <TAB.Screen 
             options={{
                 tabBarIcon: () => (
-                    <FontAwesome5 name="user-friends" size={24} color="black" />),
+                    <FontAwesome5 name="user-friends" size={24} color="'#001219'" />),
                 headerTitle: 'COMUNIDAD',
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
@@ -82,7 +82,7 @@ function MyTabs() {
             <TAB.Screen
             options={{
                 tabBarIcon: () => (
-                    <Entypo name="back-in-time" size={24} color="black" />),
+                    <Entypo name="back-in-time" size={24} color="'#001219'" />),
                 headerTitle: 'TIME TRACKER',
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
