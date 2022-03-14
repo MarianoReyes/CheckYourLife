@@ -9,7 +9,7 @@ import TaskItem from "./TaskItem";
 const toDoList = () => {
 
   return (
-    <SafeAreaView style = {styles.container}>
+    <View style = {styles.container}>
         <SearchBar
           inputStyle={{backgroundColor: 'white'}}
           containerStyle={{backgroundColor: 'white',}}
@@ -48,7 +48,7 @@ const toDoList = () => {
             <TaskItem item={item}/>
         )}
       />
-    </SafeAreaView>
+    </View>
   
 
   );
