@@ -21,6 +21,7 @@ const toDoList = () => {
           //onChangeText={(text) => this.searchFunction(text)}
           autoCorrect={false}
         />
+        <View>NO COMPLETADOS</View>
         <FlatList
         data={[
           {key: 'Devin',
