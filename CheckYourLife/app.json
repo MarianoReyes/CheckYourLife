@@ -1,5 +1,6 @@
 {
   "expo": {
+    "userInterfaceStyle": "automatic",
     "name": "CheckYourLife",
     "slug": "CheckYourLife",
     "version": "1.0.0",

@@ -1,13 +1,34 @@
-import React from 'react';
-import {Text, SafeAreaView,TextInput,StyleSheet, View} from 'react-native';
-
+import React, { useState } from 'react';
+import {Text, SafeAreaView,TextInput,StyleSheet, View, Pressable} from 'react-native';
+import { AntDesign } from '@expo/vector-icons'; 
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const GeneralColor = '#001219';
 
+
 const timeTracker = () => {
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+      };
+    
+      const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+      };
+    
+      const handleConfirm = (date) => {
+        console.warn("A date has been picked: ", date);
+        hideDatePicker();
+      };
 
   return (
     <SafeAreaView>
+
+        <View style={styles.star}>
+        <AntDesign name="staro" size={40} color={GeneralColor} />
+        </View>
         <View style={styles.container}>
             <Text style={styles.titles}>NOMBRE</Text>
             <TextInput
@@ -17,7 +38,7 @@ const timeTracker = () => {
             ></TextInput>
         </View>
         <View style={styles.container}>
-            <Text style={styles.titles}>DESCRIPCION</Text>
+            <Text style={styles.titles}>DESCRIPCIÓN</Text>
             <TextInput
             multiline
             maxLength={150}
@@ -25,13 +46,19 @@ const timeTracker = () => {
             placeholder=""
             ></TextInput>
         </View>
-        <Text 
-        style = {{
-            fontSize: 30,
-            textAlign: "center",
-            marginTop: "20%"
-        }}
-        >ADD TASK</Text>
+        <View style={styles.container}>
+            <Text style={styles.titles}>VENCIMIENTO</Text>
+            <Pressable style={styles.boton} onPress={showDatePicker}>
+                <Text style={styles.text} >Elegir Fecha</Text>
+            </Pressable>
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+            />
+        </View>
+        
     </SafeAreaView>
   
 
@@ -40,17 +67,21 @@ const timeTracker = () => {
 
 const styles = StyleSheet.create({
     container : {
-        flexDirection: "row",
-        flexGrow: 2,
-        width: '100%',
+        width: 'auto',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
+        marginRight:10,
+        marginLeft:10,
+        borderRadius:10,
+        marginVertical:10,
+        backgroundColor: GeneralColor,
+        padding:10,
     },
     titles : {
         fontSize:20,
         fontWeight:"bold",
-        color: 'gray',
+        color: 'white',
         textAlign: 'center',
         marginHorizontal: 5,
     },
@@ -58,16 +89,42 @@ const styles = StyleSheet.create({
         height: 60,
         backgroundColor: 'white',
         marginVertical: 10,
+        width: '80%',
         marginHorizontal:10,
-        width: '100%',
+        borderRadius:10,
     },
     input2 : {
         height: 100,
         backgroundColor: 'white',
         marginVertical: 10,
+        width: '80%',
         marginHorizontal:10,
+        borderRadius:10,
+    },
+    star : {
         width: '100%',
-    }
+        alignContent: 'center',
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    boton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: 'white',
+        marginHorizontal:10,
+        marginVertical:10,
+      },
+      text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: GeneralColor,
+      },
 });
 
 
