@@ -1,7 +1,6 @@
 import React from 'react';
 import Navigation from './Navigation';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import { Header } from "react-native-elements";
 
 
 
