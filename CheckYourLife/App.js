@@ -1,6 +1,7 @@
 import React from 'react';
 import Navigation from './Navigation';
-import {Text, View,  ScrollView, ImageBackground, SafeAreaView, Dimensions, StyleSheet,Label,TextInput, Touchable, TouchableOpacity} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import { Header } from "react-native-elements";
 
 
 
@@ -9,8 +10,8 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}
-      showsVerticalScrollIndicator={false}>
-          <Navigation></Navigation>
+    showsVerticalScrollIndicator={false}>
+      <Navigation></Navigation>
     </SafeAreaView>
   
 

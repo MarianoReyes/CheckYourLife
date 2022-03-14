@@ -8,7 +8,7 @@ import { SearchBar } from "react-native-elements";
 const toDoList = () => {
 
   return (
-    <SafeAreaView style = {styles.container}>
+    <View style = {styles.container}>
         <SearchBar
           placeholder="Search Here..."
           lightTheme
@@ -50,7 +50,7 @@ const toDoList = () => {
             </View>
         )}
       />
-    </SafeAreaView>
+    </View>
   
 
   );
@@ -59,7 +59,6 @@ const toDoList = () => {
 const styles = StyleSheet.create({
     container: {
      flex: 1,
-     paddingTop: 22
     },
     item: {
         padding: 10,
