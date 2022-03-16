@@ -107,6 +107,16 @@ const todolist = () =>{
     </STACK.Navigator>)
 }
 
+export function Login() {
+    return (
+        <NavigationContainer>
+            <STACK.Navigator>
+                <STACK.Screen options={{headerShown: false}} name='LOGIN' component={LoginScreen} />
+                <STACK.Screen options={{headerShown: false}} name='To Do List' component={toDoList} />
+            </STACK.Navigator>
+        </NavigationContainer>)
+}
+
 export default function Navigation() {
     return (
         <NavigationContainer>
