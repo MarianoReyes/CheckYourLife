@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, TabActions } from "@react-navigation/native";
 import { MaterialCommunityIcons, Ionicons, FontAwesome5, Entypo} from "@expo/vector-icons";
 
+
 //SCREENS
 
 import toDoList from "./screens/toDoList";
@@ -12,6 +13,7 @@ import timeTracker from "./screens/Reloj";
 import Comunidad from "./screens/comunidad";
 import LoginScreen from "./screens/Login";
 import addTask from "./screens/addTask"
+import HomeScreen from "./screens/HomeScreen";
 
 const TAB = createBottomTabNavigator();
 const STACK = createStackNavigator();
@@ -112,7 +114,7 @@ export function Login() {
         <NavigationContainer>
             <STACK.Navigator>
                 <STACK.Screen options={{headerShown: false}} name='LOGIN' component={LoginScreen} />
-                <STACK.Screen options={{headerShown: false}} name='To Do List' component={toDoList} />
+                <STACK.Screen options={{headerShown: false}} name="Home" component={HomeScreen} />
             </STACK.Navigator>
         </NavigationContainer>)
 }
