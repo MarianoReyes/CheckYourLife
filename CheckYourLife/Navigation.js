@@ -26,23 +26,6 @@ function MyTabs() {
         //initialRouteName="LoginScreen"
         >
             <TAB.Screen 
-            
-            name="Login"
-            options={{
-                tabBarIcon: ({ tintColor }) => (
-                    <MaterialCommunityIcons
-                      name='home-variant'
-                      color='#001219'
-                      size={28}
-                    />),
-                headerTitle: 'INICIO',
-                headerTitleAlign: 'center',
-                headerTitleStyle : {
-                    fontWeight: 'bold',
-                },
-            }}
-            component={LoginScreen}></TAB.Screen>
-            <TAB.Screen 
             options={{
                 tabBarIcon: ({ tintColor }) => (
                     <Ionicons
@@ -121,9 +104,8 @@ export function Login() {
 
 export default function Navigation() {
     return (
-        <NavigationContainer>
+    
             <MyTabs/>
             
-        </NavigationContainer>
     )
 }
