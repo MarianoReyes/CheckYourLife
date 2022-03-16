@@ -1,19 +1,13 @@
 import React from 'react';
-import Navigation from './Navigation';
+import Navigation from '../Navigation';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import LoginScreen from './screens/Login'
-import { Login } from './Navigation';
 
-
-
-
-const App = () => {
+const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}
     showsVerticalScrollIndicator={false}>
-      <Login></Login>
-      {/*<Navigation></Navigation>*/}
+      <Navigation></Navigation>
 
     </SafeAreaView>
   
@@ -49,4 +43,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default App;
+export default HomeScreen;

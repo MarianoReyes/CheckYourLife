@@ -22,7 +22,7 @@ const toDoList = ({ navigation }) => {
       <View style={styles.SorA}>
          <AntDesign style={styles.subvars} onPress={() => {setShouldShowc(!shouldShowc); setShouldShowd(false); setShouldShowe(false)}}  name={'search1'} size={shouldShowc ? 35 : 25} color={GeneralColor} />
          <AntDesign style={styles.subvars} onPress={() => {setShouldShowd(!shouldShowd); setShouldShowc(false); setShouldShowe(false)}} name={'plus'} size={shouldShowd ? 35 : 25} color={GeneralColor} />
-         <Feather style={styles.subvars} onPress={() => {console.log(navigation.navigate('AddItem')); setShouldShowc(false); setShouldShowd(false)}} name={'more-horizontal'} size={25} color={GeneralColor} />
+         <Feather style={styles.subvars} onPress={() => {navigation.navigate('AddItem'); setShouldShowc(false); setShouldShowd(false)}} name={'more-horizontal'} size={25} color={GeneralColor} />
          </View>
          {shouldShowc ? (
         <SearchBar

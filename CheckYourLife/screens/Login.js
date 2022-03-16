@@ -6,6 +6,8 @@ import {Text, View,  ScrollView, ImageBackground, SafeAreaView, Dimensions, Styl
 
 const LoginScreen = ({navigation}) => {
 
+  console.log(navigation);
+
   return (
     <SafeAreaView style={styles.container}
       showsVerticalScrollIndicator={true}>
