@@ -1,8 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from "react";
-import { StyleSheet, Text, View, Image, Button, ImageBackground } from 'react-native';
-
-const image = { uri: "https://twenergy.com/wp-content/uploads/2020/09/tipos-de-agua-1280x720.jpg" };
+import { StyleSheet, Text, View, Image, Button} from 'react-native';
 
 export default function App() {
   return (
@@ -19,11 +17,15 @@ export default function App() {
             style={{ width: 500, height: 150, marginBottom: 15 }}
             source={require("../assets/1280px-Reloj_digital_1200.svg.png")}
           />
-          <Text>.........................................................................</Text>
 
-              <Button
-                  title="START"
-              />
+          <Text>.........................................................................
+             {'\n'}  
+                  {'\n'}
+          </Text>
+
+          <Button
+            title="START"
+          />
     </View>
   );
 }
