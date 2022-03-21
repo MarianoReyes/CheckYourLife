@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View,SafeAreaView,Image} from 'react-native'
 import {auth} from '../firebase'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+
 
 
 const Login = ({navigation}) => {
@@ -16,6 +17,8 @@ const Login = ({navigation}) => {
       if (user) {
         /*navigation.replace("Home")*/
         navigation.navigate("Home")
+      }else{
+        navigation.navigate("LOGIN")
       }
     })
   }, [])
@@ -39,11 +42,14 @@ const Login = ({navigation}) => {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior="padding"
-    >
+    <SafeAreaView style={styles.container}
+    showsVerticalScrollIndicator={false}>
+      
+    
       <View style={styles.inputContainer}>
+        <Image source={require('../assets/CheckL2.png')}
+        style={{width: 1000, height: 100, bottom:"50%",left:"20%",alignContent: 'center', justifyContent: 'center'}} />
+
         <TextInput
           placeholder="Email"
           value={email}
@@ -72,8 +78,24 @@ const Login = ({navigation}) => {
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
+
+        <Text style={{marginTop:20}}> Forgot Password ?</Text>
+        <Text style={{fontSize:16, marginTop:10}}>Or via social media</Text>
+        <View style={{flexDirection:'row', marginTop:20}}>
+              <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#14279B', alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>f</Text>
+              </View>
+              <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#f44336', alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>G</Text>
+              </View> 
+              <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#1565c0', alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>in</Text>
+              </View>   
+        </View>    
+
       </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
+    
   )
 }
 
