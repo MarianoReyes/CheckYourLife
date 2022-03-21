@@ -1,22 +1,33 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar, TouchableOpacity} from "react-native";
+import Icon1 from "react-native-vector-icons/MaterialIcons";
+
+
+
 
 const DATA = [
   {
     title: "Chats Recientes",
-    data: ["Tarea de Seguridad Informatica", "Compra de Adornos", "Organizacion de Fiesta de Cumpleaños"]
+    data: ["Josué","Mariano","Luis", "Pedro", "Juan","Esteban","Kenneth","Natanael"]
   },
   {
     title: "Todos",
-    data: ["Trabajo BSD", "Trabajo Direct", "Consejo", "Reunion Restaurante"]
+    data: ["Antonio", "Ana", "Alberto", "Adrián","Alvaro","Carlos","Coral","Daniel","Darina","David","Eva","Flor","Gabriel","Gori","Ghita","Javier","José","Mar","Marc","Mariana","Sara","Paula"]
   }
 ];
 
+
 const Item = ({ title }) => (
   <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
+     <TouchableOpacity >
+     <Icon1 name="person" style={styles.icon1}>  </Icon1>
+     <Text style={styles.title}>{title}  </Text>
+     
+     
+    </TouchableOpacity>
   </View>
 );
+
 
 const comunidad = () => (
   <SafeAreaView style={styles.container}>
@@ -27,6 +38,7 @@ const comunidad = () => (
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.header}>{title}</Text>
       )}
+      
     />
   </SafeAreaView>
 );
@@ -38,17 +50,35 @@ const styles = StyleSheet.create({
     marginHorizontal: 16
   },
   item: {
-    backgroundColor: "#f9c2ff",
+    backgroundColor: "#E6E6E6",
     padding: 20,
     marginVertical: 8
   },
+
   header: {
     fontSize: 32,
-    backgroundColor: "#fff"
+    backgroundColor: "#398AB9",
+    textAlign: 'center',
+    color: "#F5F5F5"
   },
   title: {
-    fontSize: 24
-  }
+    fontSize: 34,
+    textAlign: 'center',
+
+  },
+  icon: {
+    color: "rgba(128,128,128,1)",
+    fontSize: 60,
+    position: "absolute",
+
+  },
+  icon1: {
+    color: "rgba(128,128,128,1)",
+    fontSize: 60,
+    position: "absolute",
+
+  },
+
 });
 
 export default comunidad;
