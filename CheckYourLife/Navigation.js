@@ -100,7 +100,25 @@ const todolist = () =>{
     return (
     <STACK.Navigator>
         <STACK.Screen options={{headerShown: false}} name='To Do List' component={toDoList} />
-        <STACK.Screen options={{headerTitle: 'Más Información',}} name='AddItem' component={addTask} />
+        <STACK.Screen options={{
+          title: 'Más Información',
+          headerStyle: {
+            backgroundColor: 'rgba(20,39,155,1)',
+            borderRadius: 0,
+            borderColor: 'rgba(20,39,155,1)',
+            borderBottomColor: 'rgba(20,39,155,1)',
+            shadowColor: 'transparent',
+            shadowRadius: 0,
+             },
+             headerBackgroundContainerStyle:{
+                backgroundColor: 'rgba(20,39,155,1)',
+             },
+            shadowOffset: { height: 0, width: 0 },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }} name='AddItem' component={addTask} />
     </STACK.Navigator>)
 }
 
