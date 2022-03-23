@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import {Text, SafeAreaView,TextInput,StyleSheet, View, Pressable} from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { LinearGradient } from 'expo-linear-gradient';
 
-const GeneralColor = '#001219';
+const GeneralColor = 'linear-gradient(135deg, rgba(20,39,155,1) 0%, rgba(92,122,234,1) 100%)';
 
 
 const timeTracker = () => {
@@ -24,41 +25,55 @@ const timeTracker = () => {
       };
 
   return (
-    <SafeAreaView>
-
-        <View style={styles.star}>
-        <AntDesign name="staro" size={40} color={GeneralColor} />
-        </View>
-        <View style={styles.container}>
-            <Text style={styles.titles}>NOMBRE</Text>
-            <TextInput
-            maxLength={50}
-            style={styles.input}
-            placeholder=""
-            ></TextInput>
-        </View>
-        <View style={styles.container}>
-            <Text style={styles.titles}>DESCRIPCIÓN</Text>
-            <TextInput
-            multiline
-            maxLength={150}
-            style={styles.input2}
-            placeholder=""
-            ></TextInput>
-        </View>
-        <View style={styles.container}>
-            <Text style={styles.titles}>VENCIMIENTO</Text>
-            <Pressable style={styles.boton} onPress={showDatePicker}>
-                <Text style={styles.text} >Elegir Fecha</Text>
-            </Pressable>
-            <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-            />
-        </View>
-        
+    <SafeAreaView height='100%'>
+        <LinearGradient
+            colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
+            style={styles.linearGradient}>
+            <View style={styles.star}>
+            <AntDesign name="staro" size={40} color='white' />
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.titles}>NOMBRE</Text>
+                <TextInput
+                maxLength={50}
+                style={styles.input}
+                placeholder=""
+                ></TextInput>
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.titles}>DESCRIPCIÓN</Text>
+                <TextInput
+                multiline
+                maxLength={150}
+                style={styles.input2}
+                placeholder=""
+                ></TextInput>
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.titles}>VENCIMIENTO</Text>
+                <Pressable style={styles.boton} onPress={showDatePicker}>
+                    <Text style={styles.text} >Elegir Fecha</Text>
+                </Pressable>
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                />
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.titles}>VENCIMIENTO</Text>
+                <Pressable style={styles.boton} onPress={showDatePicker}>
+                    <Text style={styles.text} >Elegir Fecha</Text>
+                </Pressable>
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                />
+            </View>
+        </LinearGradient>
     </SafeAreaView>
   
 
@@ -75,7 +90,7 @@ const styles = StyleSheet.create({
         marginLeft:10,
         borderRadius:10,
         marginVertical:10,
-        backgroundColor: GeneralColor,
+        backgroundColor: 'transparent',
         padding:10,
     },
     titles : {
@@ -125,6 +140,10 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25,
         color: GeneralColor,
       },
+      linearGradient : {
+          height: '100%',
+          width: '100%',
+      }
 });
 
 
