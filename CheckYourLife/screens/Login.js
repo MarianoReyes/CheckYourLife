@@ -48,7 +48,7 @@ const Login = ({navigation}) => {
     
       <View style={styles.inputContainer}>
         <Image source={require('../assets/CheckL2.png')}
-        style={{width: 1000, height: 100, bottom:"50%",left:"20%",alignContent: 'center', justifyContent: 'center'}} />
+        style={{width: 1000, height: 100, bottom:"50%",left:"20%",alignContent: 'center'}} />
 
         <TextInput
           placeholder="Email"
