@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Text, SafeAreaView,TextInput,StyleSheet, View, Pressable} from 'react-native';
+import {Text,TextInput,StyleSheet, View, Pressable, ScrollView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -25,7 +25,7 @@ const timeTracker = () => {
       };
 
   return (
-    <SafeAreaView height='100%'>
+    <ScrollView height='100%'>
         <LinearGradient
             colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
             style={styles.linearGradient}>
@@ -74,7 +74,7 @@ const timeTracker = () => {
                 />
             </View>
         </LinearGradient>
-    </SafeAreaView>
+    </ScrollView>
   
 
   );
