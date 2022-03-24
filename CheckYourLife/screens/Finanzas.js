@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Text, SafeAreaView, View, Pressable , StyleSheet, Image } from 'react-native';
+import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView } from 'react-native';
 
 
 
@@ -29,42 +29,43 @@ const Finanzas = () => {
   //ver gastos / ingresos
   //ver saldo total
   return (
-    <SafeAreaView style={styles.container_general}>
-        
-        <Pressable style={styles.button} >
-          <Text style={styles.text}>Agregar Gasto / Ingreso</Text>
-        </Pressable>
+    <ScrollView style={styles.container_general}>
+      
+      <Pressable style={styles.button} >
+        <Text style={styles.text}>Agregar Gasto / Ingreso</Text>
+      </Pressable>
 
-        <Pressable style={styles.button}>
-          <Text style={styles.text}>Consultar Gastos / Ingresos</Text>
-        </Pressable>
+      <Pressable style={styles.button}>
+        <Text style={styles.text}>Consultar Gastos / Ingresos</Text>
+      </Pressable>
 
-        <View style={styles.container}>
-          <Text style={styles.tituloGrafica}>Saldo desplegado</Text>
-          <Image  style={styles.image} source={require("../assets/grafica_finanzas.png")}/>
-        </View>
+      <View style={styles.container}>
+        <Text style={styles.tituloGrafica}>Saldo desplegado</Text>
+        <Image  style={styles.image} source={require("../assets/grafica_finanzas.png")}/>
+      </View>
 
-        <Text style={styles.tituloTabla}>
-          Resumen
+      <Text style={styles.tituloTabla}>
+        Resumen
+      </Text>
+      <View style={styles.row}>
+        <Text style={styles.border}>
+          Gastos
         </Text>
-        <View style={styles.row}>
-          <Text style={styles.border}>
-            Gastos
-          </Text>
-          <Text style={styles.border}>
-            Ingresos
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.texto_tabla}>
-            Primer gasto
-          </Text>
-          <Text style={styles.texto_tabla}>
-            Primer ingreso
-          </Text>
-        </View>
-        
-    </SafeAreaView>
+        <Text style={styles.border}>
+          Ingresos
+        </Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.texto_tabla}>
+          Primer gasto
+        </Text>
+        <Text style={styles.texto_tabla}>
+          Primer ingreso
+        </Text>
+      </View>
+      
+    </ScrollView>
+    
   
 
   );
@@ -73,7 +74,8 @@ const Finanzas = () => {
 const styles = StyleSheet.create({
   container_general: {
     backgroundColor: 'white',
-    paddingVertical: 50,
+    paddingVertical: 25,
+    flexGrow: 1,
   },
   container: {
     justifyContent: 'center',
