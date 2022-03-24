@@ -1,6 +1,6 @@
-import { async } from '@firebase/util';
-import { firebase } from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/core'
+//import { async } from '@firebase/util';
+//import { firebase } from '@react-native-firebase/auth';
+//import { useNavigation } from '@react-navigation/core'
 import React from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { auth } from '../firebase';
