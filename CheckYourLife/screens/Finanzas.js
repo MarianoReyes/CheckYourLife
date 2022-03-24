@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Text, SafeAreaView, View, Pressable , StyleSheet, Image } from 'react-native';
 
 
 
 const Finanzas = () => {
+  
+  const[gastos, setGastos] = useState([
+    {date: "20/01/23", gasto:200.00},
+    {date: "22/02/23", gasto:210.00},
+    {date: "24/08/22", gasto:5.00},
+    {date: "22/02/22", gasto:40.00},
+    {date: "15/03/22", gasto:300.00},
+    {date: "30/01/22", gasto:20.00},
+    {date: "5/02/22", gasto:400.00},
+  ])
 
+  const[ingresos, setIngresos] = useState([
+    {date: "20/01/23", ingreso:100.00},
+    {date: "22/02/23", ingreso:210.00},
+    {date: "24/08/22", ingreso:3.00},
+    {date: "22/02/22", ingreso:54.00},
+    {date: "15/03/22", ingreso:250.00},
+    {date: "30/01/22", ingreso:60.00},
+    {date: "5/02/22", ingreso:150.00},
+  ])
+
+  //agregar gastos / ingresos
+  //ver gastos / ingresos
+  //ver saldo total
   return (
     <SafeAreaView style={styles.container_general}>
         
@@ -13,10 +36,11 @@ const Finanzas = () => {
         </Pressable>
 
         <Pressable style={styles.button}>
-          <Text style={styles.text}>Consultar Gasto</Text>
+          <Text style={styles.text}>Consultar Gastos / Ingresos</Text>
         </Pressable>
 
         <View style={styles.container}>
+          <Text style={styles.tituloGrafica}>Saldo desplegado</Text>
           <Image  style={styles.image} source={require("../assets/grafica_finanzas.png")}/>
         </View>
 
@@ -49,8 +73,7 @@ const Finanzas = () => {
 const styles = StyleSheet.create({
   container_general: {
     backgroundColor: 'white',
-    marginTop: 50,
-    marginBottom: 50
+    paddingVertical: 50,
   },
   container: {
     justifyContent: 'center',
@@ -103,6 +126,11 @@ const styles = StyleSheet.create({
     margin: 15,
     fontWeight: "bold"
   },
+  tituloGrafica: {
+    textAlign:"center",
+    fontSize: 30,
+    fontWeight: 600
+  }
 });
 
 
