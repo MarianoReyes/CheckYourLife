@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView } from 'react-native';
+import { color } from 'react-native-elements/dist/helpers';
 
 
 
@@ -31,38 +32,43 @@ const Finanzas = () => {
   return (
     <ScrollView style={styles.container_general}>
       
-      <Pressable style={styles.button} >
-        <Text style={styles.text}>Agregar Gasto / Ingreso</Text>
-      </Pressable>
-
-      <Pressable style={styles.button}>
-        <Text style={styles.text}>Consultar Gastos / Ingresos</Text>
-      </Pressable>
+      <View style={styles.botones}>
+        <Pressable style={styles.button} >
+          <Text style={[styles.text,{color:'white'}]}>Agregar Gasto</Text>
+        </Pressable>
+        <Pressable style={styles.button} >
+          <Text style={[styles.text,{color:'white'}]}>Agregar Ingreso</Text>
+        </Pressable>
+      </View>
+      
 
       <View style={styles.container}>
         <Text style={styles.tituloGrafica}>Saldo desplegado</Text>
         <Image  style={styles.image} source={require("../assets/grafica_finanzas.png")}/>
       </View>
 
-      <Text style={styles.tituloTabla}>
-        Resumen
-      </Text>
-      <View style={styles.row}>
-        <Text style={styles.border}>
-          Gastos
+      <View style={styles.container}>
+        <Text style={styles.tituloTabla}>
+          Resumen
         </Text>
-        <Text style={styles.border}>
-          Ingresos
-        </Text>
+        <View style={styles.row}>
+          <Text style={styles.border}>
+            Gastos
+          </Text>
+          <Text style={styles.border}>
+            Ingresos
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.texto_tabla}>
+            Primer gasto
+          </Text>
+          <Text style={styles.texto_tabla}>
+            Primer ingreso
+          </Text>
+        </View>
       </View>
-      <View style={styles.row}>
-        <Text style={styles.texto_tabla}>
-          Primer gasto
-        </Text>
-        <Text style={styles.texto_tabla}>
-          Primer ingreso
-        </Text>
-      </View>
+      
       
     </ScrollView>
     
@@ -80,6 +86,15 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 20,
+  },
+  botones:{
+    flex: 1,
+    marginVertical: 20,
+    flexDirection: "row",
+    flexWrap: 'wrap',
+    justifyContent: "center",
+    alignItems: "flex-start",
   },
   button: {
     alignItems: 'center',
@@ -89,7 +104,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     margin: 10,
-    backgroundColor: '#ccc',
+    color: 'white',
+    backgroundColor: '#3D56B2'
   },
   text: {
     fontSize: 16,
@@ -109,18 +125,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent:'space-between',
   },
-  border: {
-    width:"50%",
-    textAlign:"center",
-    fontSize: 20,
-    fontWeight: "bold"
-  },
-  texto_tabla: {
-    width:"50%",
-    textAlign:"center",
-    fontSize: 15,
-    marginTop: 10,
-  },
+
   tituloTabla: {
     width:"100%",
     textAlign:"center",
