@@ -55,7 +55,7 @@ const Finanzas = () => {
       </View>
 
       <View style={styles.container}>
-        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+        <Table style={styles.tabla} borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
           <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
           <Rows data={tableData} textStyle={styles.text}/>
         </Table>
@@ -110,6 +110,9 @@ const styles = StyleSheet.create({
     width: 420,
     height: 420,
     resizeMode: 'contain' 
+  },
+  tabla:{
+    width: '85%'
   },
   head: { height: 40, backgroundColor: '#f1f8ff' },
   text: { margin: 6 }
