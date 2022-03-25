@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView } from 'react-native';
 import { color } from 'react-native-elements/dist/helpers';
+import { Table, Row, Rows } from 'react-native-table-component';
 
 
 
@@ -26,6 +27,12 @@ const Finanzas = () => {
     {date: "5/02/22", ingreso:150.00},
   ])
 
+  const tableHead = ['Gastos', 'Ingresos']
+  const tableData = [
+        ['1', '2'],
+        ['a', 'b'],
+      ]
+
   //agregar gastos / ingresos
   //ver gastos / ingresos
   //ver saldo total
@@ -48,25 +55,10 @@ const Finanzas = () => {
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.tituloTabla}>
-          Resumen
-        </Text>
-        <View style={styles.row}>
-          <Text style={styles.border}>
-            Gastos
-          </Text>
-          <Text style={styles.border}>
-            Ingresos
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.texto_tabla}>
-            Primer gasto
-          </Text>
-          <Text style={styles.texto_tabla}>
-            Primer ingreso
-          </Text>
-        </View>
+        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+          <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
+          <Rows data={tableData} textStyle={styles.text}/>
+        </Table>
       </View>
       
       
@@ -119,25 +111,8 @@ const styles = StyleSheet.create({
     height: 420,
     resizeMode: 'contain' 
   },
-  row: {
-    flex: 2,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent:'space-between',
-  },
-
-  tituloTabla: {
-    width:"100%",
-    textAlign:"center",
-    fontSize: 25,
-    margin: 15,
-    fontWeight: "bold"
-  },
-  tituloGrafica: {
-    textAlign:"center",
-    fontSize: 30,
-    fontWeight: 600
-  }
+  head: { height: 40, backgroundColor: '#f1f8ff' },
+  text: { margin: 6 }
 });
 
 
