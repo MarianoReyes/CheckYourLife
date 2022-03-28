@@ -16,53 +16,40 @@ const toDoList = ({ navigation }) => {
   const [search,setSearch] = useState('');
   const [addTask,setAddTask] = useState('');
   const [data, setData] = useState([
-    {key: 'Devin',
-      Description:'hasbdfhaasdbfahbsdfjbhasd',completed: false,},
-    {key: 'Dan',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Dominic',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Jackson',
-        Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'James',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Joel',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'John',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Jillian',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Jimmy',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Julie',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'ANA',
-      Description:'hasbdfhaasdbfahbsdfjbhasd',completed: true,},
-    {key: 'Dan2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Dominic2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Jackson2',
-        Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'James2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Joel2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'John2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Jillian2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Jimmy2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Julie2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
+      {
+        title: 'Hacer BD',
+        description: 'Proyecto de BD',
+        expiration: [],
+        notificationDateTime: [],
+        important: true,
+    },
+    {
+      title: 'Hacer HCI',
+      description: 'Proyecto de HCI',
+      expiration: [],
+      notificationDateTime: [],
+      important: true,
+    },
+    {
+      title: 'Hacer TP',
+      description: 'Estudiar para examen de TP',
+      expiration: [],
+      notificationDateTime: [],
+      important: true,
+    },{
+      title: 'Recoger Hojas del Patio',
+      description: '',
+      expiration: [],
+      notificationDateTime: [],
+      important: true,
+    },
     ]);
 
   const handleData = (newTask) => {
     setData(
         data.map((task) =>
             // Here you accept a id argument to the function and replace it with hard coded 🤪 2, to make it dynamic.
-            task.key === newTask.key
+            task.title === newTask.title
                 ? { ...task, completed: newTask.completed }
                 : { ...task }
         )
@@ -74,7 +61,7 @@ const toDoList = ({ navigation }) => {
   const onAddTask = query => setAddTask(query);
 
   const addTaskFunction = () => {
-    addTask !== ''? setData([...data, {key:addTask, Description: '', completed: false}]) : null
+    addTask !== ''? setData([...data, {title:addTask, description: '', completed: false}]) : null
     setAddTask('');
   }
 
@@ -102,7 +89,7 @@ const toDoList = ({ navigation }) => {
                 data={data}
                 initialNumToRender = {data.length}
                 renderItem={({item}) => {
-                    if (search !== '' && item.key.includes(search)) {
+                    if (search !== '' && item.title.includes(search)) {
                       return <TaskItem fun={handleData} item={item}/>
                     }
                 }}
