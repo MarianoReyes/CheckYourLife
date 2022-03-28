@@ -10,19 +10,76 @@ const GeneralColor = 'linear-gradient(135deg, rgba(20,39,155,1) 0%, rgba(92,122,
 const timeTracker = () => {
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isDateTimePickerVisible, setDateTimePickerVisibility] = useState(false);
+    const [info,setInfo] = useState({
+        title: '',
+        description: '',
+        expiration: [],
+        notificationDateTime: [],
+        important: false,
+        completed: false,
+    });
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
       };
+    const showDateTimePicker = () => {
+        setDateTimePickerVisibility(true);
+      };
     
       const hideDatePicker = () => {
         setDatePickerVisibility(false);
+        setDateTimePickerVisibility(false);
       };
-    
-      const handleConfirm = (date) => {
-        console.warn("A date has been picked: ", date);
-        hideDatePicker();
-      };
+
+
+    const updateImportance = (newState) => setInfo(prevState => ({
+        title: prevState.title,
+        description: prevState.description,
+        expiration: prevState.expiration,
+        notificationDateTime: prevState.notificationDateTime,
+        important: newState,
+        completed: prevState.completed,      
+            })
+        );
+    const updateTitle = (newState) => {setInfo(prevState => ({
+        title: newState,
+        description: prevState.description,
+        expiration: prevState.expiration,
+        notificationDateTime: prevState.notificationDateTime,
+        important: prevState.important,
+        completed: prevState.completed,      
+            })
+        );}
+    const updateDescription = (newState) => setInfo(prevState => ({
+            title: prevState.title,
+            description: newState,
+            expiration: prevState.expiration,
+            notificationDateTime: prevState.notificationDateTime,
+            important: prevState.important,
+            completed: prevState.completed,        
+                })
+            );
+    const updateExpiration = (date) => { setInfo(prevState => ({
+            title: prevState.title,
+            description: prevState.description,
+            expiration: [date.getDate(),date.getMonth()+1,date.getFullYear(),date.getHours(),date.getMinutes()],
+            notificationDateTime: prevState.notificationDateTime,
+            important: prevState.important,
+            completed: prevState.completed,     
+                })
+            );
+    }
+    const updateNotificationDate = (date) => {setInfo(prevState => ({
+        title: prevState.title,
+        description: prevState.description,
+        expiration: prevState.expiration,
+        notificationDateTime: [date.getDate(),date.getMonth()+1,date.getFullYear(),date.getHours(),date.getMinutes()],
+        important: prevState.important,
+        completed: prevState.completed,       
+            })
+        );
+    }
 
   return (
     <ScrollView height='100%'>
@@ -30,13 +87,15 @@ const timeTracker = () => {
             colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
             style={styles.linearGradient}>
             <View style={styles.star}>
-            <AntDesign name="staro" size={40} color='white' />
+            <AntDesign name={info.important? 'star' : 'staro'} onPress={() => {updateImportance(!info.important)}} size={40} color='white' />
             </View>
             <View style={styles.container}>
                 <Text style={styles.titles}>NOMBRE</Text>
                 <TextInput
                 maxLength={50}
                 style={styles.input}
+                value={info.title}
+                onChangeText={(text) => updateTitle(text)}
                 placeholder=""
                 ></TextInput>
             </View>
@@ -47,32 +106,50 @@ const timeTracker = () => {
                 maxLength={150}
                 style={styles.input2}
                 placeholder=""
+                value={info.description}
+                onChangeText={(text) => updateDescription(text)}
                 ></TextInput>
             </View>
             <View style={styles.container}>
-                <Text style={styles.titles}>VENCIMIENTO</Text>
+                <Text style={styles.titles}>Expiración</Text>
                 <Pressable style={styles.boton} onPress={showDatePicker}>
-                    <Text style={styles.text} >Elegir Fecha</Text>
+                    <Text style={styles.text} >Elegir Fecha de Expiración</Text>
                 </Pressable>
                 <DateTimePickerModal
                     isVisible={isDatePickerVisible}
                     mode="date"
-                    onConfirm={handleConfirm}
+                    onConfirm={(e) => {hideDatePicker();
+                        updateExpiration(e);
+                    }}
                     onCancel={hideDatePicker}
                 />
             </View>
             <View style={styles.container}>
-                <Text style={styles.titles}>VENCIMIENTO</Text>
-                <Pressable style={styles.boton} onPress={showDatePicker}>
-                    <Text style={styles.text} >Elegir Fecha</Text>
+                <Text style={styles.titles}>NOTIFICACIÓN</Text>
+                <Pressable style={styles.boton} onPress={showDateTimePicker}>
+                    <Text style={styles.text} >Elegir Fecha de Notificación</Text>
+                </Pressable>
+                <DateTimePickerModal
+                    isVisible={isDateTimePickerVisible}
+                    mode="datetime"
+                    onConfirm={(e) => {hideDatePicker();
+                        updateNotificationDate(e);
+                    }}
+                    onCancel={hideDatePicker}
+                />
+                {/* <Pressable style={styles.boton} onPress={showDatePicker}>
+                    <Text style={styles.text} >Elegir Hora</Text>
                 </Pressable>
                 <DateTimePickerModal
                     isVisible={isDatePickerVisible}
-                    mode="date"
+                    mode="time"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
-                />
+                /> */}
             </View>
+                <Pressable style={styles.boton} onPress={()=>console.log(info)}>
+                    <Text style={styles.text} >Agregar </Text>
+                </Pressable>
         </LinearGradient>
     </ScrollView>
   
@@ -105,6 +182,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginVertical: 10,
         width: '80%',
+        padding: 10,
         marginHorizontal:10,
         borderRadius:10,
     },
@@ -115,6 +193,7 @@ const styles = StyleSheet.create({
         width: '80%',
         marginHorizontal:10,
         borderRadius:10,
+        padding: 10,
     },
     star : {
         width: '100%',
