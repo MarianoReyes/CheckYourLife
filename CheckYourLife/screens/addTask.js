@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const GeneralColor = 'linear-gradient(135deg, rgba(20,39,155,1) 0%, rgba(92,122,234,1) 100%)';
 
 
-const timeTracker = () => {
+const addTask = ({navigation}) => {
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [isDateTimePickerVisible, setDateTimePickerVisibility] = useState(false);
@@ -26,7 +26,6 @@ const timeTracker = () => {
     const showDateTimePicker = () => {
         setDateTimePickerVisibility(true);
       };
-    
       const hideDatePicker = () => {
         setDatePickerVisibility(false);
         setDateTimePickerVisibility(false);
@@ -147,7 +146,7 @@ const timeTracker = () => {
                     onCancel={hideDatePicker}
                 /> */}
             </View>
-                <Pressable style={styles.boton} onPress={()=>console.log(info)}>
+                <Pressable style={styles.boton} onPress={()=>navigation.navigate('To Do List', info.title? { newTask: info} : undefined)}>
                     <Text style={styles.text} >Agregar </Text>
                 </Pressable>
         </LinearGradient>
@@ -226,4 +225,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default timeTracker;
+export default addTask;
