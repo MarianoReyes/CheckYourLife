@@ -113,7 +113,7 @@ const toDoList = ({ navigation, route }) => {
                 data={data}
                 initialNumToRender = {data.length}
                 renderItem={({item}) => {
-                    if (search !== '' && item.title.includes(search)) {
+                    if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                       return <TaskItem fun={handleData} item={item}/>
                     }
                 }}
