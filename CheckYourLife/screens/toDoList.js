@@ -21,7 +21,7 @@ const toDoList = ({ navigation, route }) => {
       {
         title: 'Hacer BD',
         description: 'Proyecto de BD',
-        expiration: [],
+        expiration: [22,5,2022],
         notificationDateTime: [],
         important: true,
         completed: false,
@@ -67,7 +67,7 @@ const toDoList = ({ navigation, route }) => {
 
   const addTaskFunction = () => {
     if (!checkContains(addTask)) {
-      addTask !== ''? addData({title:addTask, description: '', completed: false}) : null
+      addTask !== ''? addData({title:addTask, description: '', completed: false, expiration: [], notificationDateTime: [], important: false,}) : null
     }
     setAddTask('');
   }
