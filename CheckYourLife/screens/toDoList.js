@@ -4,9 +4,11 @@ import TaskItem from "./TaskItem";
 import { View,Text, StyleSheet,FlatList,ScrollView, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
+
+
 const GeneralColor = '#3D56B2';
 
-const toDoList = ({ navigation }) => {
+const toDoList = ({ navigation, route }) => {
 
   const [shouldShowa, setShouldShowa] = useState(true);
   const [shouldShowb, setShouldShowb] = useState(true);
@@ -16,53 +18,43 @@ const toDoList = ({ navigation }) => {
   const [search,setSearch] = useState('');
   const [addTask,setAddTask] = useState('');
   const [data, setData] = useState([
-    {key: 'Devin',
-      Description:'hasbdfhaasdbfahbsdfjbhasd',completed: false,},
-    {key: 'Dan',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Dominic',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Jackson',
-        Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'James',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Joel',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'John',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Jillian',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Jimmy',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'Julie',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: false,},
-    {key: 'ANA',
-      Description:'hasbdfhaasdbfahbsdfjbhasd',completed: true,},
-    {key: 'Dan2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Dominic2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Jackson2',
-        Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'James2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Joel2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'John2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Jillian2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Jimmy2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
-    {key: 'Julie2',
-      Description:'hasbdfhaasdbfjahbsdfjbhasd',completed: true,},
+      {
+        title: 'Hacer BD',
+        description: 'Proyecto de BD',
+        expiration: [],
+        notificationDateTime: [],
+        important: true,
+        completed: false,
+    },
+    {
+      title: 'Hacer HCI',
+      description: 'Proyecto de HCI',
+      expiration: [],
+      notificationDateTime: [],
+      important: true,
+      completed: false,
+    },
+    {
+      title: 'Hacer TP',
+      description: 'Estudiar para examen de TP',
+      expiration: [],
+      notificationDateTime: [],
+      important: true,
+      completed: false,
+    },{
+      title: 'Recoger Hojas del Patio',
+      description: '',
+      expiration: [],
+      notificationDateTime: [],
+      important: true,
+      completed: false,
+    },
     ]);
 
   const handleData = (newTask) => {
     setData(
         data.map((task) =>
-            // Here you accept a id argument to the function and replace it with hard coded 🤪 2, to make it dynamic.
-            task.key === newTask.key
+        task.title === newTask.title
                 ? { ...task, completed: newTask.completed }
                 : { ...task }
         )
@@ -74,9 +66,28 @@ const toDoList = ({ navigation }) => {
   const onAddTask = query => setAddTask(query);
 
   const addTaskFunction = () => {
-    addTask !== ''? setData([...data, {key:addTask, Description: '', completed: false}]) : null
+    if (!checkContains(addTask)) {
+      addTask !== ''? addData({title:addTask, description: '', completed: false}) : null
+    }
     setAddTask('');
   }
+
+  const checkContains = (title) => {
+    var found = false;
+    data.map((element) => {
+      if (element.title === title) {
+        found = true
+      } 
+    })
+    return found;
+  }
+
+  const addData = (info) => {
+    setData([...data, info])
+  }
+
+  route.params? route.params.newTask? !checkContains(route.params.newTask.title)? addData(route.params.newTask): undefined : undefined : undefined;
+  route.params? route.params.newTask = undefined : undefined;
 
   return (
     <ScrollView>
@@ -102,7 +113,7 @@ const toDoList = ({ navigation }) => {
                 data={data}
                 initialNumToRender = {data.length}
                 renderItem={({item}) => {
-                    if (search !== '' && item.key.includes(search)) {
+                    if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
                       return <TaskItem fun={handleData} item={item}/>
                     }
                 }}
@@ -140,7 +151,6 @@ const toDoList = ({ navigation }) => {
             }}
           />
           ) : null}
-        
       <Text onPress={() => setShouldShowb(!shouldShowb)} style={styles.finder}>COMPLETADOS <AntDesign name={shouldShowb ? "upcircle" : "downcircle"} size={18} color={GeneralColor} /></Text>
         {shouldShowb ? (
             <FlatList

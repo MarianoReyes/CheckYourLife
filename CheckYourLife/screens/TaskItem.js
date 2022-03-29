@@ -13,11 +13,11 @@ const TaskItem = (props) => {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}>
                 <MaterialCommunityIcons onPress={() => {
-                    props.fun({key: props.item.key, completed:  !props.item.completed});
+                    props.fun({title: props.item.title, completed:  !props.item.completed});
 
                 }} name={props.item.completed == true ? "check-box-outline":"checkbox-blank-outline"} size={32} color="white" />
                 <View style={styles.taskcontent}>
-                    <Text style={styles.text}>{props.item.key}</Text>
+                    <Text style={styles.text}>{props.item.title}</Text>
                 </View>
             </LinearGradient>
         </View>
@@ -38,6 +38,7 @@ const TaskItem = (props) => {
     },
     taskcontent: {
         marginLeft:20,
+        flex: 2,
     },
     text: {
         fontSize:20,
