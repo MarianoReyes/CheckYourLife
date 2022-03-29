@@ -4,9 +4,11 @@ import TaskItem from "./TaskItem";
 import { View,Text, StyleSheet,FlatList,ScrollView, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
+
+
 const GeneralColor = '#3D56B2';
 
-const toDoList = ({ navigation }) => {
+const toDoList = ({ navigation, route }) => {
 
   const [shouldShowa, setShouldShowa] = useState(true);
   const [shouldShowb, setShouldShowb] = useState(true);
@@ -22,6 +24,7 @@ const toDoList = ({ navigation }) => {
         expiration: [],
         notificationDateTime: [],
         important: true,
+        completed: false,
     },
     {
       title: 'Hacer HCI',
@@ -29,6 +32,7 @@ const toDoList = ({ navigation }) => {
       expiration: [],
       notificationDateTime: [],
       important: true,
+      completed: false,
     },
     {
       title: 'Hacer TP',
@@ -36,20 +40,21 @@ const toDoList = ({ navigation }) => {
       expiration: [],
       notificationDateTime: [],
       important: true,
+      completed: false,
     },{
       title: 'Recoger Hojas del Patio',
       description: '',
       expiration: [],
       notificationDateTime: [],
       important: true,
+      completed: false,
     },
     ]);
 
   const handleData = (newTask) => {
     setData(
         data.map((task) =>
-            // Here you accept a id argument to the function and replace it with hard coded 🤪 2, to make it dynamic.
-            task.title === newTask.title
+        task.title === newTask.title
                 ? { ...task, completed: newTask.completed }
                 : { ...task }
         )
@@ -61,9 +66,28 @@ const toDoList = ({ navigation }) => {
   const onAddTask = query => setAddTask(query);
 
   const addTaskFunction = () => {
-    addTask !== ''? setData([...data, {title:addTask, description: '', completed: false}]) : null
+    if (!checkContains(addTask)) {
+      addTask !== ''? addData({title:addTask, description: '', completed: false}) : null
+    }
     setAddTask('');
   }
+
+  const checkContains = (title) => {
+    var found = false;
+    data.map((element) => {
+      if (element.title === title) {
+        found = true
+      } 
+    })
+    return found;
+  }
+
+  const addData = (info) => {
+    setData([...data, info])
+  }
+
+  route.params? route.params.newTask? !checkContains(route.params.newTask.title)? addData(route.params.newTask): undefined : undefined : undefined;
+  route.params? route.params.newTask = undefined : undefined;
 
   return (
     <ScrollView>
@@ -127,7 +151,6 @@ const toDoList = ({ navigation }) => {
             }}
           />
           ) : null}
-        
       <Text onPress={() => setShouldShowb(!shouldShowb)} style={styles.finder}>COMPLETADOS <AntDesign name={shouldShowb ? "upcircle" : "downcircle"} size={18} color={GeneralColor} /></Text>
         {shouldShowb ? (
             <FlatList
