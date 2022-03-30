@@ -14,6 +14,7 @@ import Comunidad from "./screens/comunidad";
 import LoginScreen from "./screens/Login";
 import addTask from "./screens/addTask"
 import HomeScreen from "./screens/HomeScreen";
+import Perfil from "./screens/Perfil";
 
 const TAB = createBottomTabNavigator();
 const STACK = createStackNavigator();
@@ -80,6 +81,17 @@ function MyTabs() {
                 },
             }}
             name="Time Tracker" component={timeTracker}></TAB.Screen>
+            <TAB.Screen
+            options={{
+                tabBarIcon: () => (
+                    <Entypo name="fa-solid fa-user" size={24} color="'#001219'" />),
+                headerTitle: 'PERFIL',
+                headerTitleAlign: 'center',
+                headerTitleStyle : {
+                    fontWeight: 'bold',
+                },
+            }}
+            name="Perfil" component={Perfil}></TAB.Screen>
         </TAB.Navigator>
     )
 }
