@@ -1,40 +1,122 @@
-import { StatusBar } from 'expo-status-bar';
-import React from "react";
-import { StyleSheet, Text, View, Image, Button} from 'react-native';
+import React, {Component} from 'react';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-          <Image
-            style={{ width: 40, height: 40, marginBottom: 15 }}
-            source={require("../assets/1756647.png")}
-          />
+export default class App extends Component{
+  constructor(props){
+    super(props)
 
-          <Text>.........................................................................</Text>
-          
-          <Image
-            style={{ width: 500, height: 150, marginBottom: 15 }}
-            source={require("../assets/1280px-Reloj_digital_1200.svg.png")}
-          />
+    this.state = {
+      timer: null,
+      number: 0,
+      startStopText: 'Start',
+    }
+    this.startStopButton = this.startStopButton.bind(this);
+    this.clearButton = this.clearButton.bind(this);
+  }
+  
+  startStopButton(){
+    //Boton para iniciar el cronometro
+    if(this.state.timer == null){
+      let newS = this.state;
+      newS.startStopText = 'Stop';
+      this.setState(newS)
+      this.state.timer = setInterval(() => {
+        let newState = this.state;
+        newState.number += 0.1
+        this.setState(newState);
+      }, 100);
 
-          <Text>.........................................................................
-             {'\n'}  
-                  {'\n'}
-          </Text>
+    } else {
+      clearInterval(this.state.timer);
+      let newState = this.state;
+      newState.startStopText = 'Start'
+      newState.timer = null;
+      this.setState(newState);
+    }
+  }
 
-          <Button
-            title="START"
-          />
-    </View>
-  );
+  clearButton(){
+    clearInterval(this.state.timer);
+    let newState = this.state;
+    newState.startStopText = 'Start';
+    newState.timer = null;
+    newState.number = 0;
+    this.setState(newState)
+  }
+
+  render(){
+    return(
+      <View style={styles.body}>
+        <View style={styles.container}>
+            <Text style= {styles.counterText}>{this.state.number.toFixed(1)}</Text>
+            
+            <View style= {styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={this.startStopButton}>
+                    <Text style={styles.buttonText}>{this.state.startStopText} </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={this.clearButton}>
+                    <Text style={styles.buttonText}>Clear</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+        <View style={styles.footer}>
+            <Text style={styles.footerText}>CheckYourLife</Text>
+        </View>
+        
+      </View>
+    );
+  }
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({ 
+    body: {
+      flex: 1,
+      backgroundColor: '#221D41',
+       justifyContent: 'center',
+    },
+
+    counterText: {
+        color: '#fff',
+        fontSize: 40,
+        fontWeight: 'bold',
+    },
+
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    buttonContainer:{
+        flexDirection: 'row',
+        padding: 20,
+
+    },
+
+    button:{
+        backgroundColor: '#331DF4',
+        marginHorizontal: 15,
+        height: 40,
+        justifyContent: 'center',
+        width: 75,
+        alignItems: 'center',
+    },
+
+    buttonText: {
+        color: '#fff'
+    },
+
+    footer: {
+      position: 'absolute',
+      bottom: 0,
+      backgroundColor: '#000',
+      opacity: 0.4,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      width: '100%',
+      height: 20
+    },
+    footerText: {
+      color: '#fff'
+    }
+})
