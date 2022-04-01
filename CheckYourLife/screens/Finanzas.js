@@ -1,37 +1,46 @@
 import React, { useState } from 'react';
-import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView } from 'react-native';
+import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, FlatList } from 'react-native';
 import { color } from 'react-native-elements/dist/helpers';
 import { Table, Row, Rows } from 'react-native-table-component';
+import TaskItem from "./TaskItem";
 
 
 
 const Finanzas = () => {
   
   const[gastos, setGastos] = useState([
-    {date: "20/01/23", gasto:200.00},
-    {date: "22/02/23", gasto:210.00},
-    {date: "24/08/22", gasto:5.00},
-    {date: "22/02/22", gasto:40.00},
-    {date: "15/03/22", gasto:300.00},
-    {date: "30/01/22", gasto:20.00},
-    {date: "5/02/22", gasto:400.00},
+    {key:1, date: "20/01/23", gasto:200.00},
+    {key:2, date: "22/02/23", gasto:210.00},
+    {key:3, date: "24/08/22", gasto:5.00},
+    {key:4, date: "22/02/22", gasto:40.00},
+    {key:5, date: "15/03/22", gasto:300.00},
+    {key:6, date: "30/01/22", gasto:20.00},
+    {key:7, date: "5/02/22", gasto:400.00},
   ])
 
   const[ingresos, setIngresos] = useState([
-    {date: "20/01/23", ingreso:100.00},
-    {date: "22/02/23", ingreso:210.00},
-    {date: "24/08/22", ingreso:3.00},
-    {date: "22/02/22", ingreso:54.00},
-    {date: "15/03/22", ingreso:250.00},
-    {date: "30/01/22", ingreso:60.00},
-    {date: "5/02/22", ingreso:150.00},
+    {key:1, date: "20/01/23", ingreso:100.00},
+    {key:2, date: "22/02/23", ingreso:210.00},
+    {key:3, date: "24/08/22", ingreso:3.00},
+    {key:4, date: "22/02/22", ingreso:54.00},
+    {key:5, date: "15/03/22", ingreso:250.00},
+    {key:6, date: "30/01/22", ingreso:60.00},
+    {key:7, date: "5/02/22", ingreso:150.00},
   ])
 
+
   const tableHead = ['Gastos', 'Ingresos']
-  const tableData = [
-        ['1', '2'],
-        ['a', 'b'],
-      ]
+
+  const Item = ({ ingreso }) => (
+    <View >
+      <Text >{ingreso}</Text>
+    </View>
+  );
+
+  const renderItemIngreso = ({ item }) => (
+    <Item title={item.ingreso} />
+  );
+
 
   //agregar gastos / ingresos
   //ver gastos / ingresos
@@ -57,8 +66,13 @@ const Finanzas = () => {
       <View style={styles.container}>
         <Table style={styles.tabla} borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
           <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
-          <Rows data={tableData} textStyle={styles.text}/>
+          
         </Table>
+        <FlatList
+        data={gastos}
+        renderItem={renderItemIngreso}
+        keyExtractor={item => item.key}
+        />
       </View>
       
       
