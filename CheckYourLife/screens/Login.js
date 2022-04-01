@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: '#14279B',
     width: '100%',
     padding: 15,
     borderRadius: 10,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#14279B',
     fontWeight: '700',
     fontSize: 16,
   },
