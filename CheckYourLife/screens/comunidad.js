@@ -7,12 +7,12 @@ import Icon1 from "react-native-vector-icons/MaterialIcons";
 
 const DATA = [
   {
-    title: "Chats Recientes",
-    data: ["Josué","Mariano","Luis", "Pedro", "Juan","Esteban","Kenneth","Natanael"]
+    title: "Grupos Recientes",
+    data: ["Cumpleaños de Sara","Despensa","Fiesta Juanca", "Tarea de Estadistica", "Hoja de Trabajo BD"]
   },
   {
-    title: "Todos",
-    data: ["Antonio", "Ana", "Alberto", "Adrián","Alvaro","Carlos","Coral","Daniel","Darina","David","Eva","Flor","Gabriel","Gori","Ghita","Javier","José","Mar","Marc","Mariana","Sara","Paula"]
+    title: "Todos los Grupos",
+    data: ["Arreglos Florales", "Asistencia Charla WEB", "Animación y Efectos", "Bienvenida estudiantes","Clase Estadistica","Curso de verano","Cumpleaños Sara","Despensa","Fiesta Juanca","Hoja de Trabajo BD","Tarea de Estadistica","Union de departamentos"]
   }
 ];
 
