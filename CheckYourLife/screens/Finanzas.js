@@ -3,8 +3,17 @@ import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, Fla
 import { color } from 'react-native-elements/dist/helpers';
 import { Table, Row, Rows } from 'react-native-table-component';
 import TaskItem from "./TaskItem";
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+import { Dimensions } from "react-native";
 
-
+const screenWidth = Dimensions.get("window").width;
 
 const Finanzas = () => {
   
@@ -22,25 +31,110 @@ const Finanzas = () => {
     {key:1, date: "20/01/23", ingreso:100.00},
     {key:2, date: "22/02/23", ingreso:210.00},
     {key:3, date: "24/08/22", ingreso:3.00},
-    {key:4, date: "22/02/22", ingreso:54.00},
+    {key:4, date: "22/02/22", ingreso:54.25},
     {key:5, date: "15/03/22", ingreso:250.00},
     {key:6, date: "30/01/22", ingreso:60.00},
     {key:7, date: "5/02/22", ingreso:150.00},
   ])
 
+  const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
+  const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
+
+  let sumIngreso = ingresosData.map((ingreso) => ingreso)
+  .reduce((previous, current) => {
+    return previous + current;
+  }, 0);
+
+  let sumGasto = gastosData.map((gasto) => gasto)
+  .reduce((previous, current) => {
+    return previous + current;
+  }, 0);
+  
+
+
+  
 
   const tableHead = ['Gastos', 'Ingresos']
 
-  const Item = ({ ingreso }) => (
-    <View >
-      <Text >{ingreso}</Text>
-    </View>
-  );
 
-  const renderItemIngreso = ({ item }) => (
-    <Item title={item.ingreso} />
-  );
+  
 
+  const MyBarChart = () => {
+    return (
+      <>
+        <BarChart
+          data={{
+            labels: ['Gastos', 'Ingresos'],
+            datasets: [
+              {
+                data: [sumGasto, sumIngreso],
+              },
+            ],
+          }}
+          width={Dimensions.get('window').width - 100}
+          height={220}
+          yAxisLabel={'Q '}
+          chartConfig={{
+            backgroundColor: '#1cc910',
+            backgroundGradientFrom: '#14279B',
+            backgroundGradientTo: '#5C7AEA',
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            barPercentage: 2,
+          }}
+          style={{
+            marginVertical: 8,
+            borderRadius: 4,
+          }}
+        />
+      </>
+    );
+  };
+
+  const MyPieChart = () => {
+    return (
+      <>
+        <PieChart
+          data={[
+            {
+              name: 'Gastos',
+              cantidad: sumGasto,
+              color: '#F00',
+              legendFontColor: '#7F7F7F',
+              legendFontSize: 15,
+            },
+            {
+              name: 'Ingresos',
+              cantidad: sumIngreso,
+              color: '#14279B',
+              legendFontColor: '#7F7F7F',
+              legendFontSize: 15,
+            }
+          ]}
+          width={Dimensions.get('window').width - 16}
+          height={220}
+          chartConfig={{
+            backgroundColor: '#1cc910',
+            backgroundGradientFrom: '#eff3ff',
+            backgroundGradientTo: '#efefef',
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+          }}
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+          accessor="cantidad"
+          backgroundColor="transparent"
+          paddingLeft="15"
+          
+        />
+      </>
+    );
+  };
 
   //agregar gastos / ingresos
   //ver gastos / ingresos
@@ -60,19 +154,12 @@ const Finanzas = () => {
 
       <View style={styles.container}>
         <Text style={styles.tituloGrafica}>Saldo desplegado</Text>
-        <Image  style={styles.image} source={require("../assets/grafica_finanzas.png")}/>
+        <MyBarChart />
+        <MyPieChart />
       </View>
 
       <View style={styles.container}>
-        <Table style={styles.tabla} borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-          <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
-          
-        </Table>
-        <FlatList
-        data={gastos}
-        renderItem={renderItemIngreso}
-        keyExtractor={item => item.key}
-        />
+        
       </View>
       
       
@@ -111,7 +198,12 @@ const styles = StyleSheet.create({
     elevation: 3,
     margin: 10,
     color: 'white',
-    backgroundColor: '#3D56B2'
+    backgroundColor: '#14279B'
+  },
+  tituloGrafica: {
+    fontSize: 35,
+    fontWeight: 700,
+    marginVertical: 15
   },
   text: {
     fontSize: 16,
