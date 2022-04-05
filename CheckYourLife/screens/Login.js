@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View,SafeAreaView,Image} from 'react-native'
 import {auth} from '../firebase'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail} from "firebase/auth";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions } from 'react-native';
 import { Platform } from 'react-native';
@@ -46,6 +46,15 @@ const Login = ({navigation}) => {
       .catch(error => alert(error.message))
   }
 
+  const handleForgot = () => {
+    if (email === "") {
+      alert("Ingrese un correo")
+    }
+    else {
+      alert("Se ha enviado un correo a " + email + " para reestablecer la contraseña")
+      sendPasswordResetEmail(auth,email)
+    }
+  }
   return (
     <SafeAreaView style={styles.container}
     showsVerticalScrollIndicator={false}>
@@ -88,8 +97,9 @@ const Login = ({navigation}) => {
           </LinearGradient>
         </TouchableOpacity>
        
-
-        <Text style={{marginTop:20}}> Forgot Password ?</Text>
+        <TouchableOpacity onPress={handleForgot}>
+          <Text style={{marginTop:20}}> Forgot Password ?</Text>
+        </TouchableOpacity>
         <Text style={{fontSize:16, marginTop:10}}>Or via social media</Text>
         <View style={{flexDirection:'row', marginTop:20}}>
               <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#14279B', alignItems:'center', justifyContent:'center'}}>
@@ -171,7 +181,7 @@ const styles = StyleSheet.create({
     width: Platform.OS === 'web' ? 700 : 300, 
     height: Platform.OS === 'web' ? 250 : 100, 
     bottom: Platform.OS === 'web' ? 10 : 20,
-    left: Platform.OS === 'web' ? "20%" : 10,
+    left: Platform.OS === 'web' ? "25%" : 10,
     alignContent: 'center'
   }
 })

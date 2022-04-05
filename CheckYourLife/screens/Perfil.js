@@ -104,6 +104,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     justifyContent:"center",
     height: 70,
-    width: Platform.OS === 'web' ? 1370: 350,
+    width: Platform.OS === 'web' ? "90%": 350,
   }
 })
