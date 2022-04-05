@@ -6,6 +6,8 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View, TextStyle,Image} from 
 import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
 import { ScrollView } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Platform } from 'react-native';
 
 
 const Perfil = () => {
@@ -17,8 +19,12 @@ const Perfil = () => {
   return (
     <View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{padding:10,width:'100%',backgroundColor:'#14279B',height:150}}> 
+        <LinearGradient
+            colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
+            style={styles.linearGradienta}>
+        <View> 
         </View>
+        </LinearGradient>
         <View style={{alignItems:'center'}}>
           <Image source={require('../assets/PerfilTemp.png')} style={{width:140,height:140,borderRadius:100,marginTop:-70}}/>
         </View>
@@ -34,9 +40,14 @@ const Perfil = () => {
         <View style={styles.button1}>
           <Text>Share</Text>
         </View>
-        <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-          <Text style={styles.buttonText}>Sign out</Text>
-          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+          <LinearGradient
+              colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
+              style={styles.linearGradientb}>
+            <Text style={styles.buttonText}>Sign out</Text>
+          </LinearGradient>
+            </TouchableOpacity>
       </ScrollView>
     </View>
   )
@@ -51,18 +62,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
    button: {
-    alignSelf:'center',
-    flexDirection:'row',
-    justifyContent:'center',
-    backgroundColor: '#14279B',
-    width:'90%',
-    padding:20,
-    paddingBottom:22,
-    borderRadius:10,
-    shadowOpacity:80,
-    elevation:15,
-    marginTop:20,
-    marginBottom:20
+    backgroundColor: 'transparent',
+    width: '100%',
+    padding: 22,
+    borderRadius: 10,
+    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
@@ -82,5 +86,24 @@ const styles = StyleSheet.create({
     elevation:15,
     marginTop:20,
     marginBottom:10
+  },
+  linearGradienta : {
+    padding: 15,
+    flexDirection: "row",
+    flexWrap: "wrap", 
+    fontSize: 24,
+    justifyContent:"center",
+    height: Platform.OS === 'web' ? 125 : 150,
+    width: "100%"
+  },
+  linearGradientb : {
+    padding: 20,
+    borderRadius: 10,
+    flexDirection: "row",
+    flexWrap: "wrap", 
+    fontSize: 24,
+    justifyContent:"center",
+    height: 70,
+    width: Platform.OS === 'web' ? 1370: 350,
   }
 })

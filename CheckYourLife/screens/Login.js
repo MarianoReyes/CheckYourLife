@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View,SafeAreaView,Image} from 'react-native'
 import {auth} from '../firebase'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { LinearGradient } from 'expo-linear-gradient';
+import { Dimensions } from 'react-native';
+import { Platform } from 'react-native';
+
+
 
 
 
@@ -48,7 +53,7 @@ const Login = ({navigation}) => {
     
       <View style={styles.inputContainer}>
         <Image source={require('../assets/CheckL2.png')}
-        style={{width: 1000, height: 100, bottom:"50%",left:"20%",alignContent: 'center'}} />
+        style={styles.logo} />
 
         <TextInput
           placeholder="Email"
@@ -66,18 +71,23 @@ const Login = ({navigation}) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={handleLogin}
-          style={styles.button}
-        >
+        
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+          <LinearGradient
+            colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
+            style={styles.linearGradient}>
           <Text style={styles.buttonText}>Login</Text>
+          </LinearGradient>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+
+        <TouchableOpacity onPress={handleSignUp} style={[styles.button]}>
+          <LinearGradient
+            colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
+            style={styles.linearGradient}>
+            <Text style={styles.buttonText}>Register</Text>
+          </LinearGradient>
         </TouchableOpacity>
+       
 
         <Text style={{marginTop:20}}> Forgot Password ?</Text>
         <Text style={{fontSize:16, marginTop:10}}>Or via social media</Text>
@@ -121,18 +131,18 @@ const styles = StyleSheet.create({
     width: '60%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 30,
   },
   button: {
-    backgroundColor: '#14279B',
+    backgroundColor: 'transparent',
     width: '100%',
-    padding: 15,
+    padding: 5,
     borderRadius: 10,
     alignItems: 'center',
   },
   buttonOutline: {
     backgroundColor: 'white',
-    marginTop: 5,
+    marginTop: 10,
     borderColor: '#0782F9',
     borderWidth: 2,
   },
@@ -146,4 +156,22 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
+  linearGradient : {
+      padding: 15,
+      borderRadius: 10,
+      flexDirection: "row",
+      flexWrap: "wrap", 
+      fontSize: 24,
+      justifyContent:"center",
+      height: 50,
+      width: Platform.OS === 'web' ? 1000 : 300,
+      
+  },
+  logo: {
+    width: Platform.OS === 'web' ? 700 : 300, 
+    height: Platform.OS === 'web' ? 250 : 100, 
+    bottom: Platform.OS === 'web' ? 10 : 20,
+    left: Platform.OS === 'web' ? "20%" : 10,
+    alignContent: 'center'
+  }
 })
