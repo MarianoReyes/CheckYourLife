@@ -84,7 +84,7 @@ function MyTabs() {
             <TAB.Screen
             options={{
                 tabBarIcon: () => (
-                    <Entypo name="fa-solid fa-user" size={24} color="'#001219'" />),
+                    <FontAwesome5 name="user" size={24} color="'#001219'" />),
                 headerTitle: 'PERFIL',
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
