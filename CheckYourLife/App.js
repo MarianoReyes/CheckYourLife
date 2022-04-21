@@ -1,7 +1,5 @@
 import React from 'react';
-//import Navigation from './Navigation';
 import {SafeAreaView, StyleSheet} from 'react-native';
-//import LoginScreen from './screens/Login'
 import { Login } from './Navigation';
 
 
