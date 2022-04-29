@@ -1,7 +1,16 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Switch, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 export default class App extends Component{
+  
+  state = {
+    toggled : false
+  }
+
+  toggleSwitch = (value) => {
+    this.setState({toggled:value})
+  } 
+
   constructor(props){
     super(props)
 
@@ -62,8 +71,15 @@ export default class App extends Component{
         <View style={styles.footer}>
             <Text style={styles.footerText}>CheckYourLife</Text>
         </View>
+
+        <View style = {styles.TextCr}>
+          <Switch onValueChange={this.toggleSwitch}
+                  value={this.state.toggled}/>
+          <Text style={styles.footerText}>{this.state.toggled? "Temporizador" : "Cronometro"}</Text>
+        </View>
         
       </View>
+      
     );
   }
 
@@ -118,5 +134,10 @@ const styles = StyleSheet.create({
     },
     footerText: {
       color: '#fff'
+    },
+    TextCr: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 80
     }
 })
