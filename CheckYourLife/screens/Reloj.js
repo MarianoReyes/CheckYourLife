@@ -138,6 +138,5 @@ const styles = StyleSheet.create({
     TextCr: {
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 80
     }
 })
