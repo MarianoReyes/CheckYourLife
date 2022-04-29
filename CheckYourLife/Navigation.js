@@ -14,6 +14,7 @@ import Comunidad from "./screens/comunidad";
 import LoginScreen from "./screens/Login";
 import addTask from "./screens/addTask"
 import HomeScreen from "./screens/HomeScreen";
+import Perfil from "./screens/Perfil";
 
 const TAB = createBottomTabNavigator();
 const STACK = createStackNavigator();
@@ -80,6 +81,17 @@ function MyTabs() {
                 },
             }}
             name="Time Tracker" component={timeTracker}></TAB.Screen>
+            <TAB.Screen
+            options={{
+                tabBarIcon: () => (
+                    <FontAwesome5 name="user" size={24} color="'#001219'" />),
+                headerTitle: 'PERFIL',
+                headerTitleAlign: 'center',
+                headerTitleStyle : {
+                    fontWeight: 'bold',
+                },
+            }}
+            name="Perfil" component={Perfil}></TAB.Screen>
         </TAB.Navigator>
     )
 }
@@ -88,7 +100,25 @@ const todolist = () =>{
     return (
     <STACK.Navigator>
         <STACK.Screen options={{headerShown: false}} name='To Do List' component={toDoList} />
-        <STACK.Screen options={{headerTitle: 'Más Información',}} name='AddItem' component={addTask} />
+        <STACK.Screen options={{
+          title: 'Más Información',
+          headerStyle: {
+            backgroundColor: 'rgba(20,39,155,1)',
+            borderRadius: 0,
+            borderColor: 'rgba(20,39,155,1)',
+            borderBottomColor: 'rgba(20,39,155,1)',
+            shadowColor: 'transparent',
+            shadowRadius: 0,
+             },
+             headerBackgroundContainerStyle:{
+                backgroundColor: 'rgba(20,39,155,1)',
+             },
+            shadowOffset: { height: 0, width: 0 },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }} name='AddItem' component={addTask} />
     </STACK.Navigator>)
 }
 

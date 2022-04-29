@@ -1,8 +1,14 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View,SafeAreaView,Image} from 'react-native'
 import {auth} from '../firebase'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail} from "firebase/auth";
+import { LinearGradient } from 'expo-linear-gradient';
+import { Dimensions } from 'react-native';
+import { Platform } from 'react-native';
+
+
+
 
 
 const Login = ({navigation}) => {
@@ -16,6 +22,8 @@ const Login = ({navigation}) => {
       if (user) {
         /*navigation.replace("Home")*/
         navigation.navigate("Home")
+      }else{
+        navigation.navigate("LOGIN")
       }
     })
   }, [])
@@ -38,12 +46,24 @@ const Login = ({navigation}) => {
       .catch(error => alert(error.message))
   }
 
+  const handleForgot = () => {
+    if (email === "") {
+      alert("Ingrese un correo")
+    }
+    else {
+      alert("Se ha enviado un correo a " + email + " para reestablecer la contraseña")
+      sendPasswordResetEmail(auth,email)
+    }
+  }
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior="padding"
-    >
+    <SafeAreaView style={styles.container}
+    showsVerticalScrollIndicator={false}>
+      
+    
       <View style={styles.inputContainer}>
+        <Image source={require('../assets/CheckL2.png')}
+        style={styles.logo} />
+
         <TextInput
           placeholder="Email"
           value={email}
@@ -60,20 +80,42 @@ const Login = ({navigation}) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={handleLogin}
-          style={styles.button}
-        >
+        
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+          <LinearGradient
+            colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
+            style={styles.linearGradient}>
           <Text style={styles.buttonText}>Login</Text>
+          </LinearGradient>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+
+        <TouchableOpacity onPress={handleSignUp} style={[styles.button]}>
+          <LinearGradient
+            colors={['rgba(20,39,155,1)', 'rgba(92,122,234,1)']}
+            style={styles.linearGradient}>
+            <Text style={styles.buttonText}>Register</Text>
+          </LinearGradient>
         </TouchableOpacity>
+       
+        <TouchableOpacity onPress={handleForgot}>
+          <Text style={{marginTop:20}}> Forgot Password ?</Text>
+        </TouchableOpacity>
+        <Text style={{fontSize:16, marginTop:10}}>Or via social media</Text>
+        <View style={{flexDirection:'row', marginTop:20}}>
+              <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#14279B', alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>f</Text>
+              </View>
+              <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#f44336', alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>G</Text>
+              </View> 
+              <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#1565c0', alignItems:'center', justifyContent:'center'}}>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>in</Text>
+              </View>   
+        </View>    
+
       </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
+    
   )
 }
 
@@ -99,18 +141,18 @@ const styles = StyleSheet.create({
     width: '60%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 30,
   },
   button: {
-    backgroundColor: '#0782F9',
+    backgroundColor: 'transparent',
     width: '100%',
-    padding: 15,
+    padding: 5,
     borderRadius: 10,
     alignItems: 'center',
   },
   buttonOutline: {
     backgroundColor: 'white',
-    marginTop: 5,
+    marginTop: 10,
     borderColor: '#0782F9',
     borderWidth: 2,
   },
@@ -120,8 +162,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#14279B',
     fontWeight: '700',
     fontSize: 16,
   },
+  linearGradient : {
+      padding: 15,
+      borderRadius: 10,
+      flexDirection: "row",
+      flexWrap: "wrap", 
+      fontSize: 24,
+      justifyContent:"center",
+      height: 50,
+      width: Platform.OS === 'web' ? 1000 : 300,
+      
+  },
+  logo: {
+    width: Platform.OS === 'web' ? 700 : 300, 
+    height: Platform.OS === 'web' ? 250 : 100, 
+    bottom: Platform.OS === 'web' ? 10 : 20,
+    left: Platform.OS === 'web' ? "25%" : 10,
+    alignContent: 'center'
+  }
 })
