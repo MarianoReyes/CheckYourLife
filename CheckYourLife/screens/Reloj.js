@@ -1,87 +1,86 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {Switch, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-export default class App extends Component{
-  
-  state = {
-    toggled : false
-  }
 
-  toggleSwitch = (value) => {
-    this.setState({toggled:value})
+const Reloj = () => {
+  
+  const [toggled, setToggled] = useState(false)
+
+  const toggleSwitch = (value) => {
+    setToggled({toggled:value})
   } 
 
-  constructor(props){
-    super(props)
+  const [timer, setTimer] = useState(null)
+  const [number, setNumber] = useState(0)
+  const [startStopText, setStartStopText] = useState('Start')
 
-    this.state = {
-      timer: null,
-      number: 0,
-      startStopText: 'Start',
-    }
-    this.startStopButton = this.startStopButton.bind(this);
-    this.clearButton = this.clearButton.bind(this);
-  }
+
+  startStopButton = startStopButton();
+  clearButton = clearButton();
   
-  startStopButton(){
+  const startStopButton = () =>{
     //Boton para iniciar el cronometro
-    if(this.state.timer == null){
-      let newS = this.state;
+    if(state.timer == null){
+      let newS = state;
       newS.startStopText = 'Stop';
-      this.setState(newS)
-      this.state.timer = setInterval(() => {
-        let newState = this.state;
+      setStartStopText(newS);
+      state.timer = setInterval(() => {
+        let newState = state;
         newState.number += 0.1
-        this.setState(newState);
+        setNumber(newState);
       }, 100);
 
     } else {
-      clearInterval(this.state.timer);
-      let newState = this.state;
+      clearInterval(state.timer);
+      let newState = state;
       newState.startStopText = 'Start'
       newState.timer = null;
-      this.setState(newState);
+      setStartStopText(newState);
+      setTimer(newState);
     }
   }
 
-  clearButton(){
-    clearInterval(this.state.timer);
-    let newState = this.state;
+  const clearButton = () =>{
+    clearInterval(state.timer);
+    let newState = state;
     newState.startStopText = 'Start';
     newState.timer = null;
     newState.number = 0;
-    this.setState(newState)
+    setStartStopText(newState);
+    setTimer(newState);
+    setState(newState)
   }
 
-  render(){
-    return(
-      <View style={styles.body}>
-        <View style={styles.container}>
-            <Text style= {styles.counterText}>{this.state.number.toFixed(1)}</Text>
-            
-            <View style= {styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={this.startStopButton}>
-                    <Text style={styles.buttonText}>{this.state.startStopText} </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.clearButton}>
-                    <Text style={styles.buttonText}>Clear</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-        <View style={styles.footer}>
-            <Text style={styles.footerText}>CheckYourLife</Text>
-        </View>
+  return(
+    <View style={styles.body}>
+      <View style={styles.container}>
+          <Text style= {styles.counterText}>{state.number.toFixed(1)}</Text>
+          
+          <View style= {styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={startStopButton}>
+                  <Text style={styles.buttonText}>{state.startStopText} </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={clearButton}>
+                  <Text style={styles.buttonText}>Clear</Text>
+              </TouchableOpacity>
+          </View>
+      </View>
+      <View style={styles.footer}>
+          <Text style={styles.footerText}>CheckYourLife</Text>
+      </View>
 
-        <View style = {styles.TextCr}>
-          <Switch onValueChange={this.toggleSwitch}
-                  value={this.state.toggled}/>
-          <Text style={styles.footerText}>{this.state.toggled? "Temporizador" : "Cronometro"}</Text>
-        </View>
-        
+      <View style = {styles.TextCr}>
+        <Switch onValueChange={toggleSwitch}
+                value={state.toggled}/>
+                OnPress = {() => {
+                  navigation.navigate('RelojT')
+                }}
+        <Text style={styles.footerText}>{state.toggled? "Temporizador" : "Cronometro"}</Text>
       </View>
       
-    );
-  }
+    </View>
+    
+  );
 
 }
 
@@ -140,3 +139,5 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     }
 })
+
+export default Reloj;
