@@ -18,12 +18,15 @@ const comunidad = ({navigation}) => {
     }
   ];
 
-
+  const onPress = ()=> navigation.navigate('CHAT')
+  
   const Item = ({ title }) => (
     <View style={styles.item} >
-      <TouchableOpacity >
+      <TouchableOpacity 
+        onPress={onPress}
+      >
         <Icon1 name="person" style={styles.icon1}>  </Icon1>
-        <Text style={styles.title} onPress={navigation.navigate('CHAT')} >{title}  </Text>
+        <Text style={styles.title}  >{title}  </Text>
 
       </TouchableOpacity>
     </View>
