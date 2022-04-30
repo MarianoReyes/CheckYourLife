@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar, TouchableOpacity} from "react-native";
-import Icon1 from "react-native-vector-icons/MaterialIcons";
-
+import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar} from "react-native";
+import Icon1 from "react-native-vector-icons/AntDesign";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const comunidad = ({navigation}) => {
@@ -20,17 +20,20 @@ const comunidad = ({navigation}) => {
   const onPress = ()=> navigation.navigate('CHAT')
 
   const Item = ({ title }) => (
-    <View style={styles.item} >
-      <TouchableOpacity 
-        onPress={onPress}
-      >
-        <Icon1 name="person" style={styles.icon1} >  </Icon1>
+    
+      <TouchableOpacity  onPress={onPress}>
+      <View style={styles.boton}>
+        <View style={styles.persona} >
+          <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+        </View>
 
-        <Text style={styles.title}  >{title}  </Text>
-
+        <View style={styles.grupo}>
+          <  Text style={styles.title}  >{title}  </Text>
+        </View>
+      </View>  
       </TouchableOpacity>
-    </View>
-  );
+    
+ );
 
 
 
@@ -59,29 +62,37 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight,
     marginLeft: 15,
     marginRight:15,
-    flexDirection:'row',
-    alignContent:'center'
+    justifyContent:'flex-start'
   },
-  item: {
-    backgroundColor: "#E6E6E6",
-    marginVertical: 8,
+  persona: {
+    justifyContent:'flex-start'
   },
 
   header: {
     fontSize: 32,
-    backgroundColor: "#398AB9",
+    backgroundColor: "#14279B",
     textAlign: 'center',
     color: "#F5F5F5"
   },
   title: {
-    fontSize: 34,
-    textAlign:'center',
+    fontSize: 35,
+    justifyContent:'flex-start',
+    alignItems:'center',
+    color:'white'
 
   },
   icon1: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 60,
-
+    color: "white",
+    fontSize: 40,
+    
+    },
+  grupo: {
+    margin: 'auto'
+    },
+  boton: {
+    flexDirection:'row',
+    backgroundColor: "#5C7AEA",
+    marginVertical: 5,  
   }
 
 });
