@@ -8,11 +8,11 @@ const comunidad = ({navigation}) => {
 
   const DATA = [
     {
-      title: "Grupos Recientes",
+      title: "----- Grupos Recientes -----",
       data: ["Cumpleaños de Sara","Despensa","Fiesta Juanca", "Tarea de Estadistica", "Hoja de Trabajo BD"]
     },
     {
-      title: "Todos los Grupos",
+      title: "----- Todos los Grupos -----",
       data: ["Arreglos Florales", "Asistencia Charla WEB", "Animación y Efectos", "Bienvenida estudiantes","Clase Estadistica","Curso de verano","Cumpleaños Sara","Despensa","Fiesta Juanca","Hoja de Trabajo BD","Tarea de Estadistica","Union de departamentos"]
     }
   ];
@@ -69,10 +69,12 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    fontSize: 32,
-    backgroundColor: "#14279B",
+    fontSize: 35,
+    fontWeight:"bold",
+    backgroundColor: "#005C97",
     textAlign: 'center',
-    color: "#F5F5F5"
+    color: "#F5F5F5",
+ 
   },
   title: {
     fontSize: 35,
@@ -84,15 +86,21 @@ const styles = StyleSheet.create({
   icon1: {
     color: "white",
     fontSize: 40,
+    marginTop: 14,
+    marginBottom:14
     
     },
   grupo: {
-    margin: 'auto'
+    margin: 'auto',
+    marginTop: 14,
+    marginBottom:14
     },
   boton: {
     flexDirection:'row',
-    backgroundColor: "#5C7AEA",
-    marginVertical: 5,  
+    backgroundColor: "#094a96",
+    marginVertical: 7,  
+    borderRadius: 10,
+    
   }
 
 });

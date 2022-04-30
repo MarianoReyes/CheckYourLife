@@ -29,7 +29,7 @@ function chat(props) {
         </TouchableOpacity>
         
       </View>
-      <View style={{ flex: 2, backgroundColor: "#5C7AEA" }} />
+      <View style={{ flex: 2, backgroundColor: "#005C97", borderRadius:10, margin:5 }} />
       <View style={styles.foot}>
         
         <View style={styles.escribir}>
@@ -48,12 +48,14 @@ function chat(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 5,
+    margin: 10,
     justifyContent: "space-between",
   },
   head: {
     flexDirection:'row',
-    backgroundColor: "#3D56B2",
+    backgroundColor: "#080872",
+    margin:8,
+    borderRadius:10
 
   },
   enviar: {
@@ -63,7 +65,9 @@ const styles = StyleSheet.create({
   },
   foot: {
     flexDirection:'row',
-    backgroundColor: "#14279B",
+    backgroundColor: "#094a96",
+    borderRadius:8,
+    margin:10,
   },
   task: {
     color: "white",
