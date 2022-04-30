@@ -1,47 +1,54 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar, TouchableOpacity} from "react-native";
+import { Button } from "react-native-elements";
 import Icon1 from "react-native-vector-icons/MaterialIcons";
 
 
 
+const comunidad = ({navigation}) => {
 
-const DATA = [
-  {
-    title: "Grupos Recientes",
-    data: ["Cumpleaños de Sara","Despensa","Fiesta Juanca", "Tarea de Estadistica", "Hoja de Trabajo BD"]
-  },
-  {
-    title: "Todos los Grupos",
-    data: ["Arreglos Florales", "Asistencia Charla WEB", "Animación y Efectos", "Bienvenida estudiantes","Clase Estadistica","Curso de verano","Cumpleaños Sara","Despensa","Fiesta Juanca","Hoja de Trabajo BD","Tarea de Estadistica","Union de departamentos"]
-  }
-];
-
-
-const Item = ({ title }) => (
-  <View style={styles.item}>
-     <TouchableOpacity >
-     <Icon1 name="person" style={styles.icon1}>  </Icon1>
-     <Text style={styles.title}>{title}  </Text>
-     
-     
-    </TouchableOpacity>
-  </View>
-);
+  const DATA = [
+    {
+      title: "Grupos Recientes",
+      data: ["Cumpleaños de Sara","Despensa","Fiesta Juanca", "Tarea de Estadistica", "Hoja de Trabajo BD"]
+    },
+    {
+      title: "Todos los Grupos",
+      data: ["Arreglos Florales", "Asistencia Charla WEB", "Animación y Efectos", "Bienvenida estudiantes","Clase Estadistica","Curso de verano","Cumpleaños Sara","Despensa","Fiesta Juanca","Hoja de Trabajo BD","Tarea de Estadistica","Union de departamentos"]
+    }
+  ];
 
 
-const comunidad = () => (
-  <SafeAreaView style={styles.container}>
-    <SectionList
-      sections={DATA}
-      keyExtractor={(item, index) => item + index}
-      renderItem={({ item }) => <Item title={item} />}
-      renderSectionHeader={({ section: { title } }) => (
-        <Text style={styles.header}>{title}</Text>
-      )}
-      
-    />
-  </SafeAreaView>
-);
+  const Item = ({ title }) => (
+    <View style={styles.item} >
+      <TouchableOpacity >
+        <Icon1 name="person" style={styles.icon1}>  </Icon1>
+        <Text style={styles.title} onPress={navigation.navigate('CHAT')} >{title}  </Text>
+
+      </TouchableOpacity>
+    </View>
+  );
+
+
+
+
+    return(
+
+      <SafeAreaView style={styles.container}>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({ item }) => <Item title={item} />}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text style={styles.header}>{title}</Text>
+        )}
+        
+      />
+    </SafeAreaView>
+
+    )
+  
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +58,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "#E6E6E6",
-    padding: 20,
+    padding: 10,
     marginVertical: 8
   },
 
@@ -66,16 +73,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
 
   },
-  icon: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 60,
-    position: "absolute",
-
-  },
   icon1: {
     color: "rgba(128,128,128,1)",
     fontSize: 60,
-    position: "absolute",
+    alignContent: "left",
+
+  },
+  boton: {
+    color:'black',
+    fontSize: 60,
+    alignContent: "left",
 
   },
 
