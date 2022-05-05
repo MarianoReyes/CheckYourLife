@@ -50,13 +50,6 @@ const Finanzas = () => {
     return previous + current;
   }, 0);
   
-
-
-  
-
-  const tableHead = ['Gastos', 'Ingresos']
-
-
   
 
   const MyBarChart = () => {
@@ -158,8 +151,15 @@ const Finanzas = () => {
         <MyPieChart />
       </View>
 
-      <View style={styles.container}>
-        
+      <View style={styles.flex}>
+        <View>
+          <Text style={styles.border}>Ingresos</Text>
+          {ingresosData.map((ingreso) => <Text style={styles.border} >{ingreso}</Text>)}
+        </View>
+        <View>
+          <Text style={styles.border}>Gastos</Text>
+          {gastosData.map((gasto) => <Text style={styles.border}>{gasto}</Text>)}
+        </View>
       </View>
       
       
@@ -180,6 +180,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 20,
+  },
+  flex: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+    flex: 1,
+    flexDirection: 'row'
   },
   botones:{
     flex: 1,
@@ -221,7 +228,13 @@ const styles = StyleSheet.create({
     width: '85%'
   },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 }
+  text: { margin: 6 },
+  border: {
+    borderWidth: 1,
+    borderColor: "black",
+    padding: 20,
+    alignSelf: 'stretch',
+  },
 });
 
 
