@@ -24,6 +24,12 @@ const Reloj = ({navigation}) => {
         console.log(number)
       }, 100));
 
+      /*useEffect(() => {
+        setTimeout(() => {
+          setNumber((number) => number + 1);
+        }, 1000);
+      });*/
+
     } else {
       clearInterval(timer);
       setStartStopText('Start');
@@ -35,6 +41,7 @@ const Reloj = ({navigation}) => {
     clearInterval(timer);
     setStartStopText('Start');
     setTimer(null);
+    setNumber(0);
   }
 
   //startStopButton();
