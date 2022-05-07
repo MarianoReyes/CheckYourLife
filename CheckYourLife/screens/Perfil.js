@@ -8,10 +8,36 @@ import { signOut } from "firebase/auth";
 import { ScrollView } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Platform } from 'react-native';
+import { useAuth, upload } from "../firebase"
+import { useEffect, useState } from "react";
 
 
 const Perfil = () => {
 
+
+  //Manejar imagen del usuario
+  const currentUser = useAuth();
+  const [photo, setPhoto] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
+
+  function handleChange(e) {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0])
+    }
+  }
+
+  function handleClick() {
+    upload(photo, currentUser, setLoading);
+  }
+
+  useEffect(() => {
+    if (currentUser?.photoURL) {
+      setPhotoURL(currentUser.photoURL);
+    }
+  }, [currentUser])
+
+  // Salir de cuenta
   async function handleSignOut(){
     signOut(auth)
   }
@@ -25,6 +51,13 @@ const Perfil = () => {
         <View> 
         </View>
         </LinearGradient>
+        
+        <div className="fields">
+          <input type="file" onChange={handleChange} />
+          <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
+          <img src={photoURL} alt="Avatar" className="avatar" />
+        </div>
+
         <View style={{alignItems:'center'}}>
           <Image source={require('../assets/PerfilTemp.png')} style={{width:140,height:140,borderRadius:100,marginTop:-70}}/>
         </View>
@@ -105,5 +138,12 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     height: 70,
     width: Platform.OS === 'web' ? "90%": 350,
+  },
+  avatar : {
+    alignItems: 'center',
+    width:140,
+    height:140,
+    borderRadius:100,
+    marginTop:-70
   }
 })
