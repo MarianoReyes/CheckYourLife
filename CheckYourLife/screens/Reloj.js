@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Switch, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 
@@ -10,28 +10,29 @@ const Reloj = ({navigation}) => {
     setToggled({toggled:value})
   } 
 
-  const [timer, setTimer] = useState(null)
+  const [timer, setTimer] = useState(false)
   const [number, setNumber] = useState(0)
   const [startStopText, setStartStopText] = useState('Start')
   
-  const startStopButton = () =>{
-    
-    //Boton para iniciar el cronometro
-    if(timer == null){
-      setStartStopText('Stop');
-      setTimer(setInterval(() => {
-        setNumber(number + 0.1)
-        console.log(number)
-      }, 100));
+  useEffect(() => {
+    if(timer){
+      setTimeout(() => {
+        setNumber(number + 0.01);
+      }, 10);
+    }
+  });
 
-      /*useEffect(() => {
-        setTimeout(() => {
-          setNumber((number) => number + 1);
-        }, 1000);
-      });*/
+  
+
+  const startStopButton = () =>{
+
+    //Boton para iniciar el cronometro
+    if(!timer){
+      setStartStopText('Stop');
+      setTimer(true);
 
     } else {
-      clearInterval(timer);
+      clearInterval(number);
       setStartStopText('Start');
       setTimer(null);
     }
@@ -50,7 +51,7 @@ const Reloj = ({navigation}) => {
   return(
     <View style={styles.body}>
       <View style={styles.container}>
-          <Text style= {styles.counterText}>{number}</Text>
+          <Text style= {styles.counterText}>{number.toFixed(2)}</Text>
           
           <View style= {styles.buttonContainer}>
               <TouchableOpacity style={styles.button} onPress={() => {startStopButton()}}>
