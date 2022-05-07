@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar} from "react-native";
 import Icon1 from "react-native-vector-icons/AntDesign";
+import Estrella from "react-native-vector-icons/AntDesign";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 
@@ -8,7 +9,7 @@ const comunidad = ({navigation}) => {
 
   const DATA = [
     {
-      title: "----- Grupos Recientes -----",
+      title: "----- Favoritos -----",
       data: ["Cumpleaños de Sara","Despensa","Fiesta Juanca", "Tarea de Estadistica", "Hoja de Trabajo BD"]
     },
     {
@@ -21,17 +22,22 @@ const comunidad = ({navigation}) => {
 
   const Item = ({ title }) => (
     
-      <TouchableOpacity  onPress={onPress}>
+      
       <View style={styles.boton}>
         <View style={styles.persona} >
-          <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+          <Estrella name="staro" style={styles.icon1} >  </Estrella>
         </View>
 
         <View style={styles.grupo}>
-          <  Text style={styles.title}  >{title}  </Text>
+            <  Text style={styles.title}  >{title}  </Text>
         </View>
+        <TouchableOpacity  onPress={onPress}>
+        <View style={styles.persona} >
+          <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+        </View>
+        </TouchableOpacity>
       </View>  
-      </TouchableOpacity>
+      
     
  );
 
@@ -65,7 +71,8 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start'
   },
   persona: {
-    justifyContent:'flex-start'
+    justifyContent:'flex-start',
+    alignItems:'flex-end'
   },
 
   header: {
@@ -87,7 +94,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 40,
     marginTop: 14,
-    marginBottom:14
+    marginBottom:14,
+    alignItems:'flex-end'
     
     },
   grupo: {
