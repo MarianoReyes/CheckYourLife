@@ -53,7 +53,7 @@ const Perfil = () => {
         </LinearGradient>
 
         <div className="fields">
-          <input type="file" onChange={handleChange} />
+          <input type="file" onChange={handleChange} />  
           <button disabled={loading || !photo} onClick={handleClick}>Cambiar Foto de Perfil</button>
         </div>
         <View style={{alignItems:'center'}}>
@@ -140,5 +140,6 @@ const styles = StyleSheet.create({
   fields : {
     margin: 50,
     screenLeft : '10%',
-  }
+  },
+
 })
