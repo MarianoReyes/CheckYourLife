@@ -51,15 +51,13 @@ const Perfil = () => {
         <View> 
         </View>
         </LinearGradient>
-        
+
         <div className="fields">
           <input type="file" onChange={handleChange} />
-          <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
-          <img src={photoURL} alt="Avatar" className="avatar" />
+          <button disabled={loading || !photo} onClick={handleClick}>Cambiar Foto de Perfil</button>
         </div>
-
         <View style={{alignItems:'center'}}>
-          <Image source={require('../assets/PerfilTemp.png')} style={{width:140,height:140,borderRadius:100,marginTop:-70}}/>
+          <img src={photoURL} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
         </View>
         <View style={styles.container}>
           <Text>Email: {auth.currentUser?.email}</Text>
@@ -139,11 +137,8 @@ const styles = StyleSheet.create({
     height: 70,
     width: Platform.OS === 'web' ? "90%": 350,
   },
-  avatar : {
-    alignItems: 'center',
-    width:140,
-    height:140,
-    borderRadius:100,
-    marginTop:-70
+  fields : {
+    margin: 50,
+    screenLeft : '10%',
   }
 })
