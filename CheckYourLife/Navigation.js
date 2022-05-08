@@ -14,7 +14,7 @@ import comunidad from "./screens/comunidad";
 import LoginScreen from "./screens/Login";
 import addTask from "./screens/addTask"
 import HomeScreen from "./screens/HomeScreen";
-import chat from "./screens/chat";
+
 
 const TAB = createBottomTabNavigator();
 const STACK = createStackNavigator();
