@@ -15,7 +15,7 @@ import LoginScreen from "./screens/Login";
 import addTask from "./screens/addTask"
 import HomeScreen from "./screens/HomeScreen";
 import Perfil from "./screens/Perfil";
-
+import chat from "./screens/chat";
 
 const TAB = createBottomTabNavigator();
 const STACK = createStackNavigator();
