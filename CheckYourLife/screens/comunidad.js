@@ -1,64 +1,62 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, StatusBar} from "react-native";
 import Icon1 from "react-native-vector-icons/AntDesign";
 import Estrella from "react-native-vector-icons/AntDesign";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 
 
 const comunidad = ({navigation}) => {
-
+  
   const DATA = [
     {
       title: "Cumpleaños de Sara",
-      favorito: false
+      
+      
     },
     {
       title: "Asistencia Charla WEB",
-      favorito: false
     }
   ];
-
+  
   const onPress = ()=> navigation.navigate('CHAT')
-
-  const Item = ({ title }) => (
+  
+  
+  const Item = ({ item }) => (
     
       
-      <View style={styles.boton}>
-        <View style={styles.persona} >
-          <Estrella name="staro" style={styles.icon1} >  </Estrella>
-        </View>
+    <View style={styles.boton}>
+      <View style={styles.persona} >
+        <Estrella name="staro" style={styles.icon1} >  </Estrella>
+      </View>
 
-        <View style={styles.grupo}>
-            <  Text style={styles.title}  >{title}  </Text>
-        </View>
-        <TouchableOpacity  onPress={onPress}>
-        <View style={styles.persona} >
-          <Icon1 name="message1" style={styles.icon1} >  </Icon1>
-        </View>
-        </TouchableOpacity>
-      </View>  
+      <View style={styles.grupo}>
+          <Text style={styles.titles} >{item.title}  </Text>
+      </View>
+      <TouchableOpacity  onPress={onPress}>
+      <View style={styles.persona} >
+        <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+      </View>
+      </TouchableOpacity>
+    </View>  
+  
+  );
+
+
+  return(
+
+    <SafeAreaView style={styles.container}>
+    <FlatList
+      data={DATA}
+      keyExtractor={(item,index) => item + index}
+      renderItem={Item}
+      //renderSectionHeader={({ section: { title } }) => (
+      //  <Text style={styles.header}>{title}</Text>
+      //)}
       
-    
- );
+    />
+  </SafeAreaView>
 
-
-
-
-    return(
-
-      <SafeAreaView style={styles.container}>
-      <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => <Item title={item} />}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
-        
-      />
-    </SafeAreaView>
-
-    )
+  )
   
 }
 
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
     color: "#F5F5F5",
  
   },
-  title: {
+  titles: {
     fontSize: 35,
     justifyContent:'flex-start',
     alignItems:'center',
