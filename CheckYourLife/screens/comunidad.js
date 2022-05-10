@@ -1,42 +1,64 @@
-import React from "react";
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, StatusBar} from "react-native";
 import Icon1 from "react-native-vector-icons/AntDesign";
-import Estrella from "react-native-vector-icons/AntDesign";
+import Ex from "react-native-vector-icons/Feather";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { Button } from "react-native-elements";
 
 
 const comunidad = ({navigation}) => {
   
-  const DATA = [
+  const [DATA, changeEl]  = useState([
     {
       title: "Cumpleaños de Sara",
+      id:'0'
       
       
     },
     {
       title: "Asistencia Charla WEB",
+      id: '1'
     }
-  ];
+  ]);
   
+
+  
+  const [exampleState, setExampleState] = useState(DATA);
+  const [idx, incr] = useState(2);
+  
+
+  const addElement = () => {
+    const newArray = [...DATA , {id : idx, title: "Object " + (idx+1) }];
+    incr(idx + 1);
+    console.log(DATA.length);
+    setExampleState(newArray);
+    changeEl(newArray);
+  }
+
   const onPress = ()=> navigation.navigate('CHAT')
   
+
   
   const Item = ({ item }) => (
     
       
     <View style={styles.boton}>
-      <View style={styles.persona} >
-        <Estrella name="staro" style={styles.icon1} >  </Estrella>
-      </View>
+      
 
       <View style={styles.grupo}>
           <Text style={styles.titles} >{item.title}  </Text>
       </View>
       <TouchableOpacity  onPress={onPress}>
-      <View style={styles.persona} >
-        <Icon1 name="message1" style={styles.icon1} >  </Icon1>
-      </View>
+        <View style={styles.persona} >
+          <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+        </View>
       </TouchableOpacity>
+      <TouchableOpacity  >
+        <View style={styles.persona} >
+          <Ex name="x-circle" style={styles.icon1} >  </Ex>
+        </View>
+      </TouchableOpacity>
+      
     </View>  
   
   );
@@ -45,15 +67,24 @@ const comunidad = ({navigation}) => {
   return(
 
     <SafeAreaView style={styles.container}>
+      
     <FlatList
-      data={DATA}
-      keyExtractor={(item,index) => item + index}
+      data={exampleState}
+      keyExtractor={(item) => item.id}
       renderItem={Item}
-      //renderSectionHeader={({ section: { title } }) => (
-      //  <Text style={styles.header}>{title}</Text>
-      //)}
+      
       
     />
+  
+    <View style= {styles.foot}>
+      <View style= {styles.agregar}>
+        
+        <Text style={styles.ingreso} > Crear Nuevo Grupo</Text>
+        <Button onPress={addElement}></Button>
+       
+      </View>
+      
+    </View>
   </SafeAreaView>
 
   )
@@ -82,7 +113,7 @@ const styles = StyleSheet.create({
  
   },
   titles: {
-    fontSize: 35,
+    fontSize: 25,
     justifyContent:'flex-start',
     alignItems:'center',
     color:'white'
@@ -107,6 +138,23 @@ const styles = StyleSheet.create({
     marginVertical: 7,  
     borderRadius: 10,
     
+  },
+  foot:{
+    flexDirection:'row',
+    backgroundColor: "#094a96",
+    borderRadius:8,
+    margin:10,
+
+  },
+  agregar:{
+    margin: 'auto'
+  },
+  ingreso:{
+    color: "white",
+    fontSize: 20,
+    alignSelf:'flex-starts',
+    alignSelf:'center',
+    alignContent:'center'
   }
 
 });
