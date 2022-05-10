@@ -9,12 +9,12 @@ const comunidad = ({navigation}) => {
 
   const DATA = [
     {
-      title: "----- Favoritos -----",
-      data: ["Cumpleaños de Sara","Despensa","Fiesta Juanca", "Tarea de Estadistica", "Hoja de Trabajo BD"]
+      title: "Cumpleaños de Sara",
+      favorito: false
     },
     {
-      title: "----- Todos los Grupos -----",
-      data: ["Arreglos Florales", "Asistencia Charla WEB", "Animación y Efectos", "Bienvenida estudiantes","Clase Estadistica","Curso de verano","Cumpleaños Sara","Despensa","Fiesta Juanca","Hoja de Trabajo BD","Tarea de Estadistica","Union de departamentos"]
+      title: "Asistencia Charla WEB",
+      favorito: false
     }
   ];
 
