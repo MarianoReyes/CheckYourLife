@@ -40,17 +40,15 @@ const Finanzas = () => {
   const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
   const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
 
-  let sumIngreso = ingresosData.map((ingreso) => ingreso)
+  const[sumIngreso, setSumIngreso] = useState(ingresosData.map((ingreso) => ingreso)
   .reduce((previous, current) => {
     return previous + current;
-  }, 0);
+  }, 0))
 
-  let sumGasto = gastosData.map((gasto) => gasto)
+  const[sumGasto, setSumGasto] = useState(gastosData.map((gasto) => gasto)
   .reduce((previous, current) => {
     return previous + current;
-  }, 0);
-  
-  
+  }, 0))
 
   const MyBarChart = () => {
     return (
