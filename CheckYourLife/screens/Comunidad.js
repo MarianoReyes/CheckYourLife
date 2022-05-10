@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, StatusBar} from "react-native";
 import Icon1 from "react-native-vector-icons/AntDesign";
 import Ex from "react-native-vector-icons/Feather";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
-import { Button } from "react-native-elements";
+import Ag from "react-native-vector-icons/Ionicons";
+import { FlatList, State, TextInput, TouchableOpacity } from "react-native-gesture-handler";
+;
+
 
 
 const comunidad = ({navigation}) => {
@@ -28,23 +30,34 @@ const comunidad = ({navigation}) => {
   
 
   const addElement = () => {
-    const newArray = [...DATA , {id : idx, title: "Object " + (idx+1) }];
+
+    const newArray = [...DATA , {id : idx, title:grupo }];
     incr(idx + 1);
-    console.log(DATA.length);
     setExampleState(newArray);
     changeEl(newArray);
+    
   }
+
+
+
+  const deleteElement = (id)=>{
+   
+    const temp = exampleState.filter(item => item.id!== id);
+     setExampleState(temp);
+     changeEl(temp);
+    
+  }
+
+  const [grupo,setGrupo]= useState();
 
   const onPress = ()=> navigation.navigate('CHAT')
   
 
-  
-  const Item = ({ item }) => (
+  const Item = ({ item, }) => (
     
       
     <View style={styles.boton}>
       
-
       <View style={styles.grupo}>
           <Text style={styles.titles} >{item.title}  </Text>
       </View>
@@ -53,9 +66,9 @@ const comunidad = ({navigation}) => {
           <Icon1 name="message1" style={styles.icon1} >  </Icon1>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity  >
+      <TouchableOpacity  onPress={() => deleteElement(item.id)}>
         <View style={styles.persona} >
-          <Ex name="x-circle" style={styles.icon1} >  </Ex>
+          <Ex name="x-circle" style={styles.icon2} >  </Ex>
         </View>
       </TouchableOpacity>
       
@@ -72,17 +85,23 @@ const comunidad = ({navigation}) => {
       data={exampleState}
       keyExtractor={(item) => item.id}
       renderItem={Item}
-      
-      
+       
     />
   
     <View style= {styles.foot}>
       <View style= {styles.agregar}>
         
-        <Text style={styles.ingreso} > Crear Nuevo Grupo</Text>
-        <Button onPress={addElement}></Button>
-       
+        <TextInput style={styles.ingreso} placeholder={'Crear Nuevo Grupo'}   value={grupo} onChangeText={text => setGrupo(text)}/>
+        
       </View>
+      <TouchableOpacity onPress={addElement} >
+        <View style={styles.botonag}>
+          <Ag name="ios-add-circle-outline" style={styles.icon1} >  </Ag>
+        </View>
+      </TouchableOpacity>
+        
+       
+      
       
     </View>
   </SafeAreaView>
@@ -127,6 +146,14 @@ const styles = StyleSheet.create({
     alignItems:'flex-end'
     
     },
+    icon2: {
+      color: "white",
+      fontSize: 40,
+      marginTop: 14,
+      marginBottom:14,
+      alignItems:'flex-end'
+      
+    },
   grupo: {
     margin: 'auto',
     marginTop: 14,
@@ -147,7 +174,8 @@ const styles = StyleSheet.create({
 
   },
   agregar:{
-    margin: 'auto'
+    margin: 'auto',
+    flexDirection:'row',
   },
   ingreso:{
     color: "white",
@@ -155,6 +183,9 @@ const styles = StyleSheet.create({
     alignSelf:'flex-starts',
     alignSelf:'center',
     alignContent:'center'
+  },
+  botonag:{
+    alignSelf:'flex-end'
   }
 
 });
