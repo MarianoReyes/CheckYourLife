@@ -1,14 +1,10 @@
+import { CardStyleInterpolators } from '@react-navigation/stack';
 import React, {useState, useEffect} from 'react';
-import {Switch, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Temporizador from "react-native-vector-icons/Entypo";
 
 
 const Reloj = ({navigation}) => {
-  
-  const [toggled, setToggled] = useState(false)
-
-  const toggleSwitch = (value) => {
-    setToggled({toggled:value})
-  } 
 
   const [timer, setTimer] = useState(false)
   const [number, setNumber] = useState(0)
@@ -45,36 +41,38 @@ const Reloj = ({navigation}) => {
     setNumber(0);
   }
 
+  const onPress = ()=> navigation.navigate('RelojT')
+
   //startStopButton();
   //clearButton();
 
   return(
     <View style={styles.body}>
+      <View style={styles.iconoc}>
+        <TouchableOpacity style={styles.opacidad} onPress={onPress}>
+          <Temporizador name="clock" style={styles.icono} > </Temporizador>
+        </TouchableOpacity>
+      </View>
+      
       <View style={styles.container}>
           <Text style= {styles.counterText}>{number.toFixed(2)}</Text>
-          
-          <View style= {styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => {startStopButton()}}>
-                  <Text style={styles.buttonText}>{startStopText} </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => {clearButton()}}>
-                  <Text style={styles.buttonText}>Clear</Text>
-              </TouchableOpacity>
-          </View>
       </View>
+      
+      <View style = {styles.bot}>
+        <View style= {styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => {startStopButton()}}>
+              <Text style={styles.buttonText}>{startStopText} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => {clearButton()}}>
+              <Text style={styles.buttonText}>Clear</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <View style={styles.footer}>
           <Text style={styles.footerText}>CheckYourLife</Text>
       </View>
 
-      <View style = {styles.TextCr}>
-        <Switch onValueChange={() => toggleSwitch}
-                value={toggled}
-                OnPress = {() => {
-                  navigation.navigate('RelojT')
-                }}/>
-        <Text style={styles.footerText}>{toggled? "Temporizador" : "Cronometro"}</Text>
-      </View>
-      
     </View>
     
   );
@@ -85,12 +83,12 @@ const styles = StyleSheet.create({
     body: {
       flex: 1,
       backgroundColor: '#221D41',
-       justifyContent: 'center',
+      justifyContent: 'center',
     },
 
     counterText: {
         color: '#fff',
-        fontSize: 40,
+        fontSize: 100,
         fontWeight: 'bold',
     },
 
@@ -102,20 +100,21 @@ const styles = StyleSheet.create({
     buttonContainer:{
         flexDirection: 'row',
         padding: 20,
-
     },
 
     button:{
         backgroundColor: '#331DF4',
         marginHorizontal: 15,
-        height: 40,
+        height: 70,
         justifyContent: 'center',
-        width: 75,
+        width: 140,
         alignItems: 'center',
+        top: 140
     },
 
     buttonText: {
-        color: '#fff'
+        color: '#fff',
+        fontSize: 30
     },
 
     footer: {
@@ -132,9 +131,32 @@ const styles = StyleSheet.create({
       color: '#fff'
     },
     TextCr: {
+      backgroundColor: '#331DF4',
+      marginHorizontal: 15,
+      height: 40,
+      justifyContent: 'center',
+      width: 180,
+      alignItems: 'center',
+      bottom: 120
+    },
+    TextT: {
+      color: '#fff',
+      fontSize: 20
+    },
+    iconoc: {
+      alignItems: 'flex-end',
+      justifyContent: 'flex-start'
+    },
+    icono: {
+      alignSelf: 'flex-end',
+      backgroundColor: 'white',
+
+    },
+    bot: {
       justifyContent: 'center',
       alignItems: 'center',
-    }
+  },
+
 })
 
 export default Reloj;

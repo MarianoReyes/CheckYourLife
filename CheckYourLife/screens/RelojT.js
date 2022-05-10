@@ -8,4 +8,4 @@ const RelojT = () => {
         </View>
     )
 }
-export default RelojT
+export default RelojT;
