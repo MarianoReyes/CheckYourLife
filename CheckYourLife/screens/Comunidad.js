@@ -4,8 +4,7 @@ import Icon1 from "react-native-vector-icons/AntDesign";
 import Ex from "react-native-vector-icons/Feather";
 import Ag from "react-native-vector-icons/Ionicons";
 import { FlatList, State, TextInput, TouchableOpacity } from "react-native-gesture-handler";
-;
-
+import { SearchBar } from "react-native-elements";
 
 
 const comunidad = ({navigation}) => {
@@ -25,10 +24,11 @@ const comunidad = ({navigation}) => {
   
 
   
+  
   const [exampleState, setExampleState] = useState(DATA);
   const [idx, incr] = useState(2);
   
-
+  const [search,setSearch] = useState('');
   const addElement = () => {
 
     const newArray = [...DATA , {id : idx, title:grupo }];
@@ -52,6 +52,20 @@ const comunidad = ({navigation}) => {
 
   const onPress = ()=> navigation.navigate('CHAT')
   
+  const searchFilterFunction = (text) => {
+    if(text){
+      const newData = exampleState.filter(item => {
+        const itemData = item.title ? item.title.toUpperCase() :''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setExampleState(newData);
+      setSearch(text);
+    }else{
+      setExampleState(exampleState);
+      setSearch(text);
+    }
+  }
 
   const Item = ({ item, }) => (
     
@@ -80,7 +94,18 @@ const comunidad = ({navigation}) => {
   return(
 
     <SafeAreaView style={styles.container}>
+      <View style={styles.search}>
+      <SearchBar
+      placeholder="Busca Aqui..." 
+      value={search}
+      lightTheme
+      onChangeText={(text) => searchFilterFunction(text)}
+      />
       
+      
+      </View>
+      
+
     <FlatList
       data={exampleState}
       keyExtractor={(item) => item.id}
