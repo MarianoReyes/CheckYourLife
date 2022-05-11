@@ -3,28 +3,43 @@ import { StyleSheet, View, Text } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function chat(props) {
   return (
     <View style={styles.container}>
-      <View style={styles.rect}>
-        <FeatherIcon name="send" style={styles.icon2}></FeatherIcon>
-      </View>
-      <View style={styles.rect2}>
-        <View style={styles.icon3Row}>
+      <View style={styles.head}>
+        <TouchableOpacity style={styles.opacidad}>
           <EntypoIcon
             name="text-document-inverted"
-            style={styles.icon3}
-          ></EntypoIcon>
-          <View style={styles.grupoColumn}>
-            <Text style={styles.grupo}>GRUPO</Text>
-            <Text style={styles.tareaDeEstadistica}>TAREA DE ESTADISTICA</Text>
-          </View>
+            style={styles.task}
+        ></EntypoIcon>
+        </TouchableOpacity>
+        
+        <View style={styles.grupocolumn}>
+          <Text style={styles.grupo}>GRUPO</Text>
+          <Text style={styles.tareaDeEstadistica}>TAREA DE ESTADISTICA</Text>
+        </View>
+        
+        <TouchableOpacity style={styles.opacidad}>
           <MaterialCommunityIconsIcon
             name="account-supervisor"
-            style={styles.icon}
+            style={styles.personas}
           ></MaterialCommunityIconsIcon>
+        </TouchableOpacity>
+        
+      </View>
+      <View style={{ flex: 2, backgroundColor: "#005C97", borderRadius:10, margin:5 }} />
+      <View style={styles.foot}>
+        
+        <View style={styles.escribir}>
+          <Text style={styles.mensaje}>Escribe aquí tu mensaje. . .</Text>
         </View>
+        <TouchableOpacity style={styles.opacidad}>
+          <FeatherIcon name="send" style={styles.enviar}></FeatherIcon>
+        </TouchableOpacity>
+       
+        
       </View>
     </View>
   );
@@ -32,59 +47,67 @@ function chat(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    margin: 10,
+    justifyContent: "space-between",
   },
-  rect: {
-    backgroundColor: "#E6E6E6",
-    marginTop: 666,
-    alignSelf: "center"
+  head: {
+    flexDirection:'row',
+    backgroundColor: "#080872",
+    margin:8,
+    borderRadius:10
+
   },
-  icon2: {
-    color: "rgba(128,128,128,1)",
+  enviar: {
+    color: "white",
     fontSize: 40,
-    
-    marginTop: 13,
-    marginLeft: 1197
+    alignSelf:'center'
   },
-  rect2: {
-    
-    backgroundColor: "#E6E6E6",
-    marginTop: -689,
-    marginLeft: 101
+  foot: {
+    flexDirection:'row',
+    backgroundColor: "#094a96",
+    borderRadius:8,
+    margin:10,
   },
-  icon3: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 69,
-    
+  task: {
+    color: "white",
+    fontSize: 60,
+    alignSelf:'center'
   },
   grupo: {
-    fontFamily: "roboto-regular",
-    color: "#121212",
-    fontSize: 25,
-    marginLeft: 192
+    color: "white",
+    fontSize: 35,
+    alignSelf:'center',
+
+
   },
   tareaDeEstadistica: {
-    fontFamily: "roboto-regular",
-    color: "#121212",
-    fontSize: 43
+    color: "white",
+    fontSize: 20,
+    alignSelf:'flex-starts',
+    alignSelf:'center',
+    alignContent:'center'
   },
-  grupoColumn: {
-    
-    marginLeft: 270,
-    marginTop: 2
+  personas: {
+    color: "white",
+    fontSize: 60,
+    alignSelf:'center'
   },
-  icon: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 69,
-    
-    marginLeft: 260
+  grupocolumn: {
+    margin: 'auto'
   },
-  icon3Row: {
-    
-    flexDirection: "row",
-    marginTop: 15,
-    marginLeft: 10,
-    marginRight: 20
+  mensaje: {
+    color: "white",
+    fontSize: 20,
+    alignSelf:'flex-starts',
+    alignSelf:'center',
+    alignContent:'center'
+  },
+  escribir: {
+    margin: 'auto'
+  },
+  opacidad: {
+    margin: 'auto'
   }
 });
 

@@ -10,11 +10,12 @@ import { MaterialCommunityIcons, Ionicons, FontAwesome5, Entypo} from "@expo/vec
 import toDoList from "./screens/toDoList";
 import Finanzas from "./screens/Finanzas";
 import timeTracker from "./screens/Reloj";
-import Comunidad from "./screens/comunidad";
+import comunidad from "./screens/comunidad";
 import LoginScreen from "./screens/Login";
 import addTask from "./screens/addTask"
 import HomeScreen from "./screens/HomeScreen";
 import Perfil from "./screens/Perfil";
+import chat from "./screens/chat";
 
 const TAB = createBottomTabNavigator();
 const STACK = createStackNavigator();
@@ -69,7 +70,7 @@ function MyTabs() {
                     
                 }
             }}
-            name="Comunidad" component={Comunidad}></TAB.Screen>
+            name="Comunidad" component={COmunidad}></TAB.Screen>
             <TAB.Screen
             options={{
                 tabBarIcon: () => (
@@ -119,6 +120,14 @@ const todolist = () =>{
             fontWeight: 'bold',
           },
         }} name='AddItem' component={addTask} />
+    </STACK.Navigator>)
+}
+
+const COmunidad = () =>{
+    return (
+    <STACK.Navigator>
+        <STACK.Screen options={{headerShown: false}} name='COMUNIDAD' component={comunidad} />
+        <STACK.Screen options={{headerShown: false}} name='CHAT' component={chat} />
     </STACK.Navigator>)
 }
 
