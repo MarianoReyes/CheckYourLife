@@ -60,7 +60,7 @@ const chat = () => {
     onSend={messages => onSend(messages)}
     user={{
       _id: auth?.currentUser?.email,
-      avatar: 'https://i.pravatar.cc/300'
+      avatar: auth?.currentUser?.photoURL,
     }}
     showAvatarForEveryMessage={'true'}
     showUserAvatar={'true'}
