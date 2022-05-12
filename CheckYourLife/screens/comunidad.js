@@ -5,9 +5,16 @@ import Ex from "react-native-vector-icons/Feather";
 import Ag from "react-native-vector-icons/Ionicons";
 import { FlatList, State, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { SearchBar } from "react-native-elements";
+import { color } from 'react-native-elements/dist/helpers';
 
 
 const comunidad = ({navigation}) => {
+
+  const [grupo,setGrupo]= useState();
+  const onPress = ()=> navigation.navigate('CHAT')
+  const [exampleState, setExampleState] = useState(DATA);
+  const [idx, incr] = useState(2);
+  const [search,setSearch] = useState('');
   
   const [DATA, changeEl]  = useState([
     {
@@ -22,13 +29,8 @@ const comunidad = ({navigation}) => {
     }
   ]);
   
-
   
   
-  const [exampleState, setExampleState] = useState(DATA);
-  const [idx, incr] = useState(2);
-  
-  const [search,setSearch] = useState('');
   const addElement = () => {
 
     const newArray = [...DATA , {id : idx, title:grupo }];
@@ -47,10 +49,6 @@ const comunidad = ({navigation}) => {
      changeEl(temp);
     
   }
-
-  const [grupo,setGrupo]= useState();
-
-  const onPress = ()=> navigation.navigate('CHAT')
   
   const searchFilterFunction = (text) => {
     /** 
@@ -76,74 +74,79 @@ const comunidad = ({navigation}) => {
      return (
       <View style={styles.boton}>
       
-      <View style={styles.grupo}>
-          <Text style={styles.titles} >{item.title}  </Text>
-      </View>
-      <TouchableOpacity  onPress={onPress}>
-        <View style={styles.persona} >
-          <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+        <View style={styles.grupo}>
+            <Text style={styles.titles} >{item.title}  </Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity  onPress={() => deleteElement(item.id)}>
-        <View style={styles.persona} >
-          <Ex name="x-circle" style={styles.icon2} >  </Ex>
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity  onPress={onPress}>
+          <View style={styles.persona} >
+            <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity  onPress={() => deleteElement(item.id)}>
+          <View style={styles.persona} >
+            <Ex name="x-circle" style={styles.icon2} >  </Ex>
+          </View>
+        </TouchableOpacity>
       
-    </View>  
+      </View>  
      ) 
     
   
-     }
+  }
 
 
   return(
 
     <SafeAreaView style={styles.container}>
-      <View style={styles.search}>
-      <SearchBar
-      placeholder="Busca Aqui..." 
-      value={search}
-      lightTheme
-      onChangeText={(text) => searchFilterFunction(text)}
-      />
+      <View >
+        <SearchBar
+        style={styles.search}
+        placeholder="Busca Aqui..." 
+        placeholderTextColor={'#094a96'}
+        value={search}
+        inputContainerStyle={{backgroundColor:'white' }}
+        lightTheme
+        containerStyle={{backgroundColor:'#094a96'}}
+        onChangeText={(text) => searchFilterFunction(text)}
+        
+        />
       
       
       </View>
       
 
-    <FlatList
-      data={DATA}
-      keyExtractor={(item) => item.id}
-      renderItem={({item}) => 
-      {
-        if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
-          return <Item item={item}></Item>
-        }
-        if (search == ''){
-          return <Item item={item}></Item>
-        }
+      <FlatList
+        data={DATA}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => 
+        {
+          if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+            return <Item item={item}></Item>
+          }
+          if (search == ''){
+            return <Item item={item}></Item>
+          }
+          
+        }}
         
-      }}
-       
-    />
+      />
   
-    <View style= {styles.foot}>
-      <View style= {styles.agregar}>
+      <View style= {styles.foot}>
+        <View style= {styles.agregar}>
+          
+          <TextInput style={styles.ingreso} placeholder={'Crear Nuevo Grupo' } placeholderTextColor={'white'}   value={grupo} onChangeText={text => setGrupo(text)}/>
+          
+        </View>
+        <TouchableOpacity onPress={addElement} >
+          <View style={styles.botonag}>
+            <Ag name="ios-add-circle-outline" style={styles.icon1} >  </Ag>
+          </View>
+        </TouchableOpacity>
+          
         
-        <TextInput style={styles.ingreso} placeholder={'Crear Nuevo Grupo'}   value={grupo} onChangeText={text => setGrupo(text)}/>
+        
         
       </View>
-      <TouchableOpacity onPress={addElement} >
-        <View style={styles.botonag}>
-          <Ag name="ios-add-circle-outline" style={styles.icon1} >  </Ag>
-        </View>
-      </TouchableOpacity>
-        
-       
-      
-      
-    </View>
   </SafeAreaView>
 
   )
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight:15,
     justifyContent:'flex-start'
+
   },
   persona: {
     justifyContent:'flex-start',
@@ -185,15 +189,15 @@ const styles = StyleSheet.create({
     marginBottom:14,
     alignItems:'flex-end'
     
-    },
-    icon2: {
-      color: "white",
-      fontSize: 40,
-      marginTop: 14,
-      marginBottom:14,
-      alignItems:'flex-end'
-      
-    },
+  },
+  icon2: {
+    color: "white",
+    fontSize: 40,
+    marginTop: 14,
+    marginBottom:14,
+    alignItems:'flex-end'
+    
+  },
   grupo: {
     margin: 'auto',
     marginTop: 14,
@@ -215,7 +219,6 @@ const styles = StyleSheet.create({
   },
   agregar:{
     margin: 'auto',
-    flexDirection:'row',
   },
   ingreso:{
     color: "white",
@@ -225,7 +228,11 @@ const styles = StyleSheet.create({
     alignContent:'center'
   },
   botonag:{
-    alignSelf:'flex-end'
+    justifyContent:'flex-start',
+    alignItems:'flex-end'
+  },
+  search:{
+    color: "#094a96",
   }
 
 });
