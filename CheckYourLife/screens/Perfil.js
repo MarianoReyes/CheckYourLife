@@ -2,14 +2,17 @@
 //import { firebase } from '@react-native-firebase/auth';
 //import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View, TextStyle,Image} from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, View, TextStyle,Image, Button} from 'react-native'
 import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Platform } from 'react-native';
 import { useAuth, upload } from "../firebase"
 import { useEffect, useState } from "react";
+
+
+
 
 
 const Perfil = () => {
@@ -52,12 +55,10 @@ const Perfil = () => {
         </View>
         </LinearGradient>
 
-        <div className="fields">
-          <input type="file" onChange={handleChange} />  
-          <button disabled={loading || !photo} onClick={handleClick}>Cambiar Foto de Perfil</button>
-        </div>
         <View style={{alignItems:'center'}}>
-          <img src={photoURL} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
+          <Image source={photoURL} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
+          <input type="file" onChange={handleChange} />  
+          <Button disabled={loading || !photo} onPress={handleClick} style={{width:'10%',alignItems:'center'}} title="Cambiar Foto de Perfil"></Button>
         </View>
         <View style={styles.container}>
           <Text>Email: {auth.currentUser?.email}</Text>
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontWeight: '700',
+    fontWeight: 'bold',
     fontSize: 16,
   },
   button1: {
@@ -138,8 +139,7 @@ const styles = StyleSheet.create({
     width: Platform.OS === 'web' ? "90%": 350,
   },
   fields : {
-    margin: 50,
-    screenLeft : '10%',
+    margin: 50
   },
 
 })
