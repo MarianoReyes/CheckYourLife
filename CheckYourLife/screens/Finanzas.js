@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, FlatList } from 'react-native';
+import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, FlatList, TextInput, Button } from 'react-native';
 import { color } from 'react-native-elements/dist/helpers';
 import { Table, Row, Rows } from 'react-native-table-component';
 import TaskItem from "./TaskItem";
@@ -18,24 +18,28 @@ const screenWidth = Dimensions.get("window").width;
 const Finanzas = () => {
   
   const[gastos, setGastos] = useState([
-    {key:1, date: "20/01/23", gasto:200.00},
-    {key:2, date: "22/02/23", gasto:210.00},
-    {key:3, date: "24/08/22", gasto:5.00},
-    {key:4, date: "22/02/22", gasto:40.00},
-    {key:5, date: "15/03/22", gasto:300.00},
-    {key:6, date: "30/01/22", gasto:20.00},
-    {key:7, date: "5/02/22", gasto:400.00},
+    {date: "20/01/23", gasto:200.00},
+    {date: "22/02/23", gasto:210.00},
+    {date: "24/08/22", gasto:5.00},
+    {date: "22/02/22", gasto:40.00},
+    {date: "15/03/22", gasto:300.00},
+    {date: "30/01/22", gasto:20.00},
+    {date: "5/02/22", gasto:400.00},
   ])
 
   const[ingresos, setIngresos] = useState([
-    {key:1, date: "20/01/23", ingreso:100.00},
-    {key:2, date: "22/02/23", ingreso:210.00},
-    {key:3, date: "24/08/22", ingreso:3.00},
-    {key:4, date: "22/02/22", ingreso:54.25},
-    {key:5, date: "15/03/22", ingreso:250.00},
-    {key:6, date: "30/01/22", ingreso:60.00},
-    {key:7, date: "5/02/22", ingreso:150.00},
+    {date: "20/01/23", ingreso:100.00},
+    {date: "22/02/23", ingreso:210.00},
+    {date: "24/08/22", ingreso:3.00},
+    {date: "22/02/22", ingreso:54.25},
+    {date: "15/03/22", ingreso:250.00},
+    {date: "30/01/22", ingreso:60.00},
+    {date: "5/02/22", ingreso:150.00},
   ])
+
+  const [numberI, onChangeNumberI] = React.useState(0);
+
+  const [numberG, onChangeNumberG] = React.useState(0);
 
   const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
   const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
@@ -49,6 +53,25 @@ const Finanzas = () => {
   .reduce((previous, current) => {
     return previous + current;
   }, 0))
+
+  const guardarGasto = (number) => {
+    if(number && number > 0){
+      let today = new Date();
+      let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()
+
+      var gasto={date:date,gasto:number}
+      console.log(gasto)
+      setGastos([...gastos, gasto])
+    }
+  }
+
+  const guardarIngreso = (number) => {
+    if(number && number > 0){
+      var ingreso={date:new Date(),ingreso:number}
+      console.log(ingreso)
+      setIngresos([...ingresos, ingreso])
+    }
+  }
 
   const MyBarChart = () => {
     return (
@@ -133,30 +156,57 @@ const Finanzas = () => {
   return (
     <ScrollView style={styles.container_general}>
       
-      <View style={styles.botones}>
-        <Pressable style={styles.button} >
-          <Text style={[styles.text,{color:'white'}]}>Agregar Gasto</Text>
-        </Pressable>
-        <Pressable style={styles.button} >
-          <Text style={[styles.text,{color:'white'}]}>Agregar Ingreso</Text>
-        </Pressable>
+      <View style={[styles.container, styles.mw100]}>
+        <Text>Si desea agregar un nuevo Gasto o Ingreso ingreselo y pulse el boton para registrarlo</Text>
+      
+        <View style={[styles.flex, styles.mw100]}>
+
+          <View styles={styles.mw50}>
+            <TextInput 
+              style={styles.input}
+              onChangeText={onChangeNumberG}
+              value={numberG}
+              placeholder="Coloque Gasto"
+              keyboardType="numeric" 
+            />
+            <Pressable style={styles.button} onPress={guardarGasto(numberG)}>
+              <Text style={[styles.text,{color:'white'}]}>Agregar Gasto</Text>
+            </Pressable>
+          </View>
+
+          <View styles={styles.mw50}>
+            <TextInput 
+              style={styles.input}
+              onChangeText={onChangeNumberI}
+              value={numberI}
+              placeholder="Coloque Ingreso"
+              keyboardType="numeric" 
+            />
+            <Pressable style={styles.button} onPress={guardarIngreso(numberI)}>
+              <Text style={[styles.text,{color:'white'}]}>Agregar Ingreso</Text>
+            </Pressable>
+          </View>
+
+        </View>
       </View>
       
 
       <View style={styles.container}>
         <Text style={styles.tituloGrafica}>Saldo desplegado</Text>
-        <MyBarChart />
-        <MyPieChart />
+        <MyBarChart/>
+        <MyPieChart/>
       </View>
 
-      <View style={styles.flex}>
-        <View>
-          <Text style={styles.border}>Ingresos</Text>
-          {ingresosData.map((ingreso) => <Text style={styles.border} >{ingreso}</Text>)}
+      <View style={[styles.flex, styles.mw100]}>
+        <View style={styles.mw50}>
+          <Text style={[styles.border, styles.fondo]}>Ingresos</Text>
+          {ingresosData.map((ingreso) => <Text style={styles.border} >Q {ingreso}</Text>)}
+          <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {sumIngreso}</Text>
         </View>
-        <View>
-          <Text style={styles.border}>Gastos</Text>
-          {gastosData.map((gasto) => <Text style={styles.border}>{gasto}</Text>)}
+        <View style={styles.mw50}>
+          <Text style={[styles.border, styles.fondo]}>Gastos</Text>
+          {gastosData.map((gasto) => <Text style={styles.border}>Q {gasto}</Text>)}
+          <Text style={[styles.border, styles.fondo]}>Total de Gastos: Q {sumGasto}</Text>
         </View>
       </View>
       
@@ -186,6 +236,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row'
   },
+  mw100: {
+    maxWidth: '100%',
+    marginHorizontal: 10
+  },
+  mw90: {
+    maxWidth: '90%',
+    marginHorizontal: 10
+  },
+  mw50: {
+    maxWidth: '50%',
+  },
   botones:{
     flex: 1,
     marginVertical: 20,
@@ -202,6 +263,21 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     margin: 10,
+    color: 'white',
+    backgroundColor: '#14279B'
+  },
+  input:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: "black",
+  },
+  fondo:{
     color: 'white',
     backgroundColor: '#14279B'
   },
