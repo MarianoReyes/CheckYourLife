@@ -35,7 +35,7 @@ const comunidad = ({navigation}) => {
     incr(idx + 1);
     setExampleState(newArray);
     changeEl(newArray);
-    
+    setGrupo("");
   }
 
 
@@ -53,6 +53,7 @@ const comunidad = ({navigation}) => {
   const onPress = ()=> navigation.navigate('CHAT')
   
   const searchFilterFunction = (text) => {
+    /** 
     if(text){
       const newData = exampleState.filter(item => {
         const itemData = item.title ? item.title.toUpperCase() :''.toUpperCase();
@@ -61,16 +62,19 @@ const comunidad = ({navigation}) => {
       });
       setExampleState(newData);
       setSearch(text);
+
     }else{
       setExampleState(exampleState);
       setSearch(text);
     }
+    */
+    setSearch(text);
   }
 
-  const Item = ({ item, }) => (
+  const Item = ({ item, }) => {
     
-      
-    <View style={styles.boton}>
+     return (
+      <View style={styles.boton}>
       
       <View style={styles.grupo}>
           <Text style={styles.titles} >{item.title}  </Text>
@@ -87,8 +91,10 @@ const comunidad = ({navigation}) => {
       </TouchableOpacity>
       
     </View>  
+     ) 
+    
   
-  );
+     }
 
 
   return(
@@ -107,9 +113,18 @@ const comunidad = ({navigation}) => {
       
 
     <FlatList
-      data={exampleState}
+      data={DATA}
       keyExtractor={(item) => item.id}
-      renderItem={Item}
+      renderItem={({item}) => 
+      {
+        if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+          return <Item item={item}></Item>
+        }
+        if (search == ''){
+          return <Item item={item}></Item>
+        }
+        
+      }}
        
     />
   
