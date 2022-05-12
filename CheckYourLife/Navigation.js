@@ -9,13 +9,14 @@ import { MaterialCommunityIcons, Ionicons, FontAwesome5, Entypo} from "@expo/vec
 
 import toDoList from "./screens/toDoList";
 import Finanzas from "./screens/Finanzas";
-import timeTracker from "./screens/Reloj";
+import Reloj from "./screens/Reloj";
 import comunidad from "./screens/comunidad";
 import LoginScreen from "./screens/Login";
 import addTask from "./screens/addTask"
 import HomeScreen from "./screens/HomeScreen";
 import Perfil from "./screens/Perfil";
 import chat from "./screens/chat";
+import RelojT  from "./screens/RelojT";
 
 const TAB = createBottomTabNavigator();
 const STACK = createStackNavigator();
@@ -81,7 +82,7 @@ function MyTabs() {
                     fontWeight: 'bold',
                 },
             }}
-            name="Time Tracker" component={timeTracker}></TAB.Screen>
+            name="Time Tracker" component={MainStack}></TAB.Screen>
             <TAB.Screen
             options={{
                 tabBarIcon: () => (
@@ -128,6 +129,14 @@ const COmunidad = () =>{
     <STACK.Navigator>
         <STACK.Screen options={{headerShown: false}} name='COMUNIDAD' component={comunidad} />
         <STACK.Screen options={{headerShown: false}} name='CHAT' component={chat} />
+    </STACK.Navigator>)
+}
+
+const MainStack = () => {
+    return (
+    <STACK.Navigator>
+        <STACK.Screen options={{headerShown: false}} name = 'TimeT' component = {Reloj}/>
+        <STACK.Screen options={{headerShown: true}} name = 'Cronometro' component = {RelojT}/>
     </STACK.Navigator>)
 }
 

@@ -8,7 +8,7 @@ const Reloj = ({navigation}) => {
 
   const [timer, setTimer] = useState(false)
   const [number, setNumber] = useState(0)
-  const [startStopText, setStartStopText] = useState('Start')
+  const [startStopText, setStartStopText] = useState('Comenzar')
   
   useEffect(() => {
     if(timer){
@@ -24,24 +24,24 @@ const Reloj = ({navigation}) => {
 
     //Boton para iniciar el cronometro
     if(!timer){
-      setStartStopText('Stop');
+      setStartStopText('Detener');
       setTimer(true);
 
     } else {
       clearInterval(number);
-      setStartStopText('Start');
+      setStartStopText('Comenzar');
       setTimer(null);
     }
   }
 
   const clearButton = () =>{
     clearInterval(timer);
-    setStartStopText('Start');
+    setStartStopText('Comenzar');
     setTimer(null);
     setNumber(0);
   }
 
-  const onPress = ()=> navigation.navigate('RelojT')
+  const onPress = ()=> navigation.navigate('Cronometro')
 
   //startStopButton();
   //clearButton();
@@ -64,7 +64,7 @@ const Reloj = ({navigation}) => {
               <Text style={styles.buttonText}>{startStopText} </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => {clearButton()}}>
-              <Text style={styles.buttonText}>Clear</Text>
+              <Text style={styles.buttonText}>Limpiar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -82,7 +82,7 @@ const Reloj = ({navigation}) => {
 const styles = StyleSheet.create({ 
     body: {
       flex: 1,
-      backgroundColor: '#221D41',
+      backgroundColor: '#fff',
       justifyContent: 'center',
     },
 
@@ -95,6 +95,11 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 20,
+	      borderColor: "white",
+	      borderRadius: 80,
+	      borderWidth: 5,
+		    backgroundColor: "#2d2465",
     },
 
     buttonContainer:{
@@ -103,6 +108,9 @@ const styles = StyleSheet.create({
     },
 
     button:{
+	      padding: 10,
+	      flexDirection: "row" ,
+	      borderRadius: 80,
         backgroundColor: '#331DF4',
         marginHorizontal: 15,
         height: 70,
