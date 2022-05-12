@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View,SafeAreaView,Image} from 'react-native'
 import {auth} from '../firebase'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail} from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider} from "firebase/auth";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions } from 'react-native';
 import { Platform } from 'react-native';
@@ -55,6 +55,35 @@ const Login = ({navigation}) => {
       sendPasswordResetEmail(auth,email)
     }
   }
+
+
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, new GoogleAuthProvider())
+    .then(userCredentials => {
+      const user = userCredentials.user;
+      console.log('Logged in with:', user.email);
+    })
+    .catch(error => alert(error.message))
+  }
+
+  const signInWithGithub = () => {
+    signInWithPopup(auth, new GithubAuthProvider())
+    .then(userCredentials => {
+      const user = userCredentials.user;
+      console.log('Logged in with:', user.email);
+    })
+    .catch(error => alert(error.message))
+  }
+
+  const signInWithFacebook = () => {
+    signInWithPopup(auth, new FacebookAuthProvider())
+    .then(userCredentials => {
+      const user = userCredentials.user;
+      console.log('Logged in with:', user.email);
+    })
+    .catch(error => alert(error.message))
+  }
+
   return (
     <SafeAreaView style={styles.container}
     showsVerticalScrollIndicator={false}>
@@ -103,13 +132,13 @@ const Login = ({navigation}) => {
         <Text style={{fontSize:16, marginTop:10}}>Or via social media</Text>
         <View style={{flexDirection:'row', marginTop:20}}>
               <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#14279B', alignItems:'center', justifyContent:'center'}}>
-                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>f</Text>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}} onPress={signInWithFacebook}>f</Text>
               </View>
               <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#f44336', alignItems:'center', justifyContent:'center'}}>
-                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>G</Text>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}} onPress={signInWithGoogle}>G</Text>
               </View> 
               <View style={{height:40, width:40, borderRadius: 40/2, backgroundColor: '#1565c0', alignItems:'center', justifyContent:'center'}}>
-                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}}>in</Text>
+                <Text style={{fontSize:25, fontWeight: 'bold', color: 'white',}} onPress={signInWithGithub}>Git</Text>
               </View>   
         </View>    
 
