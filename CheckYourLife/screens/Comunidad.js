@@ -5,6 +5,7 @@ import Ex from "react-native-vector-icons/Feather";
 import Ag from "react-native-vector-icons/Ionicons";
 import { FlatList, State, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { SearchBar } from "react-native-elements";
+import { color } from 'react-native-elements/dist/helpers';
 
 
 const comunidad = ({navigation}) => {
@@ -100,12 +101,17 @@ const comunidad = ({navigation}) => {
   return(
 
     <SafeAreaView style={styles.container}>
-      <View style={styles.search}>
+      <View >
       <SearchBar
+      style={styles.search}
       placeholder="Busca Aqui..." 
+      placeholderTextColor={'#094a96'}
       value={search}
+      inputContainerStyle={{backgroundColor:'white' }}
       lightTheme
+      containerStyle={{backgroundColor:'#094a96'}}
       onChangeText={(text) => searchFilterFunction(text)}
+      
       />
       
       
@@ -131,7 +137,7 @@ const comunidad = ({navigation}) => {
     <View style= {styles.foot}>
       <View style= {styles.agregar}>
         
-        <TextInput style={styles.ingreso} placeholder={'Crear Nuevo Grupo'}   value={grupo} onChangeText={text => setGrupo(text)}/>
+        <TextInput style={styles.ingreso} placeholder={'Crear Nuevo Grupo' } placeholderTextColor={'white'}   value={grupo} onChangeText={text => setGrupo(text)}/>
         
       </View>
       <TouchableOpacity onPress={addElement} >
@@ -157,6 +163,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight:15,
     justifyContent:'flex-start'
+
   },
   persona: {
     justifyContent:'flex-start',
@@ -185,15 +192,15 @@ const styles = StyleSheet.create({
     marginBottom:14,
     alignItems:'flex-end'
     
-    },
-    icon2: {
-      color: "white",
-      fontSize: 40,
-      marginTop: 14,
-      marginBottom:14,
-      alignItems:'flex-end'
-      
-    },
+  },
+  icon2: {
+    color: "white",
+    fontSize: 40,
+    marginTop: 14,
+    marginBottom:14,
+    alignItems:'flex-end'
+    
+  },
   grupo: {
     margin: 'auto',
     marginTop: 14,
@@ -215,7 +222,6 @@ const styles = StyleSheet.create({
   },
   agregar:{
     margin: 'auto',
-    flexDirection:'row',
   },
   ingreso:{
     color: "white",
@@ -225,7 +231,11 @@ const styles = StyleSheet.create({
     alignContent:'center'
   },
   botonag:{
-    alignSelf:'flex-end'
+    justifyContent:'flex-start',
+    alignItems:'flex-end'
+  },
+  search:{
+    color: "#094a96",
   }
 
 });

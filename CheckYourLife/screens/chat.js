@@ -61,8 +61,15 @@ const chat = () => {
     user={{
       _id: auth?.currentUser?.email,
     }}
+    listViewProps={{
+      style:{
+        backgroundColor:'#005C97',
+      }
+    }}
+    placeholder={'Escribe un mensaje . . .'}
+    alwaysShowSend={'true'}
     />
-
+ 
     /**
      <View style={styles.container}>
       <View style={styles.head}>
