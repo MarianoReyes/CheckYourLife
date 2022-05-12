@@ -37,10 +37,6 @@ const Finanzas = () => {
     {date: "5/02/22", ingreso:150.00},
   ])
 
-  const [numberI, onChangeNumberI] = React.useState(0);
-
-  const [numberG, onChangeNumberG] = React.useState(0);
-
   const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
   const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
 
@@ -54,22 +50,46 @@ const Finanzas = () => {
     return previous + current;
   }, 0))
 
+  const [numberI, setNumberI] = useState(0)
+  const [numberG, setNumberG] = useState(0)
+
   const guardarGasto = (number) => {
+
     if(number && number > 0){
       let today = new Date();
       let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()
+      number=parseFloat(number)
 
       var gasto={date:date,gasto:number}
       console.log(gasto)
-      setGastos([...gastos, gasto])
+
+      gastos.push(gasto)
+      setGastosData(gastos.map((gasto)=>{return gasto.gasto}))
+      setSumGasto(gastosData.map((gasto) => gasto)
+      .reduce((previous, current) => {
+        return previous + current;
+      }, 0))
+      setNumberG(0)
     }
+    
   }
 
   const guardarIngreso = (number) => {
     if(number && number > 0){
-      var ingreso={date:new Date(),ingreso:number}
+      let today = new Date();
+      let date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()
+      number=parseFloat(number)
+
+      var ingreso={date:date,ingreso:number}
       console.log(ingreso)
-      setIngresos([...ingresos, ingreso])
+
+      ingresos.push(ingreso)
+      setIngresosData(ingresos.map((ingreso)=>{return ingreso.ingreso}))
+      setSumIngreso(ingresosData.map((ingreso) => ingreso)
+      .reduce((previous, current) => {
+        return previous + current;
+      }, 0))
+      setNumberI(0)
     }
   }
 
@@ -150,9 +170,6 @@ const Finanzas = () => {
     );
   };
 
-  //agregar gastos / ingresos
-  //ver gastos / ingresos
-  //ver saldo total
   return (
     <ScrollView style={styles.container_general}>
       
@@ -164,12 +181,12 @@ const Finanzas = () => {
           <View styles={styles.mw50}>
             <TextInput 
               style={styles.input}
-              onChangeText={onChangeNumberG}
-              value={numberG}
-              placeholder="Coloque Gasto"
-              keyboardType="numeric" 
+              onChangeText={newnumber => setNumberG(newnumber)}
+              placeholder= "Ingrese un dato"
+              keyboardType="numeric"
+              value = {numberG}
             />
-            <Pressable style={styles.button} onPress={guardarGasto(numberG)}>
+            <Pressable style={styles.button} onPress={() => guardarGasto(numberG)}>
               <Text style={[styles.text,{color:'white'}]}>Agregar Gasto</Text>
             </Pressable>
           </View>
@@ -177,12 +194,12 @@ const Finanzas = () => {
           <View styles={styles.mw50}>
             <TextInput 
               style={styles.input}
-              onChangeText={onChangeNumberI}
-              value={numberI}
-              placeholder="Coloque Ingreso"
+              onChangeText={newnumber => setNumberI(newnumber)}
+              placeholder= "Ingrese un dato"
               keyboardType="numeric" 
+              value = {numberI}
             />
-            <Pressable style={styles.button} onPress={guardarIngreso(numberI)}>
+            <Pressable style={styles.button} onPress={() => guardarIngreso(numberI)}>
               <Text style={[styles.text,{color:'white'}]}>Agregar Ingreso</Text>
             </Pressable>
           </View>
@@ -197,16 +214,16 @@ const Finanzas = () => {
         <MyPieChart/>
       </View>
 
-      <View style={[styles.flex, styles.mw100]}>
-        <View style={styles.mw50}>
-          <Text style={[styles.border, styles.fondo]}>Ingresos</Text>
-          {ingresosData.map((ingreso) => <Text style={styles.border} >Q {ingreso}</Text>)}
-          <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {sumIngreso}</Text>
-        </View>
+      <View style={[styles.flex2, styles.mw100]}>
         <View style={styles.mw50}>
           <Text style={[styles.border, styles.fondo]}>Gastos</Text>
           {gastosData.map((gasto) => <Text style={styles.border}>Q {gasto}</Text>)}
           <Text style={[styles.border, styles.fondo]}>Total de Gastos: Q {sumGasto}</Text>
+        </View>
+        <View style={styles.mw50}>
+          <Text style={[styles.border, styles.fondo]}>Ingresos</Text>
+          {ingresosData.map((ingreso) => <Text style={styles.border} >Q {ingreso}</Text>)}
+          <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {sumIngreso}</Text>
         </View>
       </View>
       
@@ -232,6 +249,13 @@ const styles = StyleSheet.create({
   flex: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 20,
+    flex: 1,
+    flexDirection: 'row'
+  },
+  flex2: {
+    justifyContent: 'center',
+    alignItems: 'start',
     marginVertical: 20,
     flex: 1,
     flexDirection: 'row'
