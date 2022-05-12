@@ -60,7 +60,10 @@ const chat = () => {
     onSend={messages => onSend(messages)}
     user={{
       _id: auth?.currentUser?.email,
+      avatar: 'https://i.pravatar.cc/300'
     }}
+    showAvatarForEveryMessage={'true'}
+    showUserAvatar={'true'}
     listViewProps={{
       style:{
         backgroundColor:'#005C97',

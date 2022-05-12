@@ -9,6 +9,12 @@ import { color } from 'react-native-elements/dist/helpers';
 
 
 const comunidad = ({navigation}) => {
+
+  const [grupo,setGrupo]= useState();
+  const onPress = ()=> navigation.navigate('CHAT')
+  const [exampleState, setExampleState] = useState(DATA);
+  const [idx, incr] = useState(2);
+  const [search,setSearch] = useState('');
   
   const [DATA, changeEl]  = useState([
     {
@@ -23,13 +29,8 @@ const comunidad = ({navigation}) => {
     }
   ]);
   
-
   
   
-  const [exampleState, setExampleState] = useState(DATA);
-  const [idx, incr] = useState(2);
-  
-  const [search,setSearch] = useState('');
   const addElement = () => {
 
     const newArray = [...DATA , {id : idx, title:grupo }];
@@ -48,10 +49,6 @@ const comunidad = ({navigation}) => {
      changeEl(temp);
     
   }
-
-  const [grupo,setGrupo]= useState();
-
-  const onPress = ()=> navigation.navigate('CHAT')
   
   const searchFilterFunction = (text) => {
     /** 
@@ -77,79 +74,79 @@ const comunidad = ({navigation}) => {
      return (
       <View style={styles.boton}>
       
-      <View style={styles.grupo}>
-          <Text style={styles.titles} >{item.title}  </Text>
-      </View>
-      <TouchableOpacity  onPress={onPress}>
-        <View style={styles.persona} >
-          <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+        <View style={styles.grupo}>
+            <Text style={styles.titles} >{item.title}  </Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity  onPress={() => deleteElement(item.id)}>
-        <View style={styles.persona} >
-          <Ex name="x-circle" style={styles.icon2} >  </Ex>
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity  onPress={onPress}>
+          <View style={styles.persona} >
+            <Icon1 name="message1" style={styles.icon1} >  </Icon1>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity  onPress={() => deleteElement(item.id)}>
+          <View style={styles.persona} >
+            <Ex name="x-circle" style={styles.icon2} >  </Ex>
+          </View>
+        </TouchableOpacity>
       
-    </View>  
+      </View>  
      ) 
     
   
-     }
+  }
 
 
   return(
 
     <SafeAreaView style={styles.container}>
       <View >
-      <SearchBar
-      style={styles.search}
-      placeholder="Busca Aqui..." 
-      placeholderTextColor={'#094a96'}
-      value={search}
-      inputContainerStyle={{backgroundColor:'white' }}
-      lightTheme
-      containerStyle={{backgroundColor:'#094a96'}}
-      onChangeText={(text) => searchFilterFunction(text)}
-      
-      />
+        <SearchBar
+        style={styles.search}
+        placeholder="Busca Aqui..." 
+        placeholderTextColor={'#094a96'}
+        value={search}
+        inputContainerStyle={{backgroundColor:'white' }}
+        lightTheme
+        containerStyle={{backgroundColor:'#094a96'}}
+        onChangeText={(text) => searchFilterFunction(text)}
+        
+        />
       
       
       </View>
       
 
-    <FlatList
-      data={DATA}
-      keyExtractor={(item) => item.id}
-      renderItem={({item}) => 
-      {
-        if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
-          return <Item item={item}></Item>
-        }
-        if (search == ''){
-          return <Item item={item}></Item>
-        }
+      <FlatList
+        data={DATA}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => 
+        {
+          if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
+            return <Item item={item}></Item>
+          }
+          if (search == ''){
+            return <Item item={item}></Item>
+          }
+          
+        }}
         
-      }}
-       
-    />
+      />
   
-    <View style= {styles.foot}>
-      <View style= {styles.agregar}>
+      <View style= {styles.foot}>
+        <View style= {styles.agregar}>
+          
+          <TextInput style={styles.ingreso} placeholder={'Crear Nuevo Grupo' } placeholderTextColor={'white'}   value={grupo} onChangeText={text => setGrupo(text)}/>
+          
+        </View>
+        <TouchableOpacity onPress={addElement} >
+          <View style={styles.botonag}>
+            <Ag name="ios-add-circle-outline" style={styles.icon1} >  </Ag>
+          </View>
+        </TouchableOpacity>
+          
         
-        <TextInput style={styles.ingreso} placeholder={'Crear Nuevo Grupo' } placeholderTextColor={'white'}   value={grupo} onChangeText={text => setGrupo(text)}/>
+        
         
       </View>
-      <TouchableOpacity onPress={addElement} >
-        <View style={styles.botonag}>
-          <Ag name="ios-add-circle-outline" style={styles.icon1} >  </Ag>
-        </View>
-      </TouchableOpacity>
-        
-       
-      
-      
-    </View>
   </SafeAreaView>
 
   )
