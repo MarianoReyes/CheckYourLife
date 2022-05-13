@@ -16,7 +16,7 @@ import { firebase } from '@react-native-firebase/auth';
 const Perfil = () => {
 
 
-  //Manejar imagen del usuario
+  /*//Manejar imagen del usuario
   const currentUser = useAuth();
   const [loading, setLoading] = useState(false);
   const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
@@ -51,6 +51,34 @@ const Perfil = () => {
   // Salir de cuenta
   async function handleSignOut(){
     signOut(auth)
+  }*/
+
+
+  //Manejar imagen del usuario
+  const currentUser = useAuth();
+  const [photo, setPhoto] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
+
+  function handleChange(e) {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0])
+    }
+  }
+
+  function handleClick() {
+    upload(photo, currentUser, setLoading);
+  }
+
+  useEffect(() => {
+    if (currentUser?.photoURL) {
+      setPhotoURL(currentUser.photoURL);
+    }
+  }, [currentUser])
+
+  // Salir de cuenta
+  async function handleSignOut(){
+    signOut(auth)
   }
 
   return (
@@ -63,9 +91,10 @@ const Perfil = () => {
         </View>
         </LinearGradient>
 
-        <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center'}}>
-          <Image source={{uri: image}} style={{width:140,height:140,borderRadius:100,marginTop:-70,}} />
-          <Button title="Pick an image from camera roll" onPress={pickImage} />
+        <View style={{alignItems:'center'}}>
+          <Image source={photoURL} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
+          <input type="file" onChange={handleChange} />  
+          <Button disabled={loading || !photo} onPress={handleClick} style={{width:'10%',alignItems:'center'}} title="Cambiar Foto de Perfil"></Button>
         </View>
         <View style={styles.container}>
           <Text>Email: {auth.currentUser?.email}</Text>
