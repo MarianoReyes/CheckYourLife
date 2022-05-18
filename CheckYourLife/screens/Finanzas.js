@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, FlatList, TextInput, Button } from 'react-native';
-import { color } from 'react-native-elements/dist/helpers';
-import { Table, Row, Rows } from 'react-native-table-component';
-import TaskItem from "./TaskItem";
+import {Text, View, Pressable , StyleSheet, ScrollView, TextInput } from 'react-native';
 import {
   LineChart,
   BarChart,
@@ -12,6 +9,18 @@ import {
   StackedBarChart
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+
+import { auth, db } from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+import {
+  doc,
+  getDoc,
+  collection,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore'
 
 const screenWidth = Dimensions.get("window").width;
 
