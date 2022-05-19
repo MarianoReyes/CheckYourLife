@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "#C2362B",
     fontSize: 25,
-    fontWeight: "50",
+    fontWeight: "100",
     letterSpacing: 1.5,
     marginTop: 40,
     padding: 10

@@ -16,7 +16,6 @@ const GeneralColor =
 
 const addTask = ({ navigation }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
-  const [isDateTimePickerVisible, setDateTimePickerVisibility] = useState(false)
   const [info, setInfo] = useState({
     title: '',
     description: '',
@@ -27,9 +26,6 @@ const addTask = ({ navigation }) => {
 
   const showDatePicker = () => {
     setDatePickerVisibility(true)
-  }
-  const showDateTimePicker = () => {
-    setDateTimePickerVisibility(true)
   }
   const hideDatePicker = () => {
     setDatePickerVisibility(false)

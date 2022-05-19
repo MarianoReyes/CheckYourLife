@@ -51,7 +51,7 @@ const TaskItem = (props) => {
       <LinearGradient
         colors={[
           'rgba(20,39,155,1)',
-          props.item.completed ? 'rgba(9,16,61,1)' : 'rgba(92,122,234,1)',
+          props.item.completed ? 'rgba(9,10,61,1)' : 'rgba(82,170,834,1)',
         ]}
         style={styles.linearGradient}
         start={{ x: 0, y: 0 }}

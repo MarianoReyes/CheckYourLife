@@ -2,16 +2,16 @@
 //import { firebase } from '@react-native-firebase/auth';
 //import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View, TextStyle,Image, Button} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View,Image, Button} from 'react-native'
 import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Platform } from 'react-native';
 import { useAuth, upload } from "../firebase"
 import { useEffect, useState } from "react";
-import * as ImagePicker from 'expo-image-picker';
-import { firebase } from '@react-native-firebase/auth';
+//import * as ImagePicker from 'expo-image-picker';
+//import { firebase } from '@react-native-firebase/auth';
 
 const Perfil = () => {
 
@@ -93,7 +93,7 @@ const Perfil = () => {
 
         <View style={{alignItems:'center'}}>
           <Image source={photoURL} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
-          <input type="file" onChange={handleChange} />  
+          {/*<input type="file" onChange={handleChange} />*/}  
           <Button disabled={loading || !photo} onPress={handleClick} style={{width:'10%',alignItems:'center'}} title="Cambiar Foto de Perfil"></Button>
         </View>
         <View style={styles.container}>
