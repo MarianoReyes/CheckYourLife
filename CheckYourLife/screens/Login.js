@@ -6,6 +6,8 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthState
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions } from 'react-native';
 import { Platform } from 'react-native';
+import { Video } from 'expo-av';
+import video from '../assets/Fondo.mp4';
 
 
 
@@ -87,7 +89,16 @@ const Login = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}
     showsVerticalScrollIndicator={false}>
-      
+     <Video
+                source={video}
+                rate={1.0}
+                volume={1.0}
+                isMuted={true}
+                resizeMode="cover"
+                shouldPlay
+                isLooping
+                style={styles.backgroundVideo}
+                />
     
       <View style={styles.inputContainer}>
         <Image source={require('../assets/CheckL2.png')}
@@ -212,5 +223,13 @@ const styles = StyleSheet.create({
     bottom: Platform.OS === 'web' ? 10 : 20,
     left: Platform.OS === 'web' ? "25%" : 10,
     alignContent: 'center'
-  }
+  },
+  backgroundVideo: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    alignItems: "stretch",
+    bottom: 0,
+    right: 0
+  },
 })
