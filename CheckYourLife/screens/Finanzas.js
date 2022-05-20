@@ -113,6 +113,10 @@ const Finanzas = () => {
             datasets: [
               {
                 data: [sumGasto, sumIngreso],
+                colors: [
+                  (opacity = 1) =>'#f47140',
+                  (opacity = 1) =>'#36a7d9',
+                ]
               },
             ],
           }}
@@ -120,17 +124,22 @@ const Finanzas = () => {
           height={220}
           yAxisLabel={'Q '}
           chartConfig={{
-            backgroundColor: '#1cc910',
-            backgroundGradientFrom: '#14279B',
-            backgroundGradientTo: '#5C7AEA',
+            backgroundColor: '#0',
+            backgroundGradientFrom: '#fff',
+            backgroundGradientTo: '#fff',
             decimalPlaces: 2,
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             barPercentage: 2,
           }}
           fromZero={true}
+          showValuesOnTopOfBars={true}
+          withCustomBarColorFromData={true}
+          flatColor={true}
           style={{
             marginVertical: 8,
             borderRadius: 4,
+            borderColor: '#000',
+            borderWidth: 1,
           }}
         />
       </>
@@ -198,7 +207,7 @@ const Finanzas = () => {
               keyboardType="numeric"
               value = {numberG}
             />
-            <Pressable style={styles.button} onPress={() => guardarGasto(numberG)}>
+            <Pressable style={styles.buttonn} onPress={() => guardarGasto(numberG)}>
               <Text style={[styles.text,{color:'white'}]}>Agregar Gasto</Text>
             </Pressable>
           </View>
@@ -211,7 +220,7 @@ const Finanzas = () => {
               keyboardType="numeric" 
               value = {numberI}
             />
-            <Pressable style={styles.button} onPress={() => guardarIngreso(numberI)}>
+            <Pressable style={styles.buttona} onPress={() => guardarIngreso(numberI)}>
               <Text style={[styles.text,{color:'white'}]}>Agregar Ingreso</Text>
             </Pressable>
           </View>
@@ -228,12 +237,12 @@ const Finanzas = () => {
 
       <View style={[styles.flex2, styles.mw100]}>
         <View style={styles.mw50}>
-          <Text style={[styles.border, styles.fondo]}>Gastos</Text>
+          <Text style={[styles.border, styles.fondon]}>Gastos</Text>
           {gastosData.map((gasto) => <Text style={styles.border}>Q {gasto}</Text>)}
           <Text style={[styles.border, styles.fondo]}>Total de Gastos: Q {sumGasto}</Text>
         </View>
         <View style={styles.mw50}>
-          <Text style={[styles.border, styles.fondo]}>Ingresos</Text>
+          <Text style={[styles.border, styles.fondoa]}>Ingresos</Text>
           {ingresosData.map((ingreso) => <Text style={styles.border} >Q {ingreso}</Text>)}
           <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {sumIngreso}</Text>
         </View>
@@ -302,6 +311,30 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: '#14279B'
   },
+
+  buttona: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    margin: 10,
+    color: 'white',
+    backgroundColor: '#36a7d9'
+  },
+
+  buttonn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    margin: 10,
+    color: 'white',
+    backgroundColor: '#f47140'
+  },
   input:{
     alignItems: 'center',
     justifyContent: 'center',
@@ -317,6 +350,17 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: '#14279B'
   },
+
+  fondoa:{
+    color: 'white',
+    backgroundColor: '#36a7d9'
+  },
+
+  fondon:{
+    color: 'white',
+    backgroundColor: '#f47140'
+  },
+
   tituloGrafica: {
     fontSize: 35,
     fontWeight: 600,
