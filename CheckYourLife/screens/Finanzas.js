@@ -12,6 +12,17 @@ import {
   StackedBarChart
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+import { auth, db } from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+import {
+  doc,
+  getDoc,
+  collection,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore'
 
 const screenWidth = Dimensions.get("window").width;
 
