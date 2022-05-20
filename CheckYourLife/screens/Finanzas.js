@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import {Text, View, Pressable , StyleSheet, ScrollView, TextInput } from 'react-native';
+import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, FlatList, TextInput, Button } from 'react-native';
+import { color } from 'react-native-elements/dist/helpers';
+import { Table, Row, Rows } from 'react-native-table-component';
+import TaskItem from "./TaskItem";
 import {
   LineChart,
   BarChart,
@@ -9,18 +12,6 @@ import {
   StackedBarChart
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
-
-import { auth, db } from '../firebase'
-import { onAuthStateChanged } from 'firebase/auth'
-import {
-  doc,
-  getDoc,
-  collection,
-  setDoc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-} from 'firebase/firestore'
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -125,6 +116,7 @@ const Finanzas = () => {
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             barPercentage: 2,
           }}
+          fromZero={true}
           style={{
             marginVertical: 8,
             borderRadius: 4,
@@ -142,14 +134,14 @@ const Finanzas = () => {
             {
               name: 'Gastos',
               cantidad: sumGasto,
-              color: '#F00',
+              color: '#f47140',
               legendFontColor: '#7F7F7F',
               legendFontSize: 15,
             },
             {
               name: 'Ingresos',
               cantidad: sumIngreso,
-              color: '#14279B',
+              color: '#36a7d9',
               legendFontColor: '#7F7F7F',
               legendFontSize: 15,
             }
@@ -316,7 +308,7 @@ const styles = StyleSheet.create({
   },
   tituloGrafica: {
     fontSize: 35,
-    fontWeight: 700,
+    fontWeight: 600,
     marginVertical: 15
   },
   text: {
