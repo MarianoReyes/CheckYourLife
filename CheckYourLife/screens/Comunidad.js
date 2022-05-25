@@ -5,7 +5,7 @@ import Ex from "react-native-vector-icons/Feather";
 import Ag from "react-native-vector-icons/Ionicons";
 import { FlatList, State, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { SearchBar } from "react-native-elements";
-import { color } from 'react-native-elements/dist/helpers';
+
 
 
 const comunidad = ({navigation}) => {
@@ -51,21 +51,7 @@ const comunidad = ({navigation}) => {
   }
   
   const searchFilterFunction = (text) => {
-    /** 
-    if(text){
-      const newData = exampleState.filter(item => {
-        const itemData = item.title ? item.title.toUpperCase() :''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setExampleState(newData);
-      setSearch(text);
-
-    }else{
-      setExampleState(exampleState);
-      setSearch(text);
-    }
-    */
+   
     setSearch(text);
   }
 
