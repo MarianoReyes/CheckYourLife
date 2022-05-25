@@ -59,7 +59,7 @@ const Reloj = ({navigation}) => {
   return(
     <View style={styles.body}>
       <View style={styles.iconoc}>
-        <TouchableOpacity style={styles.opacidad} onPress={onPress}>
+        <TouchableOpacity onPress={onPress}>
           <Temporizador name="clock" style={styles.icono} > </Temporizador>
         </TouchableOpacity>
       </View>
@@ -78,11 +78,6 @@ const Reloj = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.footer}>
-          <Text style={styles.footerText}>CheckYourLife</Text>
-      </View>
-
     </View>
     
   );
@@ -93,7 +88,7 @@ const styles = StyleSheet.create({
     body: {
       flex: 1,
       backgroundColor: '#fff',
-      justifyContent: 'center',
+      padding: 30,
     },
 
     counterText: {
@@ -105,10 +100,12 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        alignSelf: 'center',
 	      borderColor: "white",
-	      borderRadius: 80,
 	      borderWidth: 5,
+        width: 350,
+        height: 350,
+        borderRadius: 350/2,
 		    backgroundColor: "#2d2465",
     },
 
@@ -118,7 +115,6 @@ const styles = StyleSheet.create({
     },
 
     button:{
-	      padding: 10,
 	      flexDirection: "row" ,
 	      borderRadius: 80,
         backgroundColor: '#331DF4',
@@ -127,26 +123,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 140,
         alignItems: 'center',
-        top: 140
+        top: 15
     },
 
     buttonText: {
         color: '#fff',
         fontSize: 30
-    },
-
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      backgroundColor: '#000',
-      opacity: 0.4,
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      width: '100%',
-      height: 20
-    },
-    footerText: {
-      color: '#fff'
     },
     TextCr: {
       backgroundColor: '#331DF4',
@@ -163,12 +145,13 @@ const styles = StyleSheet.create({
     },
     iconoc: {
       alignItems: 'flex-end',
-      justifyContent: 'flex-start'
+      justifyContent: 'flex-start',
+      
     },
     icono: {
       alignSelf: 'flex-end',
       backgroundColor: 'white',
-
+      fontSize: 50,
     },
     bot: {
       justifyContent: 'center',
