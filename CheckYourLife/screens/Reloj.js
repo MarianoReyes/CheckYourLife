@@ -8,14 +8,23 @@ const Reloj = ({navigation}) => {
 
   const [timer, setTimer] = useState(false)
   const [number, setNumber] = useState(0)
+  const [minutes, setMinutes] = useState(0)
   const [startStopText, setStartStopText] = useState('Comenzar')
   
+  var user;
+
   useEffect(() => {
     if(timer){
-      setTimeout(() => {
-        setNumber(number + 0.01);
-      }, 10);
+
+      user = setInterval(() => {
+        setNumber(number + 1);
+        if (number === 59){
+          setMinutes(minutes+1);
+          setNumber(0);
+        }
+      }, 1000);
     }
+    return ()=> clearInterval(user);
   });
 
   
@@ -39,6 +48,7 @@ const Reloj = ({navigation}) => {
     setStartStopText('Comenzar');
     setTimer(null);
     setNumber(0);
+    setMinutes(0);
   }
 
   const onPress = ()=> navigation.navigate('Cronometro')
@@ -55,7 +65,7 @@ const Reloj = ({navigation}) => {
       </View>
       
       <View style={styles.container}>
-          <Text style= {styles.counterText}>{number.toFixed(2)}</Text>
+          <Text style= {styles.counterText}>{minutes<10? "0"+minutes: minutes}:{number<10? "0"+number: number}</Text>
       </View>
       
       <View style = {styles.bot}>
