@@ -1,11 +1,13 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
+import { Platform, StyleSheet, Text, View, TextInput, Vibration } from 'react-native';
 import TimerHeader from './TimerHeader'
 import TimerDisplay from './TimerDisplay'
 import TimerButtons from './TimerButtons'
-import {Vibration} from 'react-native'
+import audio from '../assets/alarma.mp3'
 
 class Timer extends React.Component {
+
+	sound = new Audio(audio);
 
 	constructor(props) {
 		super(props)
@@ -15,7 +17,6 @@ class Timer extends React.Component {
 		}
 	}
 
-	// gets called when a stream of new props arrive from parent component
 	componentWillReceiveProps(nextProps) {
     	this.setState({ running: false, time: nextProps.period * 60 });
 		if(this.state.running === true && this.state.time == 0)
@@ -44,7 +45,6 @@ class Timer extends React.Component {
 		)
 	}
 
-	// Invoked immediately after update occurs
 	componentDidUpdate() {
 		if(this.state.running === true && this.state.time == 0)
 		{
@@ -58,8 +58,6 @@ class Timer extends React.Component {
 			clearInterval(this.timerId)
 		}
 	}
-
-	// gets triggered when Play button is pressed
  	handlePlay = () => {
 		this.setState({
 			running: true
@@ -69,9 +67,14 @@ class Timer extends React.Component {
 				time: this.state.time - 1
 			})
 		}, 1000)
+		if (this.time === 0){
+			useEffect(() => {				
+				sound.play();
+				sound.volume = 2;
+			  }, []);
+		}
 	}
 
-	//gets triggered when Pause button is pressed
 	handlePause = () => {
 		clearInterval(this.timerId)
 		this.setState({
@@ -79,7 +82,6 @@ class Timer extends React.Component {
 		})
 	}
 
-	// gets triggered when Reset button is pressed
 	handleReset = () => {	
 		clearInterval(this.timerId)
 		this.setState({

@@ -13,7 +13,6 @@ class PomodoroTimer extends React.Component {
 		}
 	}
 
-	// handles completion of timer
 	handleTimerCompleted = () => {
 		if(this.state.intervalType === "Working")
 		{
@@ -29,7 +28,6 @@ class PomodoroTimer extends React.Component {
 		}
 	}
 
-	// gets triggered on change of worktimer text
 	handleWorkTime = (text) =>
 	{
 		if(text >= 0)
@@ -63,7 +61,6 @@ class PomodoroTimer extends React.Component {
 		}
 	}
 
-	// called to set the timer's time
 	handleTime = () => {
 		if(this.state.intervalType === "Working")
 		{

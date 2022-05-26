@@ -125,10 +125,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         top: 15
     },
-
     buttonText: {
         color: '#fff',
-        fontSize: 30
+        fontSize: 25,
+        padding: 30,
     },
     TextCr: {
       backgroundColor: '#331DF4',
