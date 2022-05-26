@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, FlatList, TextInput, Button } from 'react-native';
 import { color } from 'react-native-elements/dist/helpers';
 import { Table, Row, Rows } from 'react-native-table-component';
@@ -29,24 +29,44 @@ const screenWidth = Dimensions.get("window").width;
 const Finanzas = () => {
   
   const[gastos, setGastos] = useState([
-    {date: "20/01/23", gasto:200.00},
-    {date: "22/02/23", gasto:210.00},
-    {date: "24/08/22", gasto:5.00},
-    {date: "22/02/22", gasto:40.00},
-    {date: "15/03/22", gasto:300.00},
-    {date: "30/01/22", gasto:20.00},
-    {date: "5/02/22", gasto:400.00},
+    {date:'2022-05-20', gasto:210.00},
+    {date:'2022-05-20', gasto:200.00},
+    {date:'2022-05-20', gasto:5.00},
+    {date:'2022-05-20', gasto:40.00},
+    {date:'2022-05-20', gasto:300.00},
+    {date:'2022-05-20', gasto:20.00},
+    {date:'2022-05-20', gasto:400.00},
   ])
 
   const[ingresos, setIngresos] = useState([
-    {date: "20/01/23", ingreso:100.00},
-    {date: "22/02/23", ingreso:210.00},
-    {date: "24/08/22", ingreso:3.00},
-    {date: "22/02/22", ingreso:54.25},
-    {date: "15/03/22", ingreso:250.00},
-    {date: "30/01/22", ingreso:60.00},
-    {date: "5/02/22", ingreso:150.00},
+    {date:'2022-04-21', ingreso:100.00},
+    {date:'2022-04-21', ingreso:210.00},
+    {date:'2022-04-21', ingreso:3.00},
+    {date:'2022-04-21', ingreso:54.25},
+    {date:'2022-04-21', ingreso:250.00},
+    {date:'2022-04-21', ingreso:60.00},
+    {date:'2022-04-21', ingreso:150.00},
   ])
+
+  const[uid, setUid] = useState()
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUid(user.uid)
+      getData(user.uid)
+    })
+  }, [])
+
+
+  const getData = async (id) => {
+    console.log(id)
+    const docRef = doc(db, 'users', id)
+    const docSnap = await getDoc(docRef)
+
+    setIngresos((await docSnap.data()).ingresos)
+    setGastos((await docSnap.data()).gastos)
+    
+  }
 
   const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
   const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
@@ -81,6 +101,15 @@ const Finanzas = () => {
         return previous + current;
       }, 0))
       setNumberG(0)
+
+      onAuthStateChanged(auth, (user) => {
+        const docRef = doc(db, 'users', user.uid)
+        console.log('aqui')
+        updateDoc(docRef, {
+          gastos: arrayUnion(gasto),
+        })
+      })
+      
     }
     
   }
@@ -101,6 +130,14 @@ const Finanzas = () => {
         return previous + current;
       }, 0))
       setNumberI(0)
+
+      onAuthStateChanged(auth, (user) => {
+        const docRef = doc(db, 'users', user.uid)
+        console.log('aqui ingreso')
+        updateDoc(docRef, {
+          ingresos: arrayUnion(ingresos),
+        })
+      })
     }
   }
 
