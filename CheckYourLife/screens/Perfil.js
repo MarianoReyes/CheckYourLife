@@ -17,23 +17,22 @@ const Perfil = () => {
 
   const currentUser = useAuth();
   const [photo, setPhoto] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, 
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
-    console.log(result);
+    console.log(result.uri);
 
     if (!result.cancelled) {
       setPhoto(result.uri);
-      upload(photo, currentUser, setLoading);
+      upload(photo, currentUser);
     }
   };
 
