@@ -11,6 +11,7 @@ import { Platform } from 'react-native';
 import { useAuth, upload } from "../firebase"
 import { useEffect, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
+import * as firebase from '../firebase';
 //import { firebase } from '@react-native-firebase/auth';
 
 const Perfil = () => {
@@ -21,18 +22,12 @@ const Perfil = () => {
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images, 
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    let result = await ImagePicker.launchImageLibraryAsync();
 
     console.log(result.uri);
 
     if (!result.cancelled) {
-      setPhoto(result.uri);
-      upload(photo, currentUser);
+      upload(result.uri, 'Foto-Perfil',currentUser);
     }
   };
 
