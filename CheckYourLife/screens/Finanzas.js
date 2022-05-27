@@ -104,7 +104,6 @@ const Finanzas = () => {
 
       onAuthStateChanged(auth, (user) => {
         const docRef = doc(db, 'users', user.uid)
-        console.log('aqui')
         updateDoc(docRef, {
           gastos: arrayUnion(gasto),
         })
@@ -133,7 +132,6 @@ const Finanzas = () => {
 
       onAuthStateChanged(auth, (user) => {
         const docRef = doc(db, 'users', user.uid)
-        console.log('aqui ingreso')
         updateDoc(docRef, {
           ingresos: arrayUnion(ingresos),
         })
