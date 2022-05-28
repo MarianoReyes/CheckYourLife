@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
 import Timer from './Timer'
+import {Audio} from 'expo-av';
+import Expo from 'expo';
 
 class PomodoroTimer extends React.Component {
 
@@ -13,12 +15,22 @@ class PomodoroTimer extends React.Component {
 		}
 	}
 
+	
+	
 	handleTimerCompleted = () => {
 		if(this.state.intervalType === "Working")
 		{
 			this.setState({
 				intervalType: "Break"
 			})
+			
+			playSound = async () => {
+				await Expo.Audio.setIsEnabledAsync(true);
+				const sound = new Expo.Audio.Sound();
+				await sound.loadAsync(require('../assets/alarma.mp3'));
+				await sound.playAsync();
+			};
+			
 		}
 		else
 		{
@@ -37,7 +49,7 @@ class PomodoroTimer extends React.Component {
 			})
 		}
 		else{
-			alert("Time invalid. Setting value to default. Please enter valid time")
+			alert("Tiempo Invalido")
 			this.setState({
 				workTime: 25
 			})
@@ -54,7 +66,7 @@ class PomodoroTimer extends React.Component {
 		}
 		else
 		{
-			alert("Time invalid. Setting value to default. Please enter valid time")
+			alert("Tiempo Invalido")
 			this.setState({
 				breakTime: 5
 			})

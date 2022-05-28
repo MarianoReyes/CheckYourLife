@@ -22,6 +22,12 @@ class Timer extends React.Component {
 		if(this.state.running === true && this.state.time == 0)
 		{
 			this.handlePlay()
+			if (this.time === 0){
+				useEffect(() => {				
+					sound.play();
+					sound.volume = 2;
+				  }, []);
+			}
 		}
 	  }
 
@@ -67,12 +73,7 @@ class Timer extends React.Component {
 				time: this.state.time - 1
 			})
 		}, 1000)
-		if (this.time === 0){
-			useEffect(() => {				
-				sound.play();
-				sound.volume = 2;
-			  }, []);
-		}
+	
 	}
 
 	handlePause = () => {
