@@ -3,11 +3,9 @@ import { Platform, StyleSheet, Text, View, TextInput, Vibration } from 'react-na
 import TimerHeader from './TimerHeader'
 import TimerDisplay from './TimerDisplay'
 import TimerButtons from './TimerButtons'
-import audio from '../assets/alarma.mp3'
+
 
 class Timer extends React.Component {
-
-	sound = new Audio(audio);
 
 	constructor(props) {
 		super(props)
@@ -22,12 +20,6 @@ class Timer extends React.Component {
 		if(this.state.running === true && this.state.time == 0)
 		{
 			this.handlePlay()
-			if (this.time === 0){
-				useEffect(() => {				
-					sound.play();
-					sound.volume = 2;
-				  }, []);
-			}
 		}
 	  }
 
