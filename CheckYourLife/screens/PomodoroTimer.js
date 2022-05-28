@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
 import Timer from './Timer'
 import {Audio} from 'expo-av';
-import Expo from 'expo';
+import * as Font from "expo-font";
+
 
 class PomodoroTimer extends React.Component {
 
@@ -15,6 +16,28 @@ class PomodoroTimer extends React.Component {
 		}
 	}
 
+	async componentDidMount(){
+		Audio.setAudioModeAsync({
+		  allowsRecordingIOS:false,
+		  interruptionModeIOS: INTERRUPTION_MODE_IOS_DO_NOT_MIX, 
+		  playsInSilentModeIOS:true,
+		  interruptionModeAndroid: Audio.INTTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+		  shouldDuckAndroid:true,
+		  staysActiveInBackground:true,
+		  playsThroughEarpieceAndroid:true
+		});
+
+		this.sound = new Audio.Sound();
+		const status = {
+		  shouldPlay:false
+		};
+		
+		this.sound.loadAsync(require("../assets/alarma.mp3"),status,false);
+		}
+		playSound(){
+		this.sound.playAsync();
+		}
+	
 	
 	
 	handleTimerCompleted = () => {
@@ -24,19 +47,16 @@ class PomodoroTimer extends React.Component {
 				intervalType: "Break"
 			})
 			
-			playSound = async () => {
-				await Expo.Audio.setIsEnabledAsync(true);
-				const sound = new Expo.Audio.Sound();
-				await sound.loadAsync(require('../assets/alarma.mp3'));
-				await sound.playAsync();
-			};
+			this.playSound()
 			
 		}
 		else
 		{
 			this.setState({
 				intervalType: "Working"
-			})	
+			})
+			
+			this.playSound()
 		}
 	}
 
