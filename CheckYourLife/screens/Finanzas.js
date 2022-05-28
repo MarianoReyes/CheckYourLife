@@ -48,6 +48,19 @@ const Finanzas = () => {
     {date:'2022-04-21', ingreso:150.00},
   ])
 
+  const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
+  const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
+
+  const[sumIngreso, setSumIngreso] = useState(ingresos.map((ingreso) => ingreso.ingreso)
+  .reduce((previous, current) => {
+    return previous + current;
+  }, 0))
+
+  const[sumGasto, setSumGasto] = useState(gastos.map((gasto) => gasto.gasto)
+  .reduce((previous, current) => {
+    return previous + current;
+  }, 0))
+
   const[uid, setUid] = useState()
 
   useEffect(() => {
@@ -59,27 +72,13 @@ const Finanzas = () => {
 
 
   const getData = async (id) => {
-    console.log(id)
     const docRef = doc(db, 'users', id)
     const docSnap = await getDoc(docRef)
-
-    setIngresos((await docSnap.data()).ingresos)
-    setGastos((await docSnap.data()).gastos)
-    
+    setIngresos((docSnap.data()).ingresos)
+    setGastos((docSnap.data()).gastos)  
   }
 
-  const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
-  const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
-
-  const[sumIngreso, setSumIngreso] = useState(ingresosData.map((ingreso) => ingreso)
-  .reduce((previous, current) => {
-    return previous + current;
-  }, 0))
-
-  const[sumGasto, setSumGasto] = useState(gastosData.map((gasto) => gasto)
-  .reduce((previous, current) => {
-    return previous + current;
-  }, 0))
+  
 
   const [numberI, setNumberI] = useState(0)
   const [numberG, setNumberG] = useState(0)
@@ -133,7 +132,7 @@ const Finanzas = () => {
       onAuthStateChanged(auth, (user) => {
         const docRef = doc(db, 'users', user.uid)
         updateDoc(docRef, {
-          ingresos: arrayUnion(ingresos),
+          ingresos: arrayUnion(ingreso),
         })
       })
     }
@@ -147,7 +146,15 @@ const Finanzas = () => {
             labels: ['Gastos', 'Ingresos'],
             datasets: [
               {
-                data: [sumGasto, sumIngreso],
+                data: [
+                  gastos.map((gasto) => gasto.gasto)
+                  .reduce((previous, current) => {
+                    return previous + current;
+                  }, 0), 
+                  (ingresos.map((ingreso) => ingreso.ingreso)
+                  .reduce((previous, current) => {
+                    return previous + current;
+                  }, 0))],
                 colors: [
                   (opacity = 1) =>'#f47140',
                   (opacity = 1) =>'#36a7d9',
@@ -188,14 +195,20 @@ const Finanzas = () => {
           data={[
             {
               name: 'Gastos',
-              cantidad: sumGasto,
+              cantidad: (gastos.map((gasto) => gasto.gasto)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0)),
               color: '#f47140',
               legendFontColor: '#7F7F7F',
               legendFontSize: 15,
             },
             {
               name: 'Ingresos',
-              cantidad: sumIngreso,
+              cantidad: (ingresos.map((ingreso) => ingreso.ingreso)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0)),
               color: '#36a7d9',
               legendFontColor: '#7F7F7F',
               legendFontSize: 15,
@@ -273,13 +286,19 @@ const Finanzas = () => {
       <View style={[styles.flex2, styles.mw100]}>
         <View style={styles.mw50}>
           <Text style={[styles.border, styles.fondon]}>Gastos</Text>
-          {gastosData.map((gasto) => <Text style={styles.border}>Q {gasto}</Text>)}
-          <Text style={[styles.border, styles.fondo]}>Total de Gastos: Q {sumGasto}</Text>
+          {gastos.map((gasto) => <Text style={styles.border}>Q {gasto.gasto}</Text>)}
+          <Text style={[styles.border, styles.fondo]}>Total de Gastos: Q {(gastos.map((gasto) => gasto.gasto)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0))}</Text>
         </View>
         <View style={styles.mw50}>
           <Text style={[styles.border, styles.fondoa]}>Ingresos</Text>
-          {ingresosData.map((ingreso) => <Text style={styles.border} >Q {ingreso}</Text>)}
-          <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {sumIngreso}</Text>
+          {ingresos.map((ingreso) => <Text style={styles.border} >Q {ingreso.ingreso}</Text>)}
+          <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {(ingresos.map((ingreso) => ingreso.ingreso)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0))}</Text>
         </View>
       </View>
       
