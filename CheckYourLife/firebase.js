@@ -46,7 +46,7 @@ export function useAuth() {
 
 // Storage
 export async function upload(file, currentUser) {
-  const fileRef = ref(storage, currentUser.uid + {contentType: 'image/png'})
+  const fileRef = ref(storage, currentUser.uid + '.png')
 
   const snapshot = await uploadBytes(fileRef, file)
   const photoURL = await getDownloadURL(fileRef)
