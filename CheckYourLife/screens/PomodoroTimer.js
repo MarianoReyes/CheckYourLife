@@ -19,7 +19,7 @@ class PomodoroTimer extends React.Component {
 	async componentDidMount(){
 		Audio.setAudioModeAsync({
 		  allowsRecordingIOS:false,
-		  interruptionModeIOS: INTERRUPTION_MODE_IOS_DO_NOT_MIX, 
+		  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX, 
 		  playsInSilentModeIOS:true,
 		  interruptionModeAndroid: Audio.INTTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
 		  shouldDuckAndroid:true,
@@ -35,7 +35,7 @@ class PomodoroTimer extends React.Component {
 		this.sound.loadAsync(require("../assets/alarma.mp3"),status,false);
 		}
 		playSound(){
-		this.sound.playAsync();
+			this.sound.playAsync();
 		}
 	
 	
