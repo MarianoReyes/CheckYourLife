@@ -5,15 +5,16 @@ import Ex from "react-native-vector-icons/Feather";
 import Ag from "react-native-vector-icons/Ionicons";
 import { FlatList, State, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { SearchBar } from "react-native-elements";
-import {collection,addDoc,orderBy,query,onSnapshot, updateDoc, deleteDoc} from "firebase/firestore";
+import {collection,addDoc,deleteDoc,query,onSnapshot, doc,deleteField} from "firebase/firestore";
 import {auth,db} from "../firebase";
-import { deleteApp } from 'firebase/app';
+
 
 
 const comunidad = ({navigation}) => {
 
   const [grupo,setGrupo]= useState();
   const onPress = ()=> navigation.navigate('CHAT')
+  const [exampleState, setExampleState] = useState(DATA);
   const [search,setSearch] = useState('');
 
 
@@ -55,9 +56,18 @@ const comunidad = ({navigation}) => {
     addDoc(collection(db,'grupos'),{
       title: grupo,
     });
-    
+    setGrupo('')
     
   }
+
+
+
+  const deleteElement = (key)=>{
+
+    deleteDoc(doc(db, "grupos", key.toString()));
+  };
+
+  
 
 
   
@@ -81,7 +91,7 @@ const comunidad = ({navigation}) => {
             <Icon1 name="message1" style={styles.icon1} >  </Icon1>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity  >
+        <TouchableOpacity  onPress={() => deleteElement(item.key)}>
           <View style={styles.persona} >
             <Ex name="x-circle" style={styles.icon2} >  </Ex>
           </View>
