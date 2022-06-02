@@ -1,61 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, StatusBar} from "react-native";
 import Icon1 from "react-native-vector-icons/AntDesign";
 import Ex from "react-native-vector-icons/Feather";
 import Ag from "react-native-vector-icons/Ionicons";
 import { FlatList, State, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { SearchBar } from "react-native-elements";
-
+import {collection,addDoc,orderBy,query,onSnapshot, updateDoc, deleteDoc} from "firebase/firestore";
+import {auth,db} from "../firebase";
+import { deleteApp } from 'firebase/app';
 
 
 const comunidad = ({navigation}) => {
 
   const [grupo,setGrupo]= useState();
   const onPress = ()=> navigation.navigate('CHAT')
-  const [exampleState, setExampleState] = useState(DATA);
-  const [idx, incr] = useState(2);
   const [search,setSearch] = useState('');
-  
-  const [DATA, changeEl]  = useState([
-    {
-      title: "Cumpleaños de Sara",
-      id:'0'
-      
-      
-    },
-    {
-      title: "Asistencia Charla WEB",
-      id: '1'
-    }
-  ]);
-  
-  
-  
-  const addElement = () => {
 
-    const newArray = [...DATA , {id : idx, title:grupo }];
-    incr(idx + 1);
-    setExampleState(newArray);
-    changeEl(newArray);
-    setGrupo("");
+
+  const collectionRef = collection(db, 'grupos');
+  const q = query(collectionRef);
+
+
+  const [DATA, changeEl]  = useState([ ]);
+  
+
+  async function loadData(){
+    
+
+
+    const unsubscribe = onSnapshot(q,snapshot => {
+      const productos =[]
+
+      snapshot.forEach(snapshot => {
+        productos.push({
+          ...snapshot.data(),
+          key: snapshot.id
+        })
+      })
+
+      changeEl(productos)
+
+    })
+    
+    return () => unsubscribe();
+
   }
 
+  useEffect(() =>{
+    loadData()
+  }, [])
+  
 
-
-  const deleteElement = (id)=>{
-   
-    const temp = exampleState.filter(item => item.id!== id);
-     setExampleState(temp);
-     changeEl(temp);
+  const addElement = () => {
+    addDoc(collection(db,'grupos'),{
+      title: grupo,
+    });
+    
     
   }
+
+
   
   const searchFilterFunction = (text) => {
    
     setSearch(text);
   }
 
-  const Item = ({ item, }) => {
+
+
+  const Item = ({ item }) => {
     
      return (
       <View style={styles.boton}>
@@ -63,12 +76,12 @@ const comunidad = ({navigation}) => {
         <View style={styles.grupo}>
             <Text style={styles.titles} >{item.title}  </Text>
         </View>
-        <TouchableOpacity  onPress={onPress}>
+        <TouchableOpacity onPress={onPress} >
           <View style={styles.persona} >
             <Icon1 name="message1" style={styles.icon1} >  </Icon1>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => deleteElement(item.id)}>
+        <TouchableOpacity  >
           <View style={styles.persona} >
             <Ex name="x-circle" style={styles.icon2} >  </Ex>
           </View>
@@ -99,12 +112,11 @@ const comunidad = ({navigation}) => {
       
       
       </View>
-      
 
       <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
-        renderItem={({item}) => 
+      data ={DATA}
+      keyExtractor = {item => item.key}
+      renderItem={({item}) => 
         {
           if (search !== '' && item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())) {
             return <Item item={item}></Item>
@@ -114,9 +126,9 @@ const comunidad = ({navigation}) => {
           }
           
         }}
-        
       />
-  
+
+
       <View style= {styles.foot}>
         <View style= {styles.agregar}>
           
@@ -133,7 +145,9 @@ const comunidad = ({navigation}) => {
         
         
       </View>
-  </SafeAreaView>
+
+
+    </SafeAreaView>
 
   )
   
