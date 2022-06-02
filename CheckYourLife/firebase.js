@@ -26,8 +26,8 @@ const auth = getAuth(firebaseApp)
 onAuthStateChanged(auth, (user) => {
   console.log(user)
 })
-const storage = getStorage()
-const db = getFirestore()
+const storage = getStorage();
+const db = getFirestore();
 
 export { auth }
 export { db }
@@ -46,13 +46,23 @@ export function useAuth() {
 
 // Storage
 export async function upload(file, currentUser) {
-  const fileRef = ref(storage, currentUser.uid + '.png')
 
-  const snapshot = await uploadBytes(fileRef, file)
-  const photoURL = await getDownloadURL(fileRef)
+  //the storage itself
+      const storageRef = ref(storage, currentUser.uid + 'image.jpg'); //how the image will be addressed inside the storage
+
+      //convert image to array of bytes
+      const img = await fetch(file);
+      const bytes = await img.blob();
+
+      await uploadBytes(storageRef, bytes); //upload images
+  
+      const photoURL = await getDownloadURL(storageRef,file)
+      
 
 
-  updateProfile(currentUser, { photoURL },)
+      updateProfile(currentUser, { photoURL },)
 
-  alert('Uploaded file!')
+      alert('file Uploaded')
+
+      
 }

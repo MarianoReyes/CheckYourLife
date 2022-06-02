@@ -8,10 +8,9 @@ import { signOut } from "firebase/auth";
 import { ScrollView } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Platform } from 'react-native';
-import { useAuth, upload } from "../firebase"
+import { useAuth, upload} from "../firebase"
 import { useEffect, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
-import * as firebase from '../firebase';
 //import { firebase } from '@react-native-firebase/auth';
 
 const Perfil = () => {
@@ -21,16 +20,26 @@ const Perfil = () => {
   const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync();
-
-    console.log(result.uri);
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1
+    });
 
     if (!result.cancelled) {
-      upload(result.uri, 'Foto-Perfil',currentUser);
+            console.log(result)
+            upload(result.uri,currentUser)
+            .then(() => {
+                console.log('it work')
+            })
+            .catch(error => {
+                console.log('it does not work')
+                console.error(error)
+            })
     }
-  };
-
+};
+  
   useEffect(() => {
     if (currentUser?.photoURL) {
       console.log(currentUser.photoURL);
