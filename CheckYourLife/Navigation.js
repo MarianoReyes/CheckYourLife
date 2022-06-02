@@ -40,6 +40,7 @@ function MyTabs() {
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
                     fontWeight: 'bold',
+                    fontSize: 25,
                 },
             }}
             name="To do List" component={todolist}></TAB.Screen>
@@ -55,6 +56,7 @@ function MyTabs() {
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
                     fontWeight: 'bold',
+                    fontSize: 25,
                 },
             }}
             name="Finanzas" component={Finanzas}></TAB.Screen>
@@ -66,6 +68,7 @@ function MyTabs() {
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
                     fontWeight: 'bold',
+                    fontSize: 25,
                 },
                 tabBarStyle: {
                     
@@ -80,6 +83,7 @@ function MyTabs() {
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
                     fontWeight: 'bold',
+                    fontSize: 25,
                 },
             }}
             name="Time Tracker" component={MainStack}></TAB.Screen>
@@ -91,6 +95,7 @@ function MyTabs() {
                 headerTitleAlign: 'center',
                 headerTitleStyle : {
                     fontWeight: 'bold',
+                    fontSize: 25,
                 },
             }}
             name="Perfil" component={Perfil}></TAB.Screen>
