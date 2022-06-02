@@ -11,6 +11,7 @@ import { Platform } from 'react-native';
 import { useAuth, upload} from "../firebase"
 import { useEffect, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
+
 //import { firebase } from '@react-native-firebase/auth';
 
 const Perfil = () => {
@@ -29,6 +30,7 @@ const Perfil = () => {
 
     if (!result.cancelled) {
             console.log(result)
+            setPhoto(result.uri)
             upload(result.uri,currentUser)
             .then(() => {
                 console.log('it work')
@@ -42,7 +44,7 @@ const Perfil = () => {
   
   useEffect(() => {
     if (currentUser?.photoURL) {
-      console.log(currentUser.photoURL);
+      console.log('Esta es la foto actual',currentUser.photoURL);
       setPhotoURL(currentUser.photoURL);
     }
   }, [currentUser])
@@ -64,7 +66,7 @@ const Perfil = () => {
         </LinearGradient>
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Image source={photoURL} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
+          <Image source={{uri:photoURL}} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
           <Button title="Pick an image from camera roll" onPress={pickImage} />
         </View>
 
