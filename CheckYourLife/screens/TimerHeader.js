@@ -35,7 +35,7 @@ class TimerHeader extends React.Component {
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 25,
-    fontWeight: "10",
+    fontWeight: "100",
     letterSpacing: 1.5,
     marginTop: 40,
     padding: 10
