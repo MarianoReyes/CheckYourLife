@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   },
   flex2: {
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'start',
     marginVertical: 20,
     flex: 1,
     flexDirection: 'row'
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   },
   tituloGrafica: {
     fontSize: 35,
-    fontWeight: '700',
+    fontWeight: 700,
     marginVertical: 15
   },
   text: {

@@ -50,7 +50,7 @@ const styles=StyleSheet.create({
 	 buttonText: {
 	    color: "white",
 	    fontSize: 25,
-	    fontWeight: "300",
+	    fontWeight: "30",
   	}
 })
 

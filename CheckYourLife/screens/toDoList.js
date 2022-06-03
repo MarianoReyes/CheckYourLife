@@ -181,7 +181,7 @@ const toDoList = ({ navigation, route }) => {
             console.log(uid)
           }}
           name={'search1'}
-          size={shouldShowc ? 50 : 30}
+          size={shouldShowc ? 35 : 25}
           color={GeneralColor}
         />
         <AntDesign
@@ -192,7 +192,7 @@ const toDoList = ({ navigation, route }) => {
             setShouldShowe(false)
           }}
           name={'plus'}
-          size={shouldShowd ? 50 : 30}
+          size={shouldShowd ? 35 : 25}
           color={GeneralColor}
         />
         <Feather
@@ -203,7 +203,7 @@ const toDoList = ({ navigation, route }) => {
             setShouldShowd(false)
           }}
           name={'more-horizontal'}
-          size={30}
+          size={25}
           color={GeneralColor}
         />
       </View>
@@ -300,7 +300,7 @@ const toDoList = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   finder: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     color: GeneralColor,
     textAlign: 'center',
