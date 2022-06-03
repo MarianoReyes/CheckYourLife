@@ -92,6 +92,12 @@ const toDoList = ({ navigation, route }) => {
             completed: false,
           },
         ],
+        ingresos: [
+
+        ],
+        gastos: [
+
+        ]
       }
       await setDoc(doc(db, 'users', id), docData)
     }

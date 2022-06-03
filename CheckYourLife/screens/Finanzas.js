@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Text, SafeAreaView, View, Pressable , StyleSheet, Image, ScrollView, FlatList, TextInput, Button } from 'react-native';
 import { color } from 'react-native-elements/dist/helpers';
 import { Table, Row, Rows } from 'react-native-table-component';
@@ -12,43 +12,73 @@ import {
   StackedBarChart
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+import { auth, db } from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+import {
+  doc,
+  getDoc,
+  collection,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore'
 
 const screenWidth = Dimensions.get("window").width;
 
 const Finanzas = () => {
   
   const[gastos, setGastos] = useState([
-    {date: "20/01/23", gasto:200.00},
-    {date: "22/02/23", gasto:210.00},
-    {date: "24/08/22", gasto:5.00},
-    {date: "22/02/22", gasto:40.00},
-    {date: "15/03/22", gasto:300.00},
-    {date: "30/01/22", gasto:20.00},
-    {date: "5/02/22", gasto:400.00},
+    {date:'2022-05-20', gasto:210.00},
+    {date:'2022-05-20', gasto:200.00},
+    {date:'2022-05-20', gasto:5.00},
+    {date:'2022-05-20', gasto:40.00},
+    {date:'2022-05-20', gasto:300.00},
+    {date:'2022-05-20', gasto:20.00},
+    {date:'2022-05-20', gasto:400.00},
   ])
 
   const[ingresos, setIngresos] = useState([
-    {date: "20/01/23", ingreso:100.00},
-    {date: "22/02/23", ingreso:210.00},
-    {date: "24/08/22", ingreso:3.00},
-    {date: "22/02/22", ingreso:54.25},
-    {date: "15/03/22", ingreso:250.00},
-    {date: "30/01/22", ingreso:60.00},
-    {date: "5/02/22", ingreso:150.00},
+    {date:'2022-04-21', ingreso:100.00},
+    {date:'2022-04-21', ingreso:210.00},
+    {date:'2022-04-21', ingreso:3.00},
+    {date:'2022-04-21', ingreso:54.25},
+    {date:'2022-04-21', ingreso:250.00},
+    {date:'2022-04-21', ingreso:60.00},
+    {date:'2022-04-21', ingreso:150.00},
   ])
 
   const[ingresosData, setIngresosData] = useState(ingresos.map((ingreso)=>{return ingreso.ingreso}))
   const[gastosData, setGastosData] = useState(gastos.map((gasto)=>{return gasto.gasto}))
 
-  const[sumIngreso, setSumIngreso] = useState(ingresosData.map((ingreso) => ingreso)
+  const[sumIngreso, setSumIngreso] = useState(ingresos.map((ingreso) => ingreso.ingreso)
   .reduce((previous, current) => {
     return previous + current;
   }, 0))
 
-  const[sumGasto, setSumGasto] = useState(gastosData.map((gasto) => gasto)
+  const[sumGasto, setSumGasto] = useState(gastos.map((gasto) => gasto.gasto)
   .reduce((previous, current) => {
     return previous + current;
   }, 0))
+
+  const[uid, setUid] = useState()
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUid(user.uid)
+      getData(user.uid)
+    })
+  }, [])
+
+
+  const getData = async (id) => {
+    const docRef = doc(db, 'users', id)
+    const docSnap = await getDoc(docRef)
+    setIngresos((docSnap.data()).ingresos)
+    setGastos((docSnap.data()).gastos)  
+  }
+
+  
 
   const [numberI, setNumberI] = useState(0)
   const [numberG, setNumberG] = useState(0)
@@ -70,6 +100,14 @@ const Finanzas = () => {
         return previous + current;
       }, 0))
       setNumberG(0)
+
+      onAuthStateChanged(auth, (user) => {
+        const docRef = doc(db, 'users', user.uid)
+        updateDoc(docRef, {
+          gastos: arrayUnion(gasto),
+        })
+      })
+      
     }
     
   }
@@ -90,6 +128,13 @@ const Finanzas = () => {
         return previous + current;
       }, 0))
       setNumberI(0)
+
+      onAuthStateChanged(auth, (user) => {
+        const docRef = doc(db, 'users', user.uid)
+        updateDoc(docRef, {
+          ingresos: arrayUnion(ingreso),
+        })
+      })
     }
   }
 
@@ -101,7 +146,19 @@ const Finanzas = () => {
             labels: ['Gastos', 'Ingresos'],
             datasets: [
               {
-                data: [sumGasto, sumIngreso],
+                data: [
+                  gastos.map((gasto) => gasto.gasto)
+                  .reduce((previous, current) => {
+                    return previous + current;
+                  }, 0), 
+                  (ingresos.map((ingreso) => ingreso.ingreso)
+                  .reduce((previous, current) => {
+                    return previous + current;
+                  }, 0))],
+                colors: [
+                  (opacity = 1) =>'#f47140',
+                  (opacity = 1) =>'#36a7d9',
+                ]
               },
             ],
           }}
@@ -109,16 +166,22 @@ const Finanzas = () => {
           height={220}
           yAxisLabel={'Q '}
           chartConfig={{
-            backgroundColor: '#1cc910',
-            backgroundGradientFrom: '#14279B',
-            backgroundGradientTo: '#5C7AEA',
+            backgroundColor: '#0',
+            backgroundGradientFrom: '#fff',
+            backgroundGradientTo: '#fff',
             decimalPlaces: 2,
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
             barPercentage: 2,
           }}
+          fromZero={true}
+          showValuesOnTopOfBars={true}
+          withCustomBarColorFromData={true}
+          flatColor={true}
           style={{
             marginVertical: 8,
             borderRadius: 4,
+            borderColor: '#000',
+            borderWidth: 1,
           }}
         />
       </>
@@ -132,15 +195,21 @@ const Finanzas = () => {
           data={[
             {
               name: 'Gastos',
-              cantidad: sumGasto,
-              color: '#F00',
+              cantidad: (gastos.map((gasto) => gasto.gasto)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0)),
+              color: '#f47140',
               legendFontColor: '#7F7F7F',
               legendFontSize: 15,
             },
             {
               name: 'Ingresos',
-              cantidad: sumIngreso,
-              color: '#14279B',
+              cantidad: (ingresos.map((ingreso) => ingreso.ingreso)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0)),
+              color: '#36a7d9',
               legendFontColor: '#7F7F7F',
               legendFontSize: 15,
             }
@@ -186,7 +255,7 @@ const Finanzas = () => {
               keyboardType="numeric"
               value = {numberG}
             />
-            <Pressable style={styles.button} onPress={() => guardarGasto(numberG)}>
+            <Pressable style={styles.buttonn} onPress={() => guardarGasto(numberG)}>
               <Text style={[styles.text,{color:'white'}]}>Agregar Gasto</Text>
             </Pressable>
           </View>
@@ -199,7 +268,7 @@ const Finanzas = () => {
               keyboardType="numeric" 
               value = {numberI}
             />
-            <Pressable style={styles.button} onPress={() => guardarIngreso(numberI)}>
+            <Pressable style={styles.buttona} onPress={() => guardarIngreso(numberI)}>
               <Text style={[styles.text,{color:'white'}]}>Agregar Ingreso</Text>
             </Pressable>
           </View>
@@ -216,14 +285,20 @@ const Finanzas = () => {
 
       <View style={[styles.flex2, styles.mw100]}>
         <View style={styles.mw50}>
-          <Text style={[styles.border, styles.fondo]}>Gastos</Text>
-          {gastosData.map((gasto) => <Text style={styles.border}>Q {gasto}</Text>)}
-          <Text style={[styles.border, styles.fondo]}>Total de Gastos: Q {sumGasto}</Text>
+          <Text style={[styles.border, styles.fondon]}>Gastos</Text>
+          {gastos.map((gasto) => <Text style={styles.border}>Q {gasto.gasto}</Text>)}
+          <Text style={[styles.border, styles.fondo]}>Total de Gastos: Q {(gastos.map((gasto) => gasto.gasto)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0))}</Text>
         </View>
         <View style={styles.mw50}>
-          <Text style={[styles.border, styles.fondo]}>Ingresos</Text>
-          {ingresosData.map((ingreso) => <Text style={styles.border} >Q {ingreso}</Text>)}
-          <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {sumIngreso}</Text>
+          <Text style={[styles.border, styles.fondoa]}>Ingresos</Text>
+          {ingresos.map((ingreso) => <Text style={styles.border} >Q {ingreso.ingreso}</Text>)}
+          <Text style={[styles.border, styles.fondo]}>Total de Ingresos: Q {(ingresos.map((ingreso) => ingreso.ingreso)
+              .reduce((previous, current) => {
+                return previous + current;
+              }, 0))}</Text>
         </View>
       </View>
       
@@ -290,6 +365,30 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: '#14279B'
   },
+
+  buttona: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    margin: 10,
+    color: 'white',
+    backgroundColor: '#36a7d9'
+  },
+
+  buttonn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    margin: 10,
+    color: 'white',
+    backgroundColor: '#f47140'
+  },
   input:{
     alignItems: 'center',
     justifyContent: 'center',
@@ -305,9 +404,20 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: '#14279B'
   },
+
+  fondoa:{
+    color: 'white',
+    backgroundColor: '#36a7d9'
+  },
+
+  fondon:{
+    color: 'white',
+    backgroundColor: '#f47140'
+  },
+
   tituloGrafica: {
     fontSize: 35,
-    fontWeight: 700,
+    fontWeight: 600,
     marginVertical: 15
   },
   text: {
