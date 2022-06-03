@@ -2,76 +2,49 @@
 //import { firebase } from '@react-native-firebase/auth';
 //import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View, TextStyle,Image, Button} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View,Image, Button} from 'react-native'
 import { auth } from '../firebase';
 import { signOut } from "firebase/auth";
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Platform } from 'react-native';
-import { useAuth, upload } from "../firebase"
+import { useAuth, upload} from "../firebase"
 import { useEffect, useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
-import { firebase } from '@react-native-firebase/auth';
+
+//import { firebase } from '@react-native-firebase/auth';
 
 const Perfil = () => {
 
-
-  /*//Manejar imagen del usuario
-  const currentUser = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
-  const [image, setImage] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
-
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
-  function handleClick() {
-    upload(image, currentUser, setLoading);
-  }
-
-  useEffect(() => {
-    if (currentUser?.image) {
-      setImage(currentUser.image);
-    }
-  }, [currentUser])
-
-  // Salir de cuenta
-  async function handleSignOut(){
-    signOut(auth)
-  }*/
-
-
-  //Manejar imagen del usuario
   const currentUser = useAuth();
   const [photo, setPhoto] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
 
-  function handleChange(e) {
-    if (e.target.files[0]) {
-      setPhoto(e.target.files[0])
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1
+    });
+
+    if (!result.cancelled) {
+            console.log(result)
+            setPhoto(result.uri)
+            upload(result.uri,currentUser)
+            .then(() => {
+                console.log('it work')
+            })
+            .catch(error => {
+                console.log('it does not work')
+                console.error(error)
+            })
     }
-  }
-
-  function handleClick() {
-    upload(photo, currentUser, setLoading);
-  }
-
+};
+  
   useEffect(() => {
     if (currentUser?.photoURL) {
+      console.log('Esta es la foto actual',currentUser.photoURL);
       setPhotoURL(currentUser.photoURL);
     }
   }, [currentUser])
@@ -80,6 +53,7 @@ const Perfil = () => {
   async function handleSignOut(){
     signOut(auth)
   }
+
 
   return (
     <View>
@@ -91,11 +65,12 @@ const Perfil = () => {
         </View>
         </LinearGradient>
 
-        <View style={{alignItems:'center'}}>
-          <Image source={photoURL} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
-          <input type="file" onChange={handleChange} />  
-          <Button disabled={loading || !photo} onPress={handleClick} style={{width:'10%',alignItems:'center'}} title="Cambiar Foto de Perfil"></Button>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Image source={{uri:photoURL}} style={{width:140,height:140,borderRadius:100,marginTop:-70}} />
+          <Button title="Pick an image from camera roll" onPress={pickImage} />
         </View>
+
+        
         <View style={styles.container}>
           <Text>Email: {auth.currentUser?.email}</Text>
         </View>
