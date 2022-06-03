@@ -8,14 +8,23 @@ const Reloj = ({navigation}) => {
 
   const [timer, setTimer] = useState(false)
   const [number, setNumber] = useState(0)
+  const [minutes, setMinutes] = useState(0)
   const [startStopText, setStartStopText] = useState('Comenzar')
   
+  var user;
+
   useEffect(() => {
     if(timer){
-      setTimeout(() => {
-        setNumber(number + 0.01);
-      }, 10);
+
+      user = setInterval(() => {
+        setNumber(number + 1);
+        if (number === 59){
+          setMinutes(minutes+1);
+          setNumber(0);
+        }
+      }, 1000);
     }
+    return ()=> clearInterval(user);
   });
 
   
@@ -39,6 +48,7 @@ const Reloj = ({navigation}) => {
     setStartStopText('Comenzar');
     setTimer(null);
     setNumber(0);
+    setMinutes(0);
   }
 
   const onPress = ()=> navigation.navigate('Cronometro')
@@ -49,13 +59,13 @@ const Reloj = ({navigation}) => {
   return(
     <View style={styles.body}>
       <View style={styles.iconoc}>
-        <TouchableOpacity style={styles.opacidad} onPress={onPress}>
+        <TouchableOpacity onPress={onPress}>
           <Temporizador name="clock" style={styles.icono} > </Temporizador>
         </TouchableOpacity>
       </View>
       
       <View style={styles.container}>
-          <Text style= {styles.counterText}>{number.toFixed(2)}</Text>
+          <Text style= {styles.counterText}>{minutes<10? "0"+minutes: minutes}:{number<10? "0"+number: number}</Text>
       </View>
       
       <View style = {styles.bot}>
@@ -68,11 +78,6 @@ const Reloj = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.footer}>
-          <Text style={styles.footerText}>CheckYourLife</Text>
-      </View>
-
     </View>
     
   );
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     body: {
       flex: 1,
       backgroundColor: '#fff',
-      justifyContent: 'center',
+      padding: 30,
     },
 
     counterText: {
@@ -95,10 +100,12 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        alignSelf: 'center',
 	      borderColor: "white",
-	      borderRadius: 80,
 	      borderWidth: 5,
+        width: 350,
+        height: 350,
+        borderRadius: 350/2,
 		    backgroundColor: "#2d2465",
     },
 
@@ -108,7 +115,6 @@ const styles = StyleSheet.create({
     },
 
     button:{
-	      padding: 10,
 	      flexDirection: "row" ,
 	      borderRadius: 80,
         backgroundColor: '#331DF4',
@@ -117,26 +123,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 140,
         alignItems: 'center',
-        top: 140
+        top: 15
     },
-
     buttonText: {
         color: '#fff',
-        fontSize: 30
-    },
-
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      backgroundColor: '#000',
-      opacity: 0.4,
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      width: '100%',
-      height: 20
-    },
-    footerText: {
-      color: '#fff'
+        fontSize: 25,
+        padding: 30,
     },
     TextCr: {
       backgroundColor: '#331DF4',
@@ -153,12 +145,13 @@ const styles = StyleSheet.create({
     },
     iconoc: {
       alignItems: 'flex-end',
-      justifyContent: 'flex-start'
+      justifyContent: 'flex-start',
+      
     },
     icono: {
       alignSelf: 'flex-end',
       backgroundColor: 'white',
-
+      fontSize: 50,
     },
     bot: {
       justifyContent: 'center',

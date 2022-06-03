@@ -1,6 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
 import Timer from './Timer'
+import {Audio} from 'expo-av';
+import * as Font from "expo-font";
+
 
 class PomodoroTimer extends React.Component {
 
@@ -13,23 +16,50 @@ class PomodoroTimer extends React.Component {
 		}
 	}
 
-	// handles completion of timer
+	async componentDidMount(){
+		Audio.setAudioModeAsync({
+		  allowsRecordingIOS:false,
+		  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX, 
+		  playsInSilentModeIOS:true,
+		  interruptionModeAndroid: Audio.INTTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+		  shouldDuckAndroid:true,
+		  staysActiveInBackground:true,
+		  playsThroughEarpieceAndroid:true
+		});
+
+		this.sound = new Audio.Sound();
+		const status = {
+		  shouldPlay:false
+		};
+		
+		this.sound.loadAsync(require("../assets/alarma.mp3"),status,false);
+		}
+		playSound(){
+			this.sound.playAsync();
+		}
+	
+	
+	
 	handleTimerCompleted = () => {
 		if(this.state.intervalType === "Working")
 		{
 			this.setState({
 				intervalType: "Break"
 			})
+			
+			this.playSound()
+			
 		}
 		else
 		{
 			this.setState({
 				intervalType: "Working"
-			})	
+			})
+			
+			this.playSound()
 		}
 	}
 
-	// gets triggered on change of worktimer text
 	handleWorkTime = (text) =>
 	{
 		if(text >= 0)
@@ -39,7 +69,7 @@ class PomodoroTimer extends React.Component {
 			})
 		}
 		else{
-			alert("Time invalid. Setting value to default. Please enter valid time")
+			alert("Tiempo Invalido")
 			this.setState({
 				workTime: 25
 			})
@@ -56,14 +86,13 @@ class PomodoroTimer extends React.Component {
 		}
 		else
 		{
-			alert("Time invalid. Setting value to default. Please enter valid time")
+			alert("Tiempo Invalido")
 			this.setState({
 				breakTime: 5
 			})
 		}
 	}
 
-	// called to set the timer's time
 	handleTime = () => {
 		if(this.state.intervalType === "Working")
 		{
@@ -113,7 +142,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 25,
-    fontWeight: "100",
+    fontWeight: "50",
     letterSpacing: 1.5,
     marginTop: 40,
     padding: 10
